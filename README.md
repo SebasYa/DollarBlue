@@ -1,7 +1,7 @@
 # Dollar Blue - README
 
 <div align="center">
-<img src="https://github.com/SebasYa/DollarBlue/blob/main/DollarBlue/Assets.xcassets/AppIcon.appiconset/1024.png?raw=true" alt="Icono de la Aplicación" width="300>
+<img src="https://github.com/SebasYa/DollarBlue/blob/main/DollarBlue/Assets.xcassets/AppIcon.appiconset/1024.png?raw=true" alt="Icono de la Aplicación" width="300">
 </div>
 
 ## Description
@@ -57,4 +57,3 @@ Contributions are welcome! If you would like to contribute to this project, plea
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
-

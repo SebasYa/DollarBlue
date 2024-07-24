@@ -13,7 +13,7 @@ DollarBlue is an iOS application that allows users to get the current exchange r
 - **Exchange Rate Display**: Shows current exchange rates for various dollar types (blue, official, tourist, etc.).
 - **Real-Time Updates**: Fetches and displays the latest exchange rates from reliable sources.
 - **Intuitive Interface**: Clean and easy-to-use design for an optimal user experience.
-- **Dark Mode**: Supports both dark and light modes.
+- **Dark Mode**: Change & Save dark and light modes with a button.
 - **Currency Conversion Calculator**: Allows users to convert between pesos and dollars with a simple button click.
 
 ## Installation
@@ -27,10 +27,7 @@ DollarBlue is an iOS application that allows users to get the current exchange r
 2. **Open the project in Xcode**:
     - Navigate to the cloned project directory and open `DollarBlue.xcodeproj`.
 
-3. **Install dependencies**:
-    - Make sure all necessary dependencies are installed and up-to-date.
-
-4. **Run the application**:
+3. **Run the application**:
     - Select your target device and run the application.
 
 ## Usage
@@ -42,7 +39,7 @@ DollarBlue is an iOS application that allows users to get the current exchange r
     - The app automatically fetches the latest rates on startup. You can manually refresh the rates by pulling down the list.
 
 3. **Currency Conversion**:
-    - Use the built-in calculator to convert between pesos and dollars. Enter the amount and use the conversion button to get the result.
+    - Use the built-in calculator to convert between pesos and dollars. Enter the amount and the result will update in real-time. Use the toggle button to switch between entering dollars and getting pesos or entering pesos and getting dollars.
 
 ## Contribution
 

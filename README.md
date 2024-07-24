@@ -1,7 +1,7 @@
 # Dollar Blue - README
 
 <div align="center">
-<img src="https://github.com/SebasYa/DollarBlue/blob/main/DollarBlue/Assets.xcassets/AppIcon.appiconset/1024.png?raw=true" alt="Icono de la Aplicación" width="30>
+<img src="https://github.com/SebasYa/DollarBlue/blob/main/DollarBlue/Assets.xcassets/AppIcon.appiconset/1024.png?raw=true" alt="Icono de la Aplicación" width="300>
 </div>
 
 ## Descripción

@@ -1,0 +1,830 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DB4A54D62C510D8A00C70286 /* DollarBlueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A54D52C510D8A00C70286 /* DollarBlueApp.swift */; };
+		DB4A54DA2C510D8B00C70286 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB4A54D92C510D8B00C70286 /* Assets.xcassets */; };
+		DB4A54DD2C510D8B00C70286 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB4A54DC2C510D8B00C70286 /* Preview Assets.xcassets */; };
+		DB4A54FB2C510E0000C70286 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DB4A54E72C510DFF00C70286 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DB4A550F2C510EF200C70286 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4A550E2C510EF100C70286 /* Launch Screen.storyboard */; };
+		DB4A55142C510F5B00C70286 /* DollarInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */; };
+		DB4A55162C51101900C70286 /* DollarNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55152C51101900C70286 /* DollarNetworkManager.swift */; };
+		DB4A55172C51104F00C70286 /* DollarNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55152C51101900C70286 /* DollarNetworkManager.swift */; };
+		DB4A55192C51105500C70286 /* DollarInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */; };
+		DB4A551C2C51113700C70286 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A551B2C51113700C70286 /* ContentView.swift */; };
+		DB4A551E2C51114100C70286 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A551D2C51114100C70286 /* HomeView.swift */; };
+		DB4A55202C51115000C70286 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A551F2C51115000C70286 /* CalculatorView.swift */; };
+		DB4A55222C51115C00C70286 /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55212C51115C00C70286 /* ConfigView.swift */; };
+		DB4A55242C51117000C70286 /* UpdateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55232C51117000C70286 /* UpdateInfoView.swift */; };
+		DB4A55262C51131B00C70286 /* DollarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55252C51131B00C70286 /* DollarRowView.swift */; };
+		DB4A55282C51132700C70286 /* CalcRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55272C51132700C70286 /* CalcRowView.swift */; };
+		DB4A552A2C51141700C70286 /* CurrencyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55292C51141700C70286 /* CurrencyTextField.swift */; };
+		DB4A55392C51196A00C70286 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A54F42C510DFF00C70286 /* AppIntent.swift */; };
+		DB4A553A2C51197700C70286 /* DollarBlueWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55352C5118B900C70286 /* DollarBlueWidgetBundle.swift */; };
+		DB4A553B2C51197A00C70286 /* DollarBlueWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55322C5117F900C70286 /* DollarBlueWidget.swift */; };
+		DB4A55422C5119CB00C70286 /* DollarInfoEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55402C5119A800C70286 /* DollarInfoEnum.swift */; };
+		DB4A55432C5119D200C70286 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A553E2C51199E00C70286 /* Provider.swift */; };
+		DB4A55442C5119D500C70286 /* SimpleEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A553C2C51199900C70286 /* SimpleEntry.swift */; };
+		DB4A55452C511A7D00C70286 /* WidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55372C51194000C70286 /* WidgetEntryView.swift */; };
+		DB612D112C512558006D9E8B /* DollarBlueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB612D102C512558006D9E8B /* DollarBlueApp.swift */; };
+		DB612D132C512558006D9E8B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB612D122C512558006D9E8B /* ContentView.swift */; };
+		DB612D152C512559006D9E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB612D142C512559006D9E8B /* Assets.xcassets */; };
+		DB612D182C512559006D9E8B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB612D172C512559006D9E8B /* Preview Assets.xcassets */; };
+		DB612D1B2C512559006D9E8B /* DollarBlueW Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DB612D0E2C512558006D9E8B /* DollarBlueW Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DB612D202C512570006D9E8B /* DollarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB612D1F2C512570006D9E8B /* DollarRowView.swift */; };
+		DB612D212C5125A3006D9E8B /* DollarInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */; };
+		DB612D222C5125A5006D9E8B /* DollarNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55152C51101900C70286 /* DollarNetworkManager.swift */; };
+		DB612D282C51343B006D9E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB4A54F62C510E0000C70286 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DB4A54F92C510E0000C70286 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB4A54CA2C510D8A00C70286 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB4A54E62C510DFF00C70286;
+			remoteInfo = WidgetExtension;
+		};
+		DB612D192C512559006D9E8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB4A54CA2C510D8A00C70286 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB612D0D2C512558006D9E8B;
+			remoteInfo = "DollarBlueW Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DB4A54FF2C510E0000C70286 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DB4A54FB2C510E0000C70286 /* WidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB612D052C512499006D9E8B /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				DB612D1B2C512559006D9E8B /* DollarBlueW Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DB4A54D22C510D8A00C70286 /* DollarBlue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DollarBlue.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB4A54D52C510D8A00C70286 /* DollarBlueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarBlueApp.swift; sourceTree = "<group>"; };
+		DB4A54D92C510D8B00C70286 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB4A54DC2C510D8B00C70286 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DB4A54E72C510DFF00C70286 /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB4A54F42C510DFF00C70286 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		DB4A54F62C510E0000C70286 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB4A54F82C510E0000C70286 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB4A550E2C510EF100C70286 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarInfoModel.swift; sourceTree = "<group>"; };
+		DB4A55152C51101900C70286 /* DollarNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarNetworkManager.swift; sourceTree = "<group>"; };
+		DB4A551B2C51113700C70286 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DB4A551D2C51114100C70286 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DB4A551F2C51115000C70286 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
+		DB4A55212C51115C00C70286 /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
+		DB4A55232C51117000C70286 /* UpdateInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateInfoView.swift; sourceTree = "<group>"; };
+		DB4A55252C51131B00C70286 /* DollarRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarRowView.swift; sourceTree = "<group>"; };
+		DB4A55272C51132700C70286 /* CalcRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcRowView.swift; sourceTree = "<group>"; };
+		DB4A55292C51141700C70286 /* CurrencyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTextField.swift; sourceTree = "<group>"; };
+		DB4A55322C5117F900C70286 /* DollarBlueWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarBlueWidget.swift; sourceTree = "<group>"; };
+		DB4A55352C5118B900C70286 /* DollarBlueWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarBlueWidgetBundle.swift; sourceTree = "<group>"; };
+		DB4A55372C51194000C70286 /* WidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntryView.swift; sourceTree = "<group>"; };
+		DB4A553C2C51199900C70286 /* SimpleEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleEntry.swift; sourceTree = "<group>"; };
+		DB4A553E2C51199E00C70286 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		DB4A55402C5119A800C70286 /* DollarInfoEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarInfoEnum.swift; sourceTree = "<group>"; };
+		DB612D0E2C512558006D9E8B /* DollarBlueW Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DollarBlueW Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB612D102C512558006D9E8B /* DollarBlueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarBlueApp.swift; sourceTree = "<group>"; };
+		DB612D122C512558006D9E8B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DB612D142C512559006D9E8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB612D172C512559006D9E8B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DB612D1F2C512570006D9E8B /* DollarRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarRowView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DB4A54CF2C510D8A00C70286 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB4A54E42C510DFF00C70286 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB612D0B2C512558006D9E8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DB4A54C92C510D8A00C70286 = {
+			isa = PBXGroup;
+			children = (
+				DB4A54D42C510D8A00C70286 /* DollarBlue */,
+				DB4A54ED2C510DFF00C70286 /* Widget */,
+				DB612D0F2C512558006D9E8B /* DollarBlue Watch App */,
+				DB4A54D32C510D8A00C70286 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DB4A54D32C510D8A00C70286 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A54D22C510D8A00C70286 /* DollarBlue.app */,
+				DB4A54E72C510DFF00C70286 /* WidgetExtension.appex */,
+				DB612D0E2C512558006D9E8B /* DollarBlueW Watch App.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB4A54D42C510D8A00C70286 /* DollarBlue */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A54D52C510D8A00C70286 /* DollarBlueApp.swift */,
+				DB4A550E2C510EF100C70286 /* Launch Screen.storyboard */,
+				DB4A54D92C510D8B00C70286 /* Assets.xcassets */,
+				DB4A55122C510F1E00C70286 /* Model */,
+				DB4A55112C510F1400C70286 /* View */,
+				DB4A55102C510F0C00C70286 /* Controller */,
+				DB4A54DB2C510D8B00C70286 /* Preview Content */,
+			);
+			path = DollarBlue;
+			sourceTree = "<group>";
+		};
+		DB4A54DB2C510D8B00C70286 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A54DC2C510D8B00C70286 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DB4A54ED2C510DFF00C70286 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A55352C5118B900C70286 /* DollarBlueWidgetBundle.swift */,
+				DB4A54F62C510E0000C70286 /* Assets.xcassets */,
+				DB4A54F82C510E0000C70286 /* Info.plist */,
+				DB4A55302C5117D800C70286 /* Model */,
+				DB4A55312C5117E000C70286 /* View */,
+				DB4A552F2C5117C800C70286 /* ViewModel */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		DB4A55102C510F0C00C70286 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A55292C51141700C70286 /* CurrencyTextField.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DB4A55112C510F1400C70286 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A551B2C51113700C70286 /* ContentView.swift */,
+				DB4A551D2C51114100C70286 /* HomeView.swift */,
+				DB4A551F2C51115000C70286 /* CalculatorView.swift */,
+				DB4A55212C51115C00C70286 /* ConfigView.swift */,
+				DB4A55232C51117000C70286 /* UpdateInfoView.swift */,
+				DB4A55252C51131B00C70286 /* DollarRowView.swift */,
+				DB4A55272C51132700C70286 /* CalcRowView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB4A55122C510F1E00C70286 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */,
+				DB4A55152C51101900C70286 /* DollarNetworkManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DB4A552F2C5117C800C70286 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A54F42C510DFF00C70286 /* AppIntent.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DB4A55302C5117D800C70286 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A553C2C51199900C70286 /* SimpleEntry.swift */,
+				DB4A553E2C51199E00C70286 /* Provider.swift */,
+				DB4A55402C5119A800C70286 /* DollarInfoEnum.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DB4A55312C5117E000C70286 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A55322C5117F900C70286 /* DollarBlueWidget.swift */,
+				DB4A55372C51194000C70286 /* WidgetEntryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB612D0F2C512558006D9E8B /* DollarBlue Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				DB612D102C512558006D9E8B /* DollarBlueApp.swift */,
+				DB612D122C512558006D9E8B /* ContentView.swift */,
+				DB612D1F2C512570006D9E8B /* DollarRowView.swift */,
+				DB612D142C512559006D9E8B /* Assets.xcassets */,
+				DB612D162C512559006D9E8B /* Preview Content */,
+			);
+			path = "DollarBlue Watch App";
+			sourceTree = "<group>";
+		};
+		DB612D162C512559006D9E8B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				DB612D172C512559006D9E8B /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DB4A54D12C510D8A00C70286 /* DollarBlue */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB4A54E02C510D8B00C70286 /* Build configuration list for PBXNativeTarget "DollarBlue" */;
+			buildPhases = (
+				DB4A54CE2C510D8A00C70286 /* Sources */,
+				DB4A54CF2C510D8A00C70286 /* Frameworks */,
+				DB4A54D02C510D8A00C70286 /* Resources */,
+				DB4A54FF2C510E0000C70286 /* Embed Foundation Extensions */,
+				DB612D052C512499006D9E8B /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB4A54FA2C510E0000C70286 /* PBXTargetDependency */,
+				DB612D1A2C512559006D9E8B /* PBXTargetDependency */,
+			);
+			name = DollarBlue;
+			productName = DollarBlue;
+			productReference = DB4A54D22C510D8A00C70286 /* DollarBlue.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DB4A54E62C510DFF00C70286 /* WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB4A54FC2C510E0000C70286 /* Build configuration list for PBXNativeTarget "WidgetExtension" */;
+			buildPhases = (
+				DB4A54E32C510DFF00C70286 /* Sources */,
+				DB4A54E42C510DFF00C70286 /* Frameworks */,
+				DB4A54E52C510DFF00C70286 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetExtension;
+			productName = WidgetExtension;
+			productReference = DB4A54E72C510DFF00C70286 /* WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DB612D0D2C512558006D9E8B /* DollarBlueW Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB612D1C2C512559006D9E8B /* Build configuration list for PBXNativeTarget "DollarBlueW Watch App" */;
+			buildPhases = (
+				DB612D0A2C512558006D9E8B /* Sources */,
+				DB612D0B2C512558006D9E8B /* Frameworks */,
+				DB612D0C2C512558006D9E8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DollarBlueW Watch App";
+			productName = "DollarBlueW Watch App";
+			productReference = DB612D0E2C512558006D9E8B /* DollarBlueW Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DB4A54CA2C510D8A00C70286 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					DB4A54D12C510D8A00C70286 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					DB4A54E62C510DFF00C70286 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					DB612D0D2C512558006D9E8B = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = DB4A54CD2C510D8A00C70286 /* Build configuration list for PBXProject "DollarBlue" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DB4A54C92C510D8A00C70286;
+			productRefGroup = DB4A54D32C510D8A00C70286 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DB4A54D12C510D8A00C70286 /* DollarBlue */,
+				DB4A54E62C510DFF00C70286 /* WidgetExtension */,
+				DB612D0D2C512558006D9E8B /* DollarBlueW Watch App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DB4A54D02C510D8A00C70286 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB4A550F2C510EF200C70286 /* Launch Screen.storyboard in Resources */,
+				DB4A54DD2C510D8B00C70286 /* Preview Assets.xcassets in Resources */,
+				DB4A54DA2C510D8B00C70286 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB4A54E52C510DFF00C70286 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB612D282C51343B006D9E8B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB612D0C2C512558006D9E8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB612D182C512559006D9E8B /* Preview Assets.xcassets in Resources */,
+				DB612D152C512559006D9E8B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB4A54CE2C510D8A00C70286 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB4A55162C51101900C70286 /* DollarNetworkManager.swift in Sources */,
+				DB4A55242C51117000C70286 /* UpdateInfoView.swift in Sources */,
+				DB4A55142C510F5B00C70286 /* DollarInfoModel.swift in Sources */,
+				DB4A55262C51131B00C70286 /* DollarRowView.swift in Sources */,
+				DB4A55282C51132700C70286 /* CalcRowView.swift in Sources */,
+				DB4A552A2C51141700C70286 /* CurrencyTextField.swift in Sources */,
+				DB4A551C2C51113700C70286 /* ContentView.swift in Sources */,
+				DB4A55222C51115C00C70286 /* ConfigView.swift in Sources */,
+				DB4A551E2C51114100C70286 /* HomeView.swift in Sources */,
+				DB4A55202C51115000C70286 /* CalculatorView.swift in Sources */,
+				DB4A54D62C510D8A00C70286 /* DollarBlueApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB4A54E32C510DFF00C70286 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB4A55442C5119D500C70286 /* SimpleEntry.swift in Sources */,
+				DB4A55172C51104F00C70286 /* DollarNetworkManager.swift in Sources */,
+				DB4A553B2C51197A00C70286 /* DollarBlueWidget.swift in Sources */,
+				DB4A55432C5119D200C70286 /* Provider.swift in Sources */,
+				DB4A55452C511A7D00C70286 /* WidgetEntryView.swift in Sources */,
+				DB4A55192C51105500C70286 /* DollarInfoModel.swift in Sources */,
+				DB4A55392C51196A00C70286 /* AppIntent.swift in Sources */,
+				DB4A55422C5119CB00C70286 /* DollarInfoEnum.swift in Sources */,
+				DB4A553A2C51197700C70286 /* DollarBlueWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB612D0A2C512558006D9E8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB612D202C512570006D9E8B /* DollarRowView.swift in Sources */,
+				DB612D132C512558006D9E8B /* ContentView.swift in Sources */,
+				DB612D222C5125A5006D9E8B /* DollarNetworkManager.swift in Sources */,
+				DB612D112C512558006D9E8B /* DollarBlueApp.swift in Sources */,
+				DB612D212C5125A3006D9E8B /* DollarInfoModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DB4A54FA2C510E0000C70286 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB4A54E62C510DFF00C70286 /* WidgetExtension */;
+			targetProxy = DB4A54F92C510E0000C70286 /* PBXContainerItemProxy */;
+		};
+		DB612D1A2C512559006D9E8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB612D0D2C512558006D9E8B /* DollarBlueW Watch App */;
+			targetProxy = DB612D192C512559006D9E8B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DB4A54DE2C510D8B00C70286 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		DB4A54DF2C510D8B00C70286 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		DB4A54E12C510D8B00C70286 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DollarBlue/Preview Content\"";
+				DEVELOPMENT_TEAM = 3U8WFAVDSF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianYanni.DollarBlue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DB4A54E22C510D8B00C70286 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DollarBlue/Preview Content\"";
+				DEVELOPMENT_TEAM = 3U8WFAVDSF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianYanni.DollarBlue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DB4A54FD2C510E0000C70286 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3U8WFAVDSF;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianYanni.DollarBlue.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DB4A54FE2C510E0000C70286 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3U8WFAVDSF;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianYanni.DollarBlue.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DB612D1D2C512559006D9E8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DollarBlue Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 3U8WFAVDSF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = DollarBlueW;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.SebastianYanni.DollarBlue;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianYanni.DollarBlue.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		DB612D1E2C512559006D9E8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DollarBlue Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 3U8WFAVDSF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = DollarBlueW;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.SebastianYanni.DollarBlue;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianYanni.DollarBlue.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DB4A54CD2C510D8A00C70286 /* Build configuration list for PBXProject "DollarBlue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB4A54DE2C510D8B00C70286 /* Debug */,
+				DB4A54DF2C510D8B00C70286 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB4A54E02C510D8B00C70286 /* Build configuration list for PBXNativeTarget "DollarBlue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB4A54E12C510D8B00C70286 /* Debug */,
+				DB4A54E22C510D8B00C70286 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB4A54FC2C510E0000C70286 /* Build configuration list for PBXNativeTarget "WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB4A54FD2C510E0000C70286 /* Debug */,
+				DB4A54FE2C510E0000C70286 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB612D1C2C512559006D9E8B /* Build configuration list for PBXNativeTarget "DollarBlueW Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB612D1D2C512559006D9E8B /* Debug */,
+				DB612D1E2C512559006D9E8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DB4A54CA2C510D8A00C70286 /* Project object */;
+}

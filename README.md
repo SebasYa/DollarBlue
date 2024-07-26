@@ -7,7 +7,7 @@
 - **Swift** ![Swift](https://img.shields.io/badge/Swift-FA7343?logo=swift&logoColor=white&style=flat)
 - **SwiftUI** ![SwiftUI](https://img.shields.io/badge/SwiftUI-00BFFF?logo=swift&logoColor=white&style=flat)
 - **Combine** ![Combine](https://img.shields.io/badge/Combine-ff4b4b?logo=swift&logoColor=white&style=flat)
-- ![Xcode](https://img.shields.io/badge/Xcode-1575F9?style=for-the-badge&logo=xcode&logoColor=white)
+- **Xcode** ![Xcode](https://img.shields.io/badge/Xcode-1575F9?style=for-the-badge&logo=xcode&logoColor=white)
 
 ## Description
 

@@ -4,6 +4,10 @@
 <img src="https://github.com/SebasYa/DollarBlue/blob/main/DollarBlue/Assets.xcassets/AppIcon.appiconset/1024.png?raw=true" alt="Icono de la Aplicación" width="300">
 </div>
 
+- **Swift** ![Swift](https://img.shields.io/badge/Swift-FA7343?logo=swift&logoColor=white&style=flat)
+- **SwiftUI** ![SwiftUI](https://img.shields.io/badge/SwiftUI-00BFFF?logo=swift&logoColor=white&style=flat)
+- **Combine** ![Combine](https://img.shields.io/badge/Combine-ff4b4b?logo=swift&logoColor=white&style=flat)
+
 ## Description
 
 DollarBlue is an iOS application that allows users to get the current exchange rates of the dollar in Argentina. This app displays different exchange rates, provides an intuitive and user-friendly interface, and includes a calculator for currency conversion.
@@ -15,6 +19,13 @@ DollarBlue is an iOS application that allows users to get the current exchange r
 - **Intuitive Interface**: Clean and easy-to-use design for an optimal user experience.
 - **Dark Mode**: Change & Save dark and light modes with a button.
 - **Currency Conversion Calculator**: Allows users to convert between pesos and dollars with a simple button click.
+- **@Observable**: Employs Swift’s modern @Observable property wrapper for efficient state management and enhanced reactivity within the application.
+- **URLSession**: Utilizes URLSession for handling network requests, ensuring robust and secure data fetching from remote servers.
+- **UserDefaults**: Leverages UserDefaults to persist user preferences and application settings for a consistent user experience across sessions.
+
+## Error Handling
+
+The application incorporates comprehensive error handling mechanisms to maintain a seamless user experience. In the event of network connectivity issues or data retrieval failures, users are promptly informed via user-friendly alerts, ensuring they are aware of any problems and can take appropriate action.
 
 ## Installation
 

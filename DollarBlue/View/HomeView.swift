@@ -12,7 +12,7 @@ import SwiftUI
 struct HomeView: View {
     //MARK: - PROPERTIES
     
-    private var dataController = DolarNetworkManager()
+    @State private var dataController = DolarNetworkManager()
     
     
     //MARK: - BODY
@@ -53,6 +53,9 @@ struct HomeView: View {
             }
         }
         .backgroundStyle(.dolarWhiteB)
+        .alert(item: $dataController.errorMessage) { errorMessage in
+            Alert(title: Text("Error"), message: Text(errorMessage.value), dismissButton: .default(Text("OK")))
+        }
     }
 }
 

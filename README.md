@@ -23,7 +23,7 @@ DollarBlue is an iOS application that allows users to get the current exchange r
 - **Intuitive Interface**: Clean and easy-to-use design for an optimal user experience.
 - **Dark Mode**: Change & Save dark and light modes with a button.
 - **Currency Conversion Calculator**: Allows users to convert between pesos and dollars with a simple button click.
-- **@Observable**: Employs Swift’s modern @Observable property wrapper for efficient state management and enhanced reactivity within the application.
+- **@Observable**: Observation provides a robust, type-safe, and performant implementation of the observer design pattern in Swift. This pattern allows an observable object to maintain a list of observers and notify them of specific or general state changes.
 - **URLSession**: Utilizes URLSession for handling network requests, ensuring robust and secure data fetching from remote servers.
 - **UserDefaults**: Leverages UserDefaults to persist user preferences and application settings for a consistent user experience across sessions.
 

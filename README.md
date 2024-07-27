@@ -13,6 +13,8 @@
 
 DollarBlue is an iOS application that allows users to get the current exchange rates of the dollar in Argentina. This app displays different exchange rates, provides an intuitive and user-friendly interface, and includes a calculator for currency conversion.
 
+<img src="https://github.com/SebasYa/DollarBlue/blob/main/DollarBlueGif.gif" alt="App Demo" width="250"/>
+
 ## Features
 
 - **Exchange Rate Display**: Shows current exchange rates for various dollar types (blue, official, tourist, etc.).

@@ -55,7 +55,6 @@ struct CurrencyTextField: UIViewRepresentable {
             formatter.groupingSeparator = "."
             
             if parent.text.isEmpty || parent.text == "0.00" {
-                textField.placeholder = parent.placeholder
                 parent.text = parent.placeholder
                 parent.value = 0
             } else {

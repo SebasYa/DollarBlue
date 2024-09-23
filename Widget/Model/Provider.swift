@@ -10,13 +10,15 @@
 import Foundation
 import WidgetKit
 import SwiftUI
+import DollarInfoModel
+import DollarNetworkManage
 
 
 struct Provider: AppIntentTimelineProvider {
     typealias Entry = SimpleEntry
     typealias Intent = ConfigurationAppIntent
     
-    var dataController = DolarNetworkManager()
+    var dataController = DollarNetworkManager()
     
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), dolarInfo1: DollarInfoModel.placeholderModel, dolarInfo2: DollarInfoModel.placeholderModel)

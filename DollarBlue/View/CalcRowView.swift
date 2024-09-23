@@ -8,6 +8,7 @@
 //
 
 import SwiftUI
+import DollarInfoModel
 
 struct CalcRowView: View {
     // MARK: - PROPERTIES

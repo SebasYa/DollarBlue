@@ -10,11 +10,13 @@
 import WidgetKit
 import SwiftUI
 import Foundation
+import DollarInfoModel
+import DollarNetworkManage
 
 
 struct DollarBlueWidget: Widget {
     let kind: String = "Dollar Blue Widget"
-    let dataController = DolarNetworkManager()
+    let dataController = DollarNetworkManager()
     
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider(dataController: dataController)) { entry in

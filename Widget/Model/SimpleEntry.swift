@@ -9,6 +9,7 @@
 
 import Foundation
 import WidgetKit
+import DollarInfoModel
 
 struct SimpleEntry: TimelineEntry {
     let date: Date

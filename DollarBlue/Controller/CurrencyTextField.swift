@@ -10,6 +10,11 @@
 import SwiftUI
 
 struct CurrencyTextField: UIViewRepresentable {
+    
+    @Binding var text: String
+    @Binding var value: Double
+    var placeholder: String
+    
     class Coordinator: NSObject, UITextFieldDelegate {
         var parent: CurrencyTextField
 
@@ -55,23 +60,26 @@ struct CurrencyTextField: UIViewRepresentable {
             formatter.groupingSeparator = "."
             
             if parent.text.isEmpty || parent.text == "0.00" {
-                textField.placeholder = parent.placeholder
                 parent.text = parent.placeholder
                 parent.value = 0
             } else {
                 if let value = formatter.number(from: parent.text)?.doubleValue {
                     parent.value = value
                     parent.text = formatter.string(from: NSNumber(value: value)) ?? ""
+                } else {
+                    // Manejar el caso donde la conversión falla
+                    parent.value = 0
+                    parent.text = ""
                 }
             }
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            hideKeyboard()
         }
         
+        func hideKeyboard() {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+        
     }
-    
-    @Binding var text: String
-    @Binding var value: Double
-    var placeholder: String
     
     func makeUIView(context: Context) -> UITextField {
         let textField = UITextField()
@@ -85,7 +93,7 @@ struct CurrencyTextField: UIViewRepresentable {
         toolbar.sizeToFit()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                          target: context.coordinator,
-                                         action: #selector(Coordinator.doneTapped))
+                                         action: #selector(Coordinator.doneTapped(_:)))
         doneButton.tintColor = UIColor(named: "ColorGreenD")
         toolbar.setItems([UIBarButtonItem.flexibleSpace(), doneButton], animated: false)
         textField.inputAccessoryView = toolbar

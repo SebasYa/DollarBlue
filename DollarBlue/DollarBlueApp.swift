@@ -7,10 +7,11 @@
 //
 
 import SwiftUI
+import DollarNetworkManage
 
 @main
 struct DollarBlueApp: App {
-    private var dataController = DolarNetworkManager()
+    private var dataController = DollarNetworkManager()
 
     var body: some Scene {
         WindowGroup {

@@ -9,10 +9,12 @@
 //
 
 import SwiftUI
+import DollarNetworkManage
+
 
 struct ContentView: View {
     
-    private var dataController = DolarNetworkManager()
+    private var dataController = DollarNetworkManager()
 
     var body: some View {
         NavigationStack {

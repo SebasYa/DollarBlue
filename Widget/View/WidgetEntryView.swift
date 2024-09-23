@@ -9,6 +9,7 @@
 
 import SwiftUI
 import WidgetKit
+import DollarInfoModel
 
 struct WidgetEntryView : View {
     var entry: Provider.Entry
@@ -19,30 +20,33 @@ struct WidgetEntryView : View {
         VStack(spacing: 5) {
             HStack {
                 if widgetFamily != .accessoryRectangular {
-                    Image("ImageFranklin")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 45)
-                        .padding(.trailing, 9)
-                        .padding(.bottom, -5)
                     
                     if widgetFamily == .systemMedium {
+                        Image("ImageFranklin")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 40)
+                            .padding(.trailing, 9)
+                            .padding(.bottom, -5)
+                        
                         Text("DOLAR")
                             .foregroundStyle(.green)
                             .multilineTextAlignment(.center)
                             .padding(.bottom, -10)
                             .padding(.trailing, 6)
+                        
+                        Image("ImageRoca")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 45)
+                            .padding(.leading, 9)
+                            .padding(.bottom, -4)
+                            .scaleEffect(x: -0.9, y: 0.9, anchor: .center) //mirror image
                     } else {
-                        Spacer()
+//                        Spacer()
                     }
                     
-                    Image("ImageRoca")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 45)
-                        .padding(.leading, 9)
-                        .padding(.bottom, -4)
-                        .scaleEffect(x: -1, y: 1, anchor: .center) //mirror image
+                    
                 }
             }
             .padding(.top, -20)
@@ -115,6 +119,7 @@ struct WidgetEntryView : View {
                     Spacer()
                     VStack(alignment: .leading) {
                         Text("C: $\(String(format: "%.2f", dolarInfo.compra))")
+                            
                         Text("V: $\(String(format: "%.2f", dolarInfo.venta))")
                     }
                     .font(.caption2)

@@ -8,6 +8,7 @@
 //
 
 import SwiftUI
+import DollarInfoModel
 
 struct DollarRowView: View {
     var dolarInfo: DollarInfoModel

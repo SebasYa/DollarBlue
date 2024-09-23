@@ -8,11 +8,12 @@
 //
 
 import SwiftUI
+import DollarNetworkManage
 
 struct HomeView: View {
     //MARK: - PROPERTIES
     
-    @State private var dataController = DolarNetworkManager()
+    @State private var dataController = DollarNetworkManager()
     
     
     //MARK: - BODY

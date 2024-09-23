@@ -9,11 +9,12 @@
 
 
 import SwiftUI
+import DollarNetworkManage
 
 struct CalculationView: View {
     //MARK: -   PROPERTIES
     
-    private var dataController = DolarNetworkManager()
+    private var dataController = DollarNetworkManager()
     
     @State  var isCalcPesos : Bool = true
     @State var montoIngresadoString: String = ""
@@ -108,10 +109,6 @@ struct CalculationView: View {
     }
 }
 
-
-func hideKeyboard() {
-    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-}
 
 
 //MARK: - PREVIEW

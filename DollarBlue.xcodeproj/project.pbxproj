@@ -12,10 +12,6 @@
 		DB4A54DD2C510D8B00C70286 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB4A54DC2C510D8B00C70286 /* Preview Assets.xcassets */; };
 		DB4A54FB2C510E0000C70286 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DB4A54E72C510DFF00C70286 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DB4A550F2C510EF200C70286 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4A550E2C510EF100C70286 /* Launch Screen.storyboard */; };
-		DB4A55142C510F5B00C70286 /* DollarInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */; };
-		DB4A55162C51101900C70286 /* DollarNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55152C51101900C70286 /* DollarNetworkManager.swift */; };
-		DB4A55172C51104F00C70286 /* DollarNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55152C51101900C70286 /* DollarNetworkManager.swift */; };
-		DB4A55192C51105500C70286 /* DollarInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */; };
 		DB4A551C2C51113700C70286 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A551B2C51113700C70286 /* ContentView.swift */; };
 		DB4A551E2C51114100C70286 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A551D2C51114100C70286 /* HomeView.swift */; };
 		DB4A55202C51115000C70286 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A551F2C51115000C70286 /* CalculatorView.swift */; };
@@ -37,9 +33,13 @@
 		DB612D182C512559006D9E8B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB612D172C512559006D9E8B /* Preview Assets.xcassets */; };
 		DB612D1B2C512559006D9E8B /* DollarBlueW Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DB612D0E2C512558006D9E8B /* DollarBlueW Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DB612D202C512570006D9E8B /* DollarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB612D1F2C512570006D9E8B /* DollarRowView.swift */; };
-		DB612D212C5125A3006D9E8B /* DollarInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */; };
-		DB612D222C5125A5006D9E8B /* DollarNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A55152C51101900C70286 /* DollarNetworkManager.swift */; };
 		DB612D282C51343B006D9E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB4A54F62C510E0000C70286 /* Assets.xcassets */; };
+		DB612D2C2C5BB325006D9E8B /* DollarInfoModel in Frameworks */ = {isa = PBXBuildFile; productRef = DB612D2B2C5BB325006D9E8B /* DollarInfoModel */; };
+		DB612D302C5BB5BC006D9E8B /* DollarInfoModel in Frameworks */ = {isa = PBXBuildFile; productRef = DB612D2F2C5BB5BC006D9E8B /* DollarInfoModel */; };
+		DB612D332C5BBAFD006D9E8B /* DollarNetworkManage in Frameworks */ = {isa = PBXBuildFile; productRef = DB612D322C5BBAFD006D9E8B /* DollarNetworkManage */; };
+		DB612D352C5BBBC4006D9E8B /* DollarNetworkManage in Frameworks */ = {isa = PBXBuildFile; productRef = DB612D342C5BBBC4006D9E8B /* DollarNetworkManage */; };
+		DB612D372C5BBC1D006D9E8B /* DollarInfoModel in Frameworks */ = {isa = PBXBuildFile; productRef = DB612D362C5BBC1D006D9E8B /* DollarInfoModel */; };
+		DB612D392C5BBC21006D9E8B /* DollarNetworkManage in Frameworks */ = {isa = PBXBuildFile; productRef = DB612D382C5BBC21006D9E8B /* DollarNetworkManage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,8 +94,6 @@
 		DB4A54F62C510E0000C70286 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB4A54F82C510E0000C70286 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB4A550E2C510EF100C70286 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarInfoModel.swift; sourceTree = "<group>"; };
-		DB4A55152C51101900C70286 /* DollarNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarNetworkManager.swift; sourceTree = "<group>"; };
 		DB4A551B2C51113700C70286 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DB4A551D2C51114100C70286 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		DB4A551F2C51115000C70286 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
@@ -116,6 +114,8 @@
 		DB612D142C512559006D9E8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB612D172C512559006D9E8B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB612D1F2C512570006D9E8B /* DollarRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarRowView.swift; sourceTree = "<group>"; };
+		DB612D292C5BB0E4006D9E8B /* DollarInfoModel */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DollarInfoModel; path = ../../../DollarInfoModel; sourceTree = "<group>"; };
+		DB612D312C5BB9CF006D9E8B /* DollarNetworkManage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DollarNetworkManage; path = ../../../DollarNetworkManage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB612D332C5BBAFD006D9E8B /* DollarNetworkManage in Frameworks */,
+				DB612D2C2C5BB325006D9E8B /* DollarInfoModel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +132,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB612D392C5BBC21006D9E8B /* DollarNetworkManage in Frameworks */,
+				DB612D372C5BBC1D006D9E8B /* DollarInfoModel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +141,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB612D352C5BBBC4006D9E8B /* DollarNetworkManage in Frameworks */,
+				DB612D302C5BB5BC006D9E8B /* DollarInfoModel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +156,7 @@
 				DB4A54ED2C510DFF00C70286 /* Widget */,
 				DB612D0F2C512558006D9E8B /* DollarBlue Watch App */,
 				DB4A54D32C510D8A00C70286 /* Products */,
+				DB612D2A2C5BB325006D9E8B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -223,8 +230,8 @@
 		DB4A55122C510F1E00C70286 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DB4A55132C510F5B00C70286 /* DollarInfoModel.swift */,
-				DB4A55152C51101900C70286 /* DollarNetworkManager.swift */,
+				DB612D292C5BB0E4006D9E8B /* DollarInfoModel */,
+				DB612D312C5BB9CF006D9E8B /* DollarNetworkManage */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -276,6 +283,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		DB612D2A2C5BB325006D9E8B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -296,6 +310,10 @@
 				DB612D1A2C512559006D9E8B /* PBXTargetDependency */,
 			);
 			name = DollarBlue;
+			packageProductDependencies = (
+				DB612D2B2C5BB325006D9E8B /* DollarInfoModel */,
+				DB612D322C5BBAFD006D9E8B /* DollarNetworkManage */,
+			);
 			productName = DollarBlue;
 			productReference = DB4A54D22C510D8A00C70286 /* DollarBlue.app */;
 			productType = "com.apple.product-type.application";
@@ -313,6 +331,10 @@
 			dependencies = (
 			);
 			name = WidgetExtension;
+			packageProductDependencies = (
+				DB612D362C5BBC1D006D9E8B /* DollarInfoModel */,
+				DB612D382C5BBC21006D9E8B /* DollarNetworkManage */,
+			);
 			productName = WidgetExtension;
 			productReference = DB4A54E72C510DFF00C70286 /* WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -330,6 +352,10 @@
 			dependencies = (
 			);
 			name = "DollarBlueW Watch App";
+			packageProductDependencies = (
+				DB612D2F2C5BB5BC006D9E8B /* DollarInfoModel */,
+				DB612D342C5BBBC4006D9E8B /* DollarNetworkManage */,
+			);
 			productName = "DollarBlueW Watch App";
 			productReference = DB612D0E2C512558006D9E8B /* DollarBlueW Watch App.app */;
 			productType = "com.apple.product-type.application";
@@ -410,9 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB4A55162C51101900C70286 /* DollarNetworkManager.swift in Sources */,
 				DB4A55242C51117000C70286 /* UpdateInfoView.swift in Sources */,
-				DB4A55142C510F5B00C70286 /* DollarInfoModel.swift in Sources */,
 				DB4A55262C51131B00C70286 /* DollarRowView.swift in Sources */,
 				DB4A55282C51132700C70286 /* CalcRowView.swift in Sources */,
 				DB4A552A2C51141700C70286 /* CurrencyTextField.swift in Sources */,
@@ -429,11 +453,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB4A55442C5119D500C70286 /* SimpleEntry.swift in Sources */,
-				DB4A55172C51104F00C70286 /* DollarNetworkManager.swift in Sources */,
 				DB4A553B2C51197A00C70286 /* DollarBlueWidget.swift in Sources */,
 				DB4A55432C5119D200C70286 /* Provider.swift in Sources */,
 				DB4A55452C511A7D00C70286 /* WidgetEntryView.swift in Sources */,
-				DB4A55192C51105500C70286 /* DollarInfoModel.swift in Sources */,
 				DB4A55392C51196A00C70286 /* AppIntent.swift in Sources */,
 				DB4A55422C5119CB00C70286 /* DollarInfoEnum.swift in Sources */,
 				DB4A553A2C51197700C70286 /* DollarBlueWidgetBundle.swift in Sources */,
@@ -446,9 +468,7 @@
 			files = (
 				DB612D202C512570006D9E8B /* DollarRowView.swift in Sources */,
 				DB612D132C512558006D9E8B /* ContentView.swift in Sources */,
-				DB612D222C5125A5006D9E8B /* DollarNetworkManager.swift in Sources */,
 				DB612D112C512558006D9E8B /* DollarBlueApp.swift in Sources */,
-				DB612D212C5125A3006D9E8B /* DollarInfoModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -825,6 +845,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DB612D2B2C5BB325006D9E8B /* DollarInfoModel */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DollarInfoModel;
+		};
+		DB612D2F2C5BB5BC006D9E8B /* DollarInfoModel */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DollarInfoModel;
+		};
+		DB612D322C5BBAFD006D9E8B /* DollarNetworkManage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DollarNetworkManage;
+		};
+		DB612D342C5BBBC4006D9E8B /* DollarNetworkManage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DollarNetworkManage;
+		};
+		DB612D362C5BBC1D006D9E8B /* DollarInfoModel */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DollarInfoModel;
+		};
+		DB612D382C5BBC21006D9E8B /* DollarNetworkManage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DollarNetworkManage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DB4A54CA2C510D8A00C70286 /* Project object */;
 }

@@ -10,7 +10,6 @@
 import SwiftUI
 
 struct CurrencyTextField: UIViewRepresentable {
-    
     @Binding var text: String
     @Binding var value: Double
     var placeholder: String
@@ -23,88 +22,149 @@ struct CurrencyTextField: UIViewRepresentable {
         }
         
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            guard let text = textField.text as NSString? else { return true }
-            let newText = text.replacingCharacters(in: range, with: string)
-            let digits = CharacterSet.decimalDigits
-            let digitText = newText.unicodeScalars.filter { digits.contains($0) }.map { String($0) }.joined()
-            
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.currencySymbol = "$"
-            formatter.groupingSeparator = "."
-            formatter.decimalSeparator = ","
-            formatter.maximumFractionDigits = 2
-            
-            let number = (Double(digitText) ?? 0) / 100
-            textField.text = formatter.string(from: NSNumber(value: number))
-            
-            if let doubleValue = Double(digitText) {
-                parent.value = doubleValue / 100
+            if string.isEmpty {
+                return true
             }
-            
-            parent.text = textField.text ?? ""
-            return false
+
+            let allowedCharacters = CharacterSet(charactersIn: "0123456789,.")
+            guard string.unicodeScalars.allSatisfy({ allowedCharacters.contains($0) }) else {
+                return false
+            }
+            return true
         }
-        
+
+        @objc
+        func editingChanged(_ textField: UITextField) {
+            let sanitizedText = sanitize(textField.text ?? "")
+
+            if textField.text != sanitizedText {
+                textField.text = sanitizedText
+            }
+
+            parent.text = sanitizedText
+            parent.value = parseValue(from: sanitizedText) ?? 0
+        }
+
         func textFieldDidEndEditing(_ textField: UITextField) {
-            doneTapped(textField)
-        }
-        
-        @objc func doneTapped(_ textField: UITextField) {
-            
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.currencySymbol = "$"
-            formatter.maximumFractionDigits = 2
-            formatter.decimalSeparator = ","
-            formatter.groupingSeparator = "."
-            
-            if parent.text.isEmpty || parent.text == "0.00" {
-                parent.text = parent.placeholder
-                parent.value = 0
-            } else {
-                if let value = formatter.number(from: parent.text)?.doubleValue {
-                    parent.value = value
-                    parent.text = formatter.string(from: NSNumber(value: value)) ?? ""
-                } else {
-                    // Manejar el caso donde la conversión falla
-                    parent.value = 0
-                    parent.text = ""
-                }
+            guard parent.value > 0 else {
+                parent.text = ""
+                textField.text = ""
+                return
             }
-            hideKeyboard()
+
+            let formattedText = premiumEditableAmountString(parent.value)
+            parent.text = formattedText
+            textField.text = formattedText
         }
-        
-        func hideKeyboard() {
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+
+        private func sanitize(_ rawText: String) -> String {
+            let cleaned = rawText
+                .replacingOccurrences(of: "$", with: "")
+                .replacingOccurrences(of: " ", with: "")
+                .filter { $0.isNumber || $0 == "," || $0 == "." }
+
+            guard !cleaned.isEmpty else {
+                return ""
+            }
+
+            let separators = cleaned.indices.filter { index in
+                cleaned[index] == "," || cleaned[index] == "."
+            }
+
+            if let decimalIndex = separators.last {
+                let integerDigits = cleaned[..<decimalIndex].filter(\.isNumber)
+                let decimalDigits = cleaned[cleaned.index(after: decimalIndex)...]
+                    .filter(\.isNumber)
+
+                if decimalDigits.count > 2 {
+                    return normalizedIntegerPart(from: String(cleaned.filter(\.isNumber)))
                 }
-        
+
+                let integerPart = normalizedIntegerPart(from: String(integerDigits))
+                let decimalPart = String(decimalDigits.prefix(2))
+
+                if decimalPart.isEmpty {
+                    return "\(integerPart),"
+                }
+
+                return "\(integerPart),\(decimalPart)"
+            }
+
+            return normalizedIntegerPart(from: String(cleaned.filter(\.isNumber)))
+        }
+
+        private func normalizedIntegerPart(from rawValue: String) -> String {
+            let trimmed = rawValue.drop(while: { $0 == "0" })
+
+            if trimmed.isEmpty {
+                return rawValue.isEmpty ? "" : "0"
+            }
+
+            return String(trimmed)
+        }
+
+        private func parseValue(from text: String) -> Double? {
+            let normalized = text.replacingOccurrences(of: ".", with: "")
+                .replacingOccurrences(of: ",", with: ".")
+
+            guard !normalized.isEmpty else {
+                return nil
+            }
+
+            return Double(normalized)
+        }
+    }
+
+    final class AdaptiveTextField: UITextField {
+        override var intrinsicContentSize: CGSize {
+            var size = super.intrinsicContentSize
+            size.width = UIView.noIntrinsicMetric
+            return size
+        }
     }
     
     func makeUIView(context: Context) -> UITextField {
-        let textField = UITextField()
+        let textField = AdaptiveTextField()
         textField.delegate = context.coordinator
+        textField.addTarget(context.coordinator, action: #selector(Coordinator.editingChanged(_:)), for: .editingChanged)
         textField.keyboardType = .decimalPad
-        textField.borderStyle = .roundedRect
+        textField.borderStyle = .none
         textField.placeholder = placeholder
-        textField.textColor = UIColor(named: "ColorGreenD")
-        
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                         target: context.coordinator,
-                                         action: #selector(Coordinator.doneTapped(_:)))
-        doneButton.tintColor = UIColor(named: "ColorGreenD")
-        toolbar.setItems([UIBarButtonItem.flexibleSpace(), doneButton], animated: false)
-        textField.inputAccessoryView = toolbar
+        textField.backgroundColor = .clear
+        textField.textColor = UIColor.label
+        textField.tintColor = UIColor(named: "ColorGreenD") ?? UIColor.systemGreen
+        textField.textAlignment = .right
+        textField.font = .monospacedDigitSystemFont(ofSize: 26, weight: .semibold)
+        textField.adjustsFontForContentSizeCategory = true
+        textField.adjustsFontSizeToFitWidth = true
+        textField.minimumFontSize = 13
+        textField.clearButtonMode = .never
+        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        textField.attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [
+                .foregroundColor: UIColor.secondaryLabel,
+                .font: UIFont.systemFont(ofSize: 17, weight: .medium)
+            ]
+        )
         
         return textField
     }
     
     func updateUIView(_ uiView: UITextField, context: Context) {
-        uiView.text = text
-        if text.isEmpty || text == "0.00" {
-            uiView.placeholder = placeholder
+        if uiView.text != text {
+            uiView.text = text
+        }
+
+        if text.isEmpty {
+            uiView.attributedPlaceholder = NSAttributedString(
+                string: placeholder,
+                attributes: [
+                    .foregroundColor: UIColor.secondaryLabel,
+                    .font: UIFont.systemFont(ofSize: 17, weight: .medium)
+                ]
+            )
         }
     }
     

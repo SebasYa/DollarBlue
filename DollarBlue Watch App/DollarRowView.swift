@@ -11,38 +11,54 @@ import SwiftUI
 import DollarInfoModel
 
 struct DollarRowView: View {
-    var dolarInfo: DollarInfoModel
+    let dolarInfo: DollarInfoModel
+
+    private var compactName: String {
+        QuotePresentationSupport.compactDisplayName(for: dolarInfo.nombre)
+    }
     
     var body: some View {
-        VStack {
-            Divider()
-                .background(Color.red)
-            Text("Dolar \(dolarInfo.nombre)")
-                .font(.callout)
-                .foregroundStyle(.linearGradient(colors: [.green, .white], startPoint: .top, endPoint: .bottom))
-            VStack {
-                HStack(alignment: .center) {
-                    Text("Compra:")
-                        .font(.subheadline)
-                        .bold()
-                        .foregroundStyle(.linearGradient(colors: [.green, .white], startPoint: .bottom, endPoint: .top))
-                        .italic()
-                    Text("$\(String(format: "%.2f",dolarInfo.compra))")
-                        .font(.caption2)
-                        .foregroundStyle(.linearGradient(colors: [.green, .white], startPoint: .bottom, endPoint: .top))
+        VStack(alignment: .leading, spacing: 8) {
+            Text(compactName)
+                .font(.system(.headline, design: .serif).weight(.semibold))
+                .lineLimit(2)
+                .minimumScaleFactor(0.75)
+                .fixedSize(horizontal: false, vertical: true)
+
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) {
+                    watchValueBlock(title: "Compra", value: dolarInfo.compra)
+                    watchValueBlock(title: "Venta", value: dolarInfo.venta, accent: PremiumPalette.emeraldHighlight)
                 }
-                
-                
-                HStack {
-                    Text("Venta:")
-                        .font(.subheadline)
-                        .italic()
-                        .foregroundStyle(.linearGradient(colors: [.green, .white], startPoint: .bottom, endPoint: .top))
-                    Text("$\(String(format: "%.2f",dolarInfo.venta))")
-                        .font(.caption2)
-                        .foregroundStyle(.linearGradient(colors: [.green, .white], startPoint: .bottom, endPoint: .top))
+
+                VStack(spacing: 8) {
+                    watchValueBlock(title: "Compra", value: dolarInfo.compra)
+                    watchValueBlock(title: "Venta", value: dolarInfo.venta, accent: PremiumPalette.emeraldHighlight)
                 }
             }
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .premiumSurface(cornerRadius: 18, accent: PremiumPalette.emerald, glassEnabled: true)
+    }
+
+    private func watchValueBlock(title: String, value: Double, accent: Color = .secondary) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(title)
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(.secondary)
+            PremiumCurrencyValueText(
+                value: value,
+                accent: accent,
+                integerSize: 15,
+                centsSize: 11
+            )
+        }
+        .padding(8)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background {
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(PremiumPalette.emerald.opacity(0.08))
         }
     }
 }

@@ -11,91 +11,105 @@ import SwiftUI
 import DollarInfoModel
 
 struct CalcRowView: View {
-    // MARK: - PROPERTIES
-    var dolarInfo: DollarInfoModel
+    let dolarInfo: DollarInfoModel
     @Binding var montoIngresado: Double
     @Binding var isCalcPesos: Bool
-    
-    private var numberFormatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        formatter.usesGroupingSeparator = true
-        formatter.groupingSeparator = "."
-        formatter.decimalSeparator = ","
-        return formatter
-    }
-    
-    // MARK: - BODY
-    var body: some View {
-        
-        GroupBox {
-            HStack {
-                Text("Dólar \(dolarInfo.nombre)")
-                    .font(.title2)
-                    .foregroundStyle(.linearGradient(colors: [.green, Color("DolarBWColor")], startPoint: .top, endPoint: .bottom))
-                Spacer()
-                
-                VStack {
-                    HStack {
-                        Spacer()
-                        
-                        Text("Compra: ")
-                            .font(.callout)
-                            .bold()
-                            .foregroundStyle(.linearGradient(colors: [.green, Color("DolarBWColor")], startPoint: .bottom, endPoint: .top))
-                            .italic()
-                        
-                        if montoIngresado > 0 {
-                            let formattedValue = isCalcPesos ? dolarInfo.compra * montoIngresado : montoIngresado / dolarInfo.compra
-                            Text("$\(numberFormatter.string(from: NSNumber(value: formattedValue)) ?? "0,00")")
-                                .font(.title3)
-                                .foregroundStyle(.linearGradient(colors: [.green, Color("DolarBWColor")], startPoint: .bottom, endPoint: .top))
-                                .multilineTextAlignment(.center)
-                                .minimumScaleFactor(0.2)
-                                .frame(maxWidth: 150)
-                                .scaledToFit()
-                                .multilineTextAlignment(.trailing)
-                        } else {
-                            Text("$0,00")
-                                .font(.title3)
-                                .foregroundStyle(.linearGradient(colors: [.green, Color("DolarBWColor")], startPoint: .bottom, endPoint: .top))
-                                .multilineTextAlignment(.center)
-                        }
-                    }
-                    
-                    HStack {
-                        Spacer()
-                        
-                        Text("Venta: ")
-                            .font(.headline)
-                            .italic()
-                            .foregroundStyle(.linearGradient(colors: [.green, Color("DolarBWColor")], startPoint: .bottom, endPoint: .top))
-                        
-                        if montoIngresado > 0 {
-                            let formattedValue = isCalcPesos ? dolarInfo.venta * montoIngresado : montoIngresado / dolarInfo.venta
 
-                            Text("$\(numberFormatter.string(from: NSNumber(value: formattedValue)) ?? "0,00")")
-                                .font(.title3)
-                                .foregroundStyle(.linearGradient(colors: [.green, Color("DolarBWColor")], startPoint: .bottom, endPoint: .top))
-                                .minimumScaleFactor(0.2)
-                                .frame(maxWidth: 150)
-                                .scaledToFit()
-                                .multilineTextAlignment(.trailing)
-                        } else {
-                            Text("$0,00")
-                                .font(.title3)
-                                .foregroundStyle(.linearGradient(colors: [.green, Color("DolarBWColor")], startPoint: .bottom, endPoint: .top))
-                                .multilineTextAlignment(.center)
-                        }
-                    }
+    @AppStorage("useCompactCards") private var useCompactCards = false
+
+    private var cardSpacing: CGFloat { useCompactCards ? 10 : 16 }
+    private var cardPadding: CGFloat { useCompactCards ? 14 : 20 }
+    private var iconSize: CGFloat { useCompactCards ? 36 : 42 }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: cardSpacing) {
+            HStack(alignment: .top, spacing: 14) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(dolarInfo.nombre)
+                        .font(.system(.title3, design: .serif).weight(.semibold))
+                    Text(isCalcPesos ? "De dolares a pesos" : "De pesos a dolares")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text("Compra \(premiumCurrencyString(dolarInfo.compra))  |  Venta \(premiumCurrencyString(dolarInfo.venta))")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
                 }
+
+                Spacer()
+
+                Image(systemName: "function")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(PremiumPalette.emeraldHighlight)
+                    .frame(width: iconSize, height: iconSize)
+                    .background {
+                        Circle()
+                            .fill(PremiumPalette.emerald.opacity(0.14))
+                    }
             }
+
+            HStack(spacing: 12) {
+                CalculatorValueColumn(
+                    title: "Con compra",
+                    value: resolvedAmount(for: dolarInfo.compra),
+                    accent: .secondary,
+                    compact: useCompactCards
+                )
+
+                CalculatorValueColumn(
+                    title: "Con venta",
+                    value: resolvedAmount(for: dolarInfo.venta),
+                    accent: PremiumPalette.emeraldHighlight,
+                    compact: useCompactCards
+                )
+            }
+        }
+        .padding(cardPadding)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
+    }
+
+    private func resolvedAmount(for rate: Double) -> Double {
+        guard montoIngresado > 0, rate > 0 else {
+            return 0
+        }
+
+        return isCalcPesos ? rate * montoIngresado : montoIngresado / rate
+    }
+}
+
+private struct CalculatorValueColumn: View {
+    let title: String
+    let value: Double
+    let accent: Color
+    let compact: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title.uppercased())
+                .font(.caption.weight(.semibold))
+                .tracking(1.0)
+                .foregroundStyle(.secondary)
+
+            PremiumCurrencyValueText(
+                value: value,
+                accent: accent,
+                integerSize: compact ? 17 : 20,
+                centsSize: compact ? 12 : 14
+            )
+        }
+        .padding(compact ? 12 : 14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(PremiumPalette.emerald.opacity(0.08))
         }
     }
 }
 
-// MARK: - PREVIEW
 #Preview {
-    CalcRowView(dolarInfo: DollarInfoModel.placeholderModel, montoIngresado: .constant(1), isCalcPesos: .constant(true))
+    CalcRowView(
+        dolarInfo: DollarInfoModel.placeholderModel,
+        montoIngresado: .constant(1),
+        isCalcPesos: .constant(true)
+    )
 }

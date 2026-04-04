@@ -18,44 +18,41 @@ struct Provider: AppIntentTimelineProvider {
     typealias Entry = SimpleEntry
     typealias Intent = ConfigurationAppIntent
     
-    var dataController = DollarNetworkManager()
-    
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), dolarInfo1: DollarInfoModel.placeholderModel, dolarInfo2: DollarInfoModel.placeholderModel)
     }
     
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        await withCheckedContinuation { continuation in
-            dataController.obtainAllCotizations()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                let filtaredDolarInfo1 = dataController.cotizaciones.first { $0.nombre == configuration.dollarInfo1.rawValue } ?? DollarInfoModel.placeholderModel
-                let filtaredDolarInfo2 = dataController.cotizaciones.first { $0.nombre == configuration.dollarInfo2.rawValue } ?? DollarInfoModel.placeholderModel
-                
-                let entry = SimpleEntry(date: Date(), dolarInfo1: filtaredDolarInfo1, dolarInfo2: filtaredDolarInfo2)
-                continuation.resume(returning: entry)
-            }
-        }
+        let quotes = (try? await DollarNetworkManager.fetchAllCotizations()) ?? []
+        return makeEntry(for: configuration, quotes: quotes, date: .now)
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        
-        await withCheckedContinuation  { continuation in
-            
-            dataController.obtainAllCotizations()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                
-                let filtaredDolarInfo1 = dataController.cotizaciones.first { $0.nombre == configuration.dollarInfo1.rawValue } ?? DollarInfoModel.placeholderModel
-                let filtaredDolarInfo2 = dataController.cotizaciones.first { $0.nombre == configuration.dollarInfo2.rawValue } ?? DollarInfoModel.placeholderModel
-                
-                var entries: [SimpleEntry] = []
-                for hourOffset in 0 ..< 5 {
-                    let currentDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: Date())!
-                    let entry = SimpleEntry(date: currentDate, dolarInfo1: filtaredDolarInfo1, dolarInfo2: filtaredDolarInfo2)
-                    entries.append(entry)
-                }
-                let timeline = Timeline(entries: entries, policy: .atEnd)
-                continuation.resume(returning: timeline)
-            }
+        do {
+            let quotes = try await DollarNetworkManager.fetchAllCotizations()
+            let entries = makeEntries(for: configuration, quotes: quotes)
+            return Timeline(entries: entries, policy: .atEnd)
+        } catch {
+            let retryDate = Calendar.current.date(byAdding: .minute, value: 30, to: .now) ?? .now.addingTimeInterval(1800)
+            let fallbackEntry = makeEntry(for: configuration, quotes: [], date: .now)
+            return Timeline(entries: [fallbackEntry], policy: .after(retryDate))
         }
+    }
+
+    private func makeEntries(for configuration: ConfigurationAppIntent, quotes: [DollarInfoModel]) -> [SimpleEntry] {
+        (0..<5).compactMap { hourOffset in
+            guard let currentDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: .now) else {
+                return nil
+            }
+
+            return makeEntry(for: configuration, quotes: quotes, date: currentDate)
+        }
+    }
+
+    private func makeEntry(for configuration: ConfigurationAppIntent, quotes: [DollarInfoModel], date: Date) -> SimpleEntry {
+        let filteredDolarInfo1 = quotes.first { $0.nombre == configuration.dollarInfo1.rawValue } ?? DollarInfoModel.placeholderModel
+        let filteredDolarInfo2 = quotes.first { $0.nombre == configuration.dollarInfo2.rawValue } ?? DollarInfoModel.placeholderModel
+
+        return SimpleEntry(date: date, dolarInfo1: filteredDolarInfo1, dolarInfo2: filteredDolarInfo2)
     }
 }

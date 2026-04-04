@@ -40,6 +40,15 @@
 		DB612D352C5BBBC4006D9E8B /* DollarNetworkManage in Frameworks */ = {isa = PBXBuildFile; productRef = DB612D342C5BBBC4006D9E8B /* DollarNetworkManage */; };
 		DB612D372C5BBC1D006D9E8B /* DollarInfoModel in Frameworks */ = {isa = PBXBuildFile; productRef = DB612D362C5BBC1D006D9E8B /* DollarInfoModel */; };
 		DB612D392C5BBC21006D9E8B /* DollarNetworkManage in Frameworks */ = {isa = PBXBuildFile; productRef = DB612D382C5BBC21006D9E8B /* DollarNetworkManage */; };
+		DB7C9A412CC1B8D9008B3D62 /* TabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C9A402CC1B8D9008B3D62 /* TabModel.swift */; };
+		DB7C9A432CC1BC31008B3D62 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C9A422CC1BC31008B3D62 /* CustomTabBarView.swift */; };
+		DB8F10012DAB000100000001 /* FloatingTabBarInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F10022DAB000100000001 /* FloatingTabBarInset.swift */; };
+		DB8F10062DAB000100000001 /* QuotesSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F10052DAB000100000001 /* QuotesSupport.swift */; };
+		DB8F10072DAB000100000001 /* QuotesSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F10052DAB000100000001 /* QuotesSupport.swift */; };
+		DB8F10082DAB000100000001 /* QuotesSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F10052DAB000100000001 /* QuotesSupport.swift */; };
+		DB8F100B2DAB000100000001 /* PremiumDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */; };
+		DB8F100C2DAB000100000001 /* PremiumDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */; };
+		DB8F100D2DAB000100000001 /* PremiumDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +125,11 @@
 		DB612D1F2C512570006D9E8B /* DollarRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarRowView.swift; sourceTree = "<group>"; };
 		DB612D292C5BB0E4006D9E8B /* DollarInfoModel */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DollarInfoModel; path = ../../../DollarInfoModel; sourceTree = "<group>"; };
 		DB612D312C5BB9CF006D9E8B /* DollarNetworkManage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DollarNetworkManage; path = ../../../DollarNetworkManage; sourceTree = "<group>"; };
+		DB7C9A402CC1B8D9008B3D62 /* TabModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabModel.swift; sourceTree = "<group>"; };
+		DB7C9A422CC1BC31008B3D62 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		DB8F10022DAB000100000001 /* FloatingTabBarInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTabBarInset.swift; sourceTree = "<group>"; };
+		DB8F10052DAB000100000001 /* QuotesSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesSupport.swift; sourceTree = "<group>"; };
+		DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumDesignSystem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +191,7 @@
 				DB4A550E2C510EF100C70286 /* Launch Screen.storyboard */,
 				DB4A54D92C510D8B00C70286 /* Assets.xcassets */,
 				DB4A55122C510F1E00C70286 /* Model */,
+				DB8F10092DAB000100000001 /* Shared */,
 				DB4A55112C510F1400C70286 /* View */,
 				DB4A55102C510F0C00C70286 /* Controller */,
 				DB4A54DB2C510D8B00C70286 /* Preview Content */,
@@ -223,6 +238,8 @@
 				DB4A55232C51117000C70286 /* UpdateInfoView.swift */,
 				DB4A55252C51131B00C70286 /* DollarRowView.swift */,
 				DB4A55272C51132700C70286 /* CalcRowView.swift */,
+				DB7C9A422CC1BC31008B3D62 /* CustomTabBarView.swift */,
+				DB8F10022DAB000100000001 /* FloatingTabBarInset.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -232,6 +249,7 @@
 			children = (
 				DB612D292C5BB0E4006D9E8B /* DollarInfoModel */,
 				DB612D312C5BB9CF006D9E8B /* DollarNetworkManage */,
+				DB7C9A402CC1B8D9008B3D62 /* TabModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -242,6 +260,15 @@
 				DB4A54F42C510DFF00C70286 /* AppIntent.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DB8F10092DAB000100000001 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */,
+				DB8F10052DAB000100000001 /* QuotesSupport.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		DB4A55302C5117D800C70286 /* Model */ = {
@@ -368,7 +395,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					DB4A54D12C510D8A00C70286 = {
 						CreatedOnToolsVersion = 15.4;
@@ -390,6 +417,10 @@
 				Base,
 			);
 			mainGroup = DB4A54C92C510D8A00C70286;
+			packageReferences = (
+				DB8F10032DAB000100000001 /* XCLocalSwiftPackageReference "../DollarInfoModel" */,
+				DB8F10042DAB000100000001 /* XCLocalSwiftPackageReference "../DollarNetworkManage" */,
+			);
 			productRefGroup = DB4A54D32C510D8A00C70286 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -445,6 +476,11 @@
 				DB4A551E2C51114100C70286 /* HomeView.swift in Sources */,
 				DB4A55202C51115000C70286 /* CalculatorView.swift in Sources */,
 				DB4A54D62C510D8A00C70286 /* DollarBlueApp.swift in Sources */,
+				DB7C9A412CC1B8D9008B3D62 /* TabModel.swift in Sources */,
+				DB7C9A432CC1BC31008B3D62 /* CustomTabBarView.swift in Sources */,
+				DB8F10012DAB000100000001 /* FloatingTabBarInset.swift in Sources */,
+				DB8F10062DAB000100000001 /* QuotesSupport.swift in Sources */,
+				DB8F100B2DAB000100000001 /* PremiumDesignSystem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +495,8 @@
 				DB4A55392C51196A00C70286 /* AppIntent.swift in Sources */,
 				DB4A55422C5119CB00C70286 /* DollarInfoEnum.swift in Sources */,
 				DB4A553A2C51197700C70286 /* DollarBlueWidgetBundle.swift in Sources */,
+				DB8F10072DAB000100000001 /* QuotesSupport.swift in Sources */,
+				DB8F100C2DAB000100000001 /* PremiumDesignSystem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +507,8 @@
 				DB612D202C512570006D9E8B /* DollarRowView.swift in Sources */,
 				DB612D132C512558006D9E8B /* ContentView.swift in Sources */,
 				DB612D112C512558006D9E8B /* DollarBlueApp.swift in Sources */,
+				DB8F10082DAB000100000001 /* QuotesSupport.swift in Sources */,
+				DB8F100D2DAB000100000001 /* PremiumDesignSystem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +652,6 @@
 		DB4A54E12C510D8B00C70286 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -627,7 +666,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -648,7 +687,6 @@
 		DB4A54E22C510D8B00C70286 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -663,7 +701,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -693,7 +731,7 @@
 				INFOPLIST_FILE = Widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -725,7 +763,7 @@
 				INFOPLIST_FILE = Widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -771,7 +809,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -801,7 +839,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -846,29 +884,46 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		DB8F10032DAB000100000001 /* XCLocalSwiftPackageReference "../DollarInfoModel" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../DollarInfoModel;
+		};
+		DB8F10042DAB000100000001 /* XCLocalSwiftPackageReference "../DollarNetworkManage" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../DollarNetworkManage;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		DB612D2B2C5BB325006D9E8B /* DollarInfoModel */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = DB8F10032DAB000100000001 /* XCLocalSwiftPackageReference "../DollarInfoModel" */;
 			productName = DollarInfoModel;
 		};
 		DB612D2F2C5BB5BC006D9E8B /* DollarInfoModel */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = DB8F10032DAB000100000001 /* XCLocalSwiftPackageReference "../DollarInfoModel" */;
 			productName = DollarInfoModel;
 		};
 		DB612D322C5BBAFD006D9E8B /* DollarNetworkManage */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = DB8F10042DAB000100000001 /* XCLocalSwiftPackageReference "../DollarNetworkManage" */;
 			productName = DollarNetworkManage;
 		};
 		DB612D342C5BBBC4006D9E8B /* DollarNetworkManage */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = DB8F10042DAB000100000001 /* XCLocalSwiftPackageReference "../DollarNetworkManage" */;
 			productName = DollarNetworkManage;
 		};
 		DB612D362C5BBC1D006D9E8B /* DollarInfoModel */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = DB8F10032DAB000100000001 /* XCLocalSwiftPackageReference "../DollarInfoModel" */;
 			productName = DollarInfoModel;
 		};
 		DB612D382C5BBC21006D9E8B /* DollarNetworkManage */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = DB8F10042DAB000100000001 /* XCLocalSwiftPackageReference "../DollarNetworkManage" */;
 			productName = DollarNetworkManage;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -10,28 +10,57 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isDarkMode: Bool = UserDefaults.standard.bool(forKey: "isDarkMode")
+    @State private var activeTab: TabModel = .home
+    @AppStorage("themePreference") private var themePreference = AppThemeMode.system.rawValue
+    @State private var tabBarFrame: CGRect = .zero
     
     var body: some View {
-        TabView {
-            HomeView()
-                .tabItem {
-                    Label("Home", systemImage: "house.fill")
+        GeometryReader { proxy in
+            ZStack(alignment: .bottom) {
+                Group {
+                    TabView(selection: $activeTab) {
+                        
+                        Tab.init(value: .home) {
+                            HomeView()
+                                .toolbarVisibility(.hidden, for: .tabBar)
+                        }
+                        
+                        Tab.init(value: .calculator) {
+                            CalculationView()
+                                .toolbarVisibility(.hidden, for: .tabBar)
+                        }
+                        
+                        Tab.init(value: .configuration) {
+                            ConfigView()
+                                .toolbarVisibility(.hidden, for: .tabBar)
+                            
+                        }
+                    }
+                    
+                    .preferredColorScheme(selectedTheme.colorScheme)
                 }
-            CalculationView()
-                .tabItem {
-                    Label("Calculator", systemImage: "brain.fill")
-                }
-            ConfigView(isDarkMode: $isDarkMode)
-                .tabItem {
-                    Label("Configuration", systemImage: "gear")
-                }
+                CustomTabBarView(activeTab: $activeTab)
+            }
+            .coordinateSpace(name: FloatingTabBarLayout.coordinateSpaceName)
+            .environment(\.floatingTabBarInset, resolvedFloatingTabBarInset(in: proxy))
+            .onPreferenceChange(FloatingTabBarFramePreferenceKey.self) { newValue in
+                tabBarFrame = newValue
+            }
         }
-        .tint(Color("ColorGreenD"))
-        .preferredColorScheme(isDarkMode ? .dark : .light)
-        .onChange(of: isDarkMode) { oldValue, newValue in
-            UserDefaults.standard.set(newValue, forKey: "isDarkMode")
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+    }
+
+    private func resolvedFloatingTabBarInset(in proxy: GeometryProxy) -> CGFloat {
+        guard tabBarFrame != .zero else {
+            return 0
         }
+
+        let safeBottom = proxy.size.height - proxy.safeAreaInsets.bottom
+        return max(0, safeBottom - tabBarFrame.minY)
+    }
+
+    private var selectedTheme: AppThemeMode {
+        AppThemeMode(rawValue: themePreference) ?? .system
     }
 }
 

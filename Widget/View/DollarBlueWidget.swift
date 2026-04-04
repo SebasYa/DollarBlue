@@ -11,21 +11,20 @@ import WidgetKit
 import SwiftUI
 import Foundation
 import DollarInfoModel
-import DollarNetworkManage
-
 
 struct DollarBlueWidget: Widget {
     let kind: String = "Dollar Blue Widget"
-    let dataController = DollarNetworkManager()
     
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider(dataController: dataController)) { entry in
+        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             WidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+                .containerBackground(for: .widget) {
+                    PremiumWidgetBackground()
+                }
                 .preferredColorScheme(.dark)
         }
         .configurationDisplayName("Dollar Blue Widget")
-        .description("Muestra las cotizaciónes del dólar.")
+        .description("Muestra las cotizaciones del dólar.")
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
     }
 }

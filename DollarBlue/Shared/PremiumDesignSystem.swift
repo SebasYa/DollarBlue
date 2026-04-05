@@ -395,31 +395,6 @@ struct PremiumCurrencyValueText: View {
     }
 }
 
-struct PremiumGlassCluster<Content: View>: View {
-    let spacing: CGFloat
-    private let content: Content
-
-    init(spacing: CGFloat = 16, @ViewBuilder content: () -> Content) {
-        self.spacing = spacing
-        self.content = content()
-    }
-
-    @ViewBuilder
-    var body: some View {
-        #if os(iOS)
-        if #available(iOS 26.0, *) {
-            GlassEffectContainer(spacing: spacing) {
-                content
-            }
-        } else {
-            content
-        }
-        #else
-        content
-        #endif
-    }
-}
-
 struct PremiumWidgetBackground: View {
     var body: some View {
         ZStack {

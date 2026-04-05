@@ -12,15 +12,12 @@ enum FloatingTabBarLayout {
     static let footerExtraPadding: CGFloat = 8
 }
 
-struct FloatingTabBarFramePreferenceKey: PreferenceKey {
-    static var defaultValue: CGRect = .zero
+struct FloatingTabBarInsetPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
 
-    static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         let nextValue = nextValue()
-
-        if nextValue != .zero {
-            value = nextValue
-        }
+        value = max(value, nextValue)
     }
 }
 

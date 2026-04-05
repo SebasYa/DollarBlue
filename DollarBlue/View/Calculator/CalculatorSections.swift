@@ -1,77 +1,23 @@
 //
-//  CalculatorView.swift
+//  CalculatorSections.swift
 //  DollarBlue
 //
-//  Copyright © 2024 The SY Repository. All rights reserved.
-//
-//  Created by Sebastián Yanni.
+//  Created by Codex on 05/04/2026.
 //
 
 import SwiftUI
 import DollarInfoModel
-import DollarNetworkManage
 
-struct CalculationView: View {
-    @State private var dataController = DollarNetworkManager()
-    @State private var alertMessage: AppAlertMessage?
-    @State private var isLoading = false
-
-    @State private var isCalcPesos = true
-    @State private var montoIngresadoString = ""
-    @State private var montoIngresado: Double = 0
-    @FocusState private var montoFocused: Bool
-
-    @AppStorage("useCompactCards") private var useCompactCards = false
-    @AppStorage("quoteSortOrder") private var quoteSortOrder = QuoteSortOrder.api.rawValue
+struct CalculationConversionPanel: View {
+    @Binding var isCalcPesos: Bool
+    @Binding var amountText: String
+    @Binding var amountValue: Double
+    var amountFocused: FocusState<Bool>.Binding
+    let inputHelperText: String
+    let suggestedAmounts: [Double]
+    let applySuggestedAmount: (Double) -> Void
 
     var body: some View {
-        NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: useCompactCards ? 14 : 20) {
-                    PremiumSectionHeader(
-                        eyebrow: "Conversion inteligente",
-                        title: "Calculadora",
-                        subtitle: "Monta un escenario rápido y compara compra y venta con una lectura mas limpia."
-                    )
-
-                    conversionPanel
-                    resultsSection
-                    FloatingTabBarFooterSpacer(extraPadding: 14)
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 18)
-                .padding(.bottom, 10)
-            }
-            .scrollDismissesKeyboard(.interactively)
-            .simultaneousGesture(
-                TapGesture().onEnded {
-                    montoFocused = false
-                }
-            )
-            .refreshable {
-                await reload()
-            }
-            .task {
-                await reloadIfNeeded()
-            }
-            .toolbar {
-                if montoFocused {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        Spacer()
-                        Button("Listo") {
-                            montoFocused = false
-                        }
-                    }
-                }
-            }
-        }
-        .background(PremiumScreenBackground())
-        .alert(item: $alertMessage) { errorMessage in
-            Alert(title: Text("Error"), message: Text(errorMessage.value), dismissButton: .default(Text("OK")))
-        }
-    }
-
-    private var conversionPanel: some View {
         VStack(alignment: .leading, spacing: 18) {
             Text("Convertir")
                 .font(.headline)
@@ -95,11 +41,11 @@ struct CalculationView: View {
                         }
 
                     CurrencyTextField(
-                        text: $montoIngresadoString,
-                        value: $montoIngresado,
+                        text: $amountText,
+                        value: $amountValue,
                         placeholder: isCalcPesos ? "Ej: 100,00" : "Ej: 100000,00"
                     )
-                    .focused($montoFocused)
+                    .focused(amountFocused)
                     .frame(maxWidth: .infinity)
                     .frame(height: 52)
                 }
@@ -148,8 +94,17 @@ struct CalculationView: View {
         .padding(20)
         .premiumSurface(cornerRadius: 30, accent: PremiumPalette.emerald, glassEnabled: true)
     }
+}
 
-    private var resultsSection: some View {
+struct CalculationResultsSection: View {
+    let displayedQuotes: [DollarInfoModel]
+    let resultsSubtitle: String
+    let isLoading: Bool
+    let amountValue: Double
+    let isCalcPesos: Bool
+    let useCompactCards: Bool
+
+    var body: some View {
         VStack(alignment: .leading, spacing: useCompactCards ? 12 : 16) {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
@@ -168,73 +123,32 @@ struct CalculationView: View {
                 }
             }
 
-            if isLoading && dataController.cotizaciones.isEmpty {
+            if isLoading && displayedQuotes.isEmpty {
                 CalculatorStatusCard(message: "Calculando escenarios...", systemImage: "function")
-            } else if dataController.cotizaciones.isEmpty {
+            } else if displayedQuotes.isEmpty {
                 CalculatorStatusCard(
                     message: "Todavia no hay cotizaciones",
                     detail: "Desliza hacia abajo para recargar y volver a calcular.",
                     systemImage: "chart.line.uptrend.xyaxis"
                 )
             } else {
-                ForEach(displayedQuotes, id: \.nombre) { dolarInfo in
-                    CalcRowView(
-                        dolarInfo: dolarInfo,
-                        montoIngresado: $montoIngresado,
-                        isCalcPesos: $isCalcPesos
-                    )
+                LazyVStack(spacing: useCompactCards ? 12 : 16) {
+                    ForEach(displayedQuotes, id: \.nombre) { dolarInfo in
+                        CalcRowView(
+                            dolarInfo: dolarInfo,
+                            montoIngresado: amountValue,
+                            isCalcPesos: isCalcPesos,
+                            useCompactCards: useCompactCards
+                        )
+                        .equatable()
+                    }
                 }
             }
         }
     }
-
-    private var suggestedAmounts: [Double] {
-        isCalcPesos ? [50, 100, 500] : [10000, 50000, 100000]
-    }
-
-    private var selectedSortOrder: QuoteSortOrder {
-        QuoteSortOrder(rawValue: quoteSortOrder) ?? .api
-    }
-
-    private var displayedQuotes: [DollarInfoModel] {
-        QuotePresentationSupport.sortedQuotes(dataController.cotizaciones, order: selectedSortOrder)
-    }
-
-    private var inputHelperText: String {
-        isCalcPesos
-            ? "Si ingresas dolares, la compra suele ser la referencia mas util para estimar pesos recibidos."
-            : "Si ingresas pesos, la venta suele ser la referencia mas util para estimar dolares comprables."
-    }
-
-    private var resultsSubtitle: String {
-        if montoIngresado > 0 {
-            return "Escenario actual para \(premiumCurrencyString(montoIngresado)) con cada referencia."
-        }
-
-        return "Ingresa un monto para estimar compra y venta por mercado."
-    }
-
-    private func applySuggestedAmount(_ amount: Double) {
-        montoIngresado = amount
-        montoIngresadoString = premiumEditableAmountString(amount)
-    }
-
-    private func reloadIfNeeded() async {
-        guard dataController.cotizaciones.isEmpty else {
-            return
-        }
-
-        await reload()
-    }
-
-    private func reload() async {
-        isLoading = true
-        alertMessage = await dataController.refreshFromServer()
-        isLoading = false
-    }
 }
 
-private struct CalculatorStatusCard: View {
+struct CalculatorStatusCard: View {
     let message: String
     var detail: String? = nil
     let systemImage: String
@@ -262,7 +176,7 @@ private struct CalculatorStatusCard: View {
     }
 }
 
-private struct CalculatorModeSelector: View {
+struct CalculatorModeSelector: View {
     @Binding var isCalcPesos: Bool
 
     var body: some View {
@@ -297,8 +211,4 @@ private struct CalculatorModeSelector: View {
         }
         .buttonStyle(.plain)
     }
-}
-
-#Preview {
-    CalculationView()
 }

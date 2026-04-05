@@ -1,5 +1,5 @@
 //
-//  CalcRowView.swift
+//  DollarRowView.swift
 //  DollarBlue
 //
 //  Copyright © 2024 The SY Repository. All rights reserved.
@@ -10,16 +10,23 @@
 import SwiftUI
 import DollarInfoModel
 
-struct CalcRowView: View {
+struct DollarRowView: View, Equatable {
     let dolarInfo: DollarInfoModel
-    @Binding var montoIngresado: Double
-    @Binding var isCalcPesos: Bool
-
-    @AppStorage("useCompactCards") private var useCompactCards = false
+    let useCompactCards: Bool
+    let showUpdateStamp: Bool
 
     private var cardSpacing: CGFloat { useCompactCards ? 10 : 16 }
     private var cardPadding: CGFloat { useCompactCards ? 14 : 20 }
     private var iconSize: CGFloat { useCompactCards ? 36 : 42 }
+
+    static func == (lhs: DollarRowView, rhs: DollarRowView) -> Bool {
+        lhs.dolarInfo.nombre == rhs.dolarInfo.nombre &&
+        lhs.dolarInfo.compra == rhs.dolarInfo.compra &&
+        lhs.dolarInfo.venta == rhs.dolarInfo.venta &&
+        lhs.dolarInfo.fechaActualizacion == rhs.dolarInfo.fechaActualizacion &&
+        lhs.useCompactCards == rhs.useCompactCards &&
+        lhs.showUpdateStamp == rhs.showUpdateStamp
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: cardSpacing) {
@@ -27,18 +34,16 @@ struct CalcRowView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(dolarInfo.nombre)
                         .font(.system(.title3, design: .serif).weight(.semibold))
-                    Text(isCalcPesos ? "De dolares a pesos" : "De pesos a dolares")
+                        .foregroundStyle(.primary)
+
+                    Text(useCompactCards ? "Compra, venta y spread" : "Mercado argentino")
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                    Text("Compra \(premiumCurrencyString(dolarInfo.compra))  |  Venta \(premiumCurrencyString(dolarInfo.venta))")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
                 }
 
                 Spacer()
 
-                Image(systemName: "function")
+                Image(systemName: "dollarsign.arrow.circlepath")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(PremiumPalette.emeraldHighlight)
                     .frame(width: iconSize, height: iconSize)
@@ -49,35 +54,60 @@ struct CalcRowView: View {
             }
 
             HStack(spacing: 12) {
-                CalculatorValueColumn(
-                    title: "Con compra",
-                    value: resolvedAmount(for: dolarInfo.compra),
+                QuoteValueColumn(
+                    title: "Compra",
+                    value: dolarInfo.compra,
                     accent: .secondary,
                     compact: useCompactCards
                 )
 
-                CalculatorValueColumn(
-                    title: "Con venta",
-                    value: resolvedAmount(for: dolarInfo.venta),
+                QuoteValueColumn(
+                    title: "Venta",
+                    value: dolarInfo.venta,
                     accent: PremiumPalette.emeraldHighlight,
                     compact: useCompactCards
                 )
+            }
+
+            HStack(spacing: useCompactCards ? 6 : 8) {
+                Label("Spread \(premiumCurrencyString(spreadValue))", systemImage: "arrow.left.and.right")
+                    .font(.caption.weight(.semibold))
+                Text(premiumPercentageString(spreadPercentage))
+                    .font(.caption)
+                    .foregroundStyle(PremiumPalette.emeraldHighlight)
+                    .lineLimit(1)
+            }
+            .foregroundStyle(.secondary)
+
+            if showUpdateStamp, !dolarInfo.fechaActualizacion.isEmpty {
+                HStack(spacing: 8) {
+                    Image(systemName: "clock")
+                        .font(.caption.weight(.semibold))
+                    Text("Referencia \(premiumCompactUpdateString(dolarInfo.fechaActualizacion))")
+                        .font(.caption)
+                        .lineLimit(1)
+                }
+                .foregroundStyle(.secondary)
             }
         }
         .padding(cardPadding)
         .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
     }
 
-    private func resolvedAmount(for rate: Double) -> Double {
-        guard montoIngresado > 0, rate > 0 else {
+    private var spreadValue: Double {
+        max(0, dolarInfo.venta - dolarInfo.compra)
+    }
+
+    private var spreadPercentage: Double {
+        guard dolarInfo.compra > 0 else {
             return 0
         }
 
-        return isCalcPesos ? rate * montoIngresado : montoIngresado / rate
+        return (spreadValue / dolarInfo.compra) * 100
     }
 }
 
-private struct CalculatorValueColumn: View {
+private struct QuoteValueColumn: View {
     let title: String
     let value: Double
     let accent: Color
@@ -93,7 +123,7 @@ private struct CalculatorValueColumn: View {
             PremiumCurrencyValueText(
                 value: value,
                 accent: accent,
-                integerSize: compact ? 17 : 20,
+                integerSize: compact ? 18 : 22,
                 centsSize: compact ? 12 : 14
             )
         }
@@ -107,9 +137,9 @@ private struct CalculatorValueColumn: View {
 }
 
 #Preview {
-    CalcRowView(
+    DollarRowView(
         dolarInfo: DollarInfoModel.placeholderModel,
-        montoIngresado: .constant(1),
-        isCalcPesos: .constant(true)
+        useCompactCards: false,
+        showUpdateStamp: true
     )
 }

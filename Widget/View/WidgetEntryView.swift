@@ -50,16 +50,10 @@ struct WidgetEntryView: View {
 
             widgetCompactRow(entry.dolarInfo2)
         }
-        .padding(5)
     }
 
     private var accessoryLayout: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Dolar")
-                .font(.caption2.weight(.semibold))
-                .foregroundStyle(PremiumPalette.graphite)
-                .lineLimit(1)
-
             accessoryQuoteLine(entry.dolarInfo1)
             accessoryQuoteLine(entry.dolarInfo2)
         }
@@ -77,7 +71,6 @@ struct WidgetEntryView: View {
                     
                     Text("Mercado ARG")
                         .font(.caption2)
-                        .foregroundStyle(.secondary)
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
                         .foregroundStyle(PremiumPalette.sand.opacity(0.4))
@@ -135,12 +128,12 @@ struct WidgetEntryView: View {
     private func mediumQuoteRow(_ quote: DollarInfoModel) -> some View {
         HStack {
             Text(compactName(for: quote))
-                .font(.footnote.weight(.semibold))
+                .font(.callout.weight(.semibold))
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
                 .foregroundStyle(PremiumPalette.emeraldHighlight)
 
-            HStack(spacing: 8) {
+            HStack(spacing: 28) {
                 mediumValueBlock(title: "Compra", value: quote.compra, accent: PremiumPalette.sand.opacity(0.75))
                 mediumValueBlock(title: "Venta", value: quote.venta, accent: PremiumPalette.sand.opacity(0.75))
             }
@@ -161,14 +154,14 @@ struct WidgetEntryView: View {
     private func mediumValueBlock(title: String, value: Double, accent: Color) -> some View {
         VStack(alignment: .leading, spacing: 3) {
             Text(title)
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+                .font(.caption)
                 .foregroundStyle(PremiumPalette.cream)
+            
 
             PremiumCurrencyValueText(
                 value: value,
                 accent: accent,
-                integerSize: 16,
+                integerSize: 20,
                 centsSize: 11
             )
         }
@@ -185,21 +178,21 @@ struct WidgetEntryView: View {
                 .foregroundStyle(PremiumPalette.cream.opacity(0.5))
 
             HStack {
-                Text("C: \(premiumCompactValue(for: quote.compra))")
-                    .font(.caption.weight(.medium))
+                Text("C:\(premiumCompactValue(for: quote.compra))")
+                    .font(.caption.weight(.heavy))
                     .foregroundStyle(PremiumPalette.emeraldHighlight)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.60)
+                    .minimumScaleFactor(0.30)
                 
                 //Spacer(minLength: 4)
                 Divider()
                     .overlay(PremiumPalette.emerald.opacity(0.78))
                 
                 Text("V: \(premiumCompactValue(for: quote.venta))")
-                    .font(.caption.weight(.semibold))
+                    .font(.caption.weight(.heavy))
                     .foregroundStyle(PremiumPalette.emeraldHighlight)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.60)
+                    .minimumScaleFactor(0.30)
             }
         }
     }
@@ -207,9 +200,9 @@ struct WidgetEntryView: View {
     private func accessoryQuoteLine(_ quote: DollarInfoModel) -> some View {
         HStack(spacing: 6) {
             Text(compactAccessoryName(for: quote))
-                .font(.caption2.weight(.semibold))
+                .font(.callout.weight(.semibold))
                 .lineLimit(1)
-                .minimumScaleFactor(0.7)
+                .minimumScaleFactor(0.8)
 
             Spacer()
 
@@ -217,21 +210,16 @@ struct WidgetEntryView: View {
                 Text("C \(premiumCompactValue(for: quote.compra))")
                     .bold()
                     .foregroundStyle(PremiumPalette.cream)
+                    .font(.callout.weight(.semibold))
                 Text("V \(premiumCompactValue(for: quote.venta))")
                     .bold()
                     .foregroundStyle(PremiumPalette.warmWhite)
+                    .font(.callout.weight(.semibold))
             }
-            .font(.caption2)
             .monospacedDigit()
             .lineLimit(1)
             .minimumScaleFactor(0.70)
         }
-    }
-
-    private var trackedQuotesCount: Int {
-        [entry.dolarInfo1.nombre, entry.dolarInfo2.nombre]
-            .filter { !$0.isEmpty }
-            .count
     }
 
     private func compactName(for quote: DollarInfoModel) -> String {

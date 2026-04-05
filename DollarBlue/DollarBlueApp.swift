@@ -7,15 +7,15 @@
 //
 
 import SwiftUI
-import DollarNetworkManage
 
 @main
 struct DollarBlueApp: App {
-    private var dataController = DollarNetworkManager()
+    @State private var quoteStore = QuoteStore()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(quoteStore)
         }
     }
 }

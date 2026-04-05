@@ -1,114 +1,93 @@
 //
-//  ConfigView.swift
+//  ConfigSections.swift
 //  DollarBlue
 //
-//  Copyright © 2024 The SY Repository. All rights reserved.
-//
-//
-//  Created by Sebastián Yanni.
+//  Created by Codex on 05/04/2026.
 //
 
 import SwiftUI
 
-struct ConfigView: View {
-    @AppStorage("themePreference") private var themePreference = AppThemeMode.system.rawValue
-    @AppStorage("showPortraitHeader") private var showPortraitHeader = true
-    @AppStorage("useCompactCards") private var useCompactCards = false
-    @AppStorage("showUpdateStamp") private var showUpdateStamp = true
-    @AppStorage("quoteSortOrder") private var quoteSortOrder = QuoteSortOrder.api.rawValue
-    @AppStorage("featuredMarketPrimary") private var featuredMarketPrimary = QuotePresentationSupport.defaultPrimaryMarketID
-    @AppStorage("featuredMarketSecondary") private var featuredMarketSecondary = QuotePresentationSupport.defaultSecondaryMarketID
-    
+struct ConfigThemeSection: View {
+    let selectedTheme: AppThemeMode
+    let selectTheme: (AppThemeMode) -> Void
+
     var body: some View {
-        NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 18) {
-                    PremiumSectionHeader(
-                        eyebrow: "Personalizacion",
-                        title: "Ajustes",
-                        subtitle: "Una mezcla entre lectura financiera sobria y una capa visual mas nativa para iOS."
-                    )
+        VStack(alignment: .leading, spacing: 14) {
+            Text("Tema")
+                .font(.headline)
+                .foregroundStyle(.primary)
 
-                    VStack(alignment: .leading, spacing: 14) {
-                        Text("Tema")
-                            .font(.headline)
-                            .foregroundStyle(.primary)
-
-                        HStack(spacing: 10) {
-                            ForEach(AppThemeMode.allCases) { mode in
-                                Button {
-                                    themePreference = mode.rawValue
-                                } label: {
-                                    Text(mode.title)
-                                        .font(.subheadline.weight(.semibold))
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 12)
-                                        .foregroundStyle(selectedTheme == mode ? Color.white : .primary.opacity(0.82))
-                                        .background {
-                                            Capsule()
-                                                .fill(selectedTheme == mode ? PremiumPalette.emerald : Color.clear)
-                                        }
-                                }
-                                .buttonStyle(.plain)
+            HStack(spacing: 10) {
+                ForEach(AppThemeMode.allCases) { mode in
+                    Button {
+                        selectTheme(mode)
+                    } label: {
+                        Text(mode.title)
+                            .font(.subheadline.weight(.semibold))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .foregroundStyle(selectedTheme == mode ? Color.white : .primary.opacity(0.82))
+                            .background {
+                                Capsule()
+                                    .fill(selectedTheme == mode ? PremiumPalette.emerald : Color.clear)
                             }
-                        }
-                        .padding(8)
-                        .premiumSurface(cornerRadius: 22, accent: PremiumPalette.emerald, glassEnabled: true)
                     }
-                    .padding(20)
-                    .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
-
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Experiencia")
-                            .font(.headline)
-
-                        settingsToggle(
-                            icon: "person.crop.rectangle",
-                            title: "Mostrar retratos en el encabezado",
-                            subtitle: "Mantiene el guiño visual premium en Home.",
-                            isOn: $showPortraitHeader
-                        )
-
-                        settingsToggle(
-                            icon: "rectangle.compress.vertical",
-                            title: "Usar tarjetas compactas",
-                            subtitle: "Hace que Home y Calculadora respiren menos y muestren mas contenido.",
-                            isOn: $useCompactCards
-                        )
-
-                        settingsToggle(
-                            icon: "clock.arrow.circlepath",
-                            title: "Mostrar sello de actualizacion",
-                            subtitle: "Enseña la fecha de referencia dentro de las tarjetas y del header principal.",
-                            isOn: $showUpdateStamp
-                        )
-                    }
-                    .padding(20)
-                    .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald.opacity(0.9), glassEnabled: true)
-
-                    marketConfigurationSection
-
-                    previewSection
-
-                    FloatingTabBarFooterSpacer(extraPadding: 14)
+                    .buttonStyle(.plain)
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 18)
-                .padding(.bottom, 10)
             }
-            .background(PremiumScreenBackground())
+            .padding(8)
+            .premiumSurface(cornerRadius: 22, accent: PremiumPalette.emerald, glassEnabled: true)
         }
+        .padding(20)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
     }
+}
 
-    private var selectedTheme: AppThemeMode {
-        AppThemeMode(rawValue: themePreference) ?? .system
+struct ConfigExperienceSection: View {
+    @Binding var showPortraitHeader: Bool
+    @Binding var useCompactCards: Bool
+    @Binding var showUpdateStamp: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Experiencia")
+                .font(.headline)
+
+            SettingsToggleRow(
+                icon: "person.crop.rectangle",
+                title: "Mostrar retratos en el encabezado",
+                subtitle: "Mantiene el guiño visual premium en Home.",
+                isOn: $showPortraitHeader
+            )
+
+            SettingsToggleRow(
+                icon: "rectangle.compress.vertical",
+                title: "Usar tarjetas compactas",
+                subtitle: "Hace que Home y Calculadora respiren menos y muestren mas contenido.",
+                isOn: $useCompactCards
+            )
+
+            SettingsToggleRow(
+                icon: "clock.arrow.circlepath",
+                title: "Mostrar sello de actualizacion",
+                subtitle: "Enseña la fecha de referencia dentro de las tarjetas y del header principal.",
+                isOn: $showUpdateStamp
+            )
+        }
+        .padding(20)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald.opacity(0.9), glassEnabled: true)
     }
+}
 
-    private var selectedSortOrder: QuoteSortOrder {
-        QuoteSortOrder(rawValue: quoteSortOrder) ?? .api
-    }
+struct ConfigMarketConfigurationSection: View {
+    let selectedSortOrder: QuoteSortOrder
+    let featuredMarketPrimary: String
+    let featuredMarketSecondary: String
+    let selectSortOrder: (QuoteSortOrder) -> Void
+    let selectPrimaryMarket: (String) -> Void
+    let selectSecondaryMarket: (String) -> Void
 
-    private var marketConfigurationSection: some View {
+    var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Mercado")
                 .font(.headline)
@@ -117,38 +96,38 @@ struct ConfigView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-            settingsMenuRow(
+            SettingsMenuRow(
                 icon: "arrow.up.arrow.down",
                 title: "Ordenar referencias",
                 value: selectedSortOrder.title
             ) {
                 ForEach(QuoteSortOrder.allCases) { order in
                     Button(order.title) {
-                        quoteSortOrder = order.rawValue
+                        selectSortOrder(order)
                     }
                 }
             }
 
-            settingsMenuRow(
+            SettingsMenuRow(
                 icon: "star.leadinghalf.filled",
                 title: "Destacado principal",
                 value: QuotePresentationSupport.marketTitle(for: featuredMarketPrimary)
             ) {
                 ForEach(QuotePresentationSupport.featuredMarkets) { market in
                     Button(market.title) {
-                        updatePrimaryMarket(market.id)
+                        selectPrimaryMarket(market.id)
                     }
                 }
             }
 
-            settingsMenuRow(
+            SettingsMenuRow(
                 icon: "star",
                 title: "Destacado secundario",
                 value: QuotePresentationSupport.marketTitle(for: featuredMarketSecondary)
             ) {
                 ForEach(QuotePresentationSupport.featuredMarkets) { market in
                     Button(market.title) {
-                        updateSecondaryMarket(market.id)
+                        selectSecondaryMarket(market.id)
                     }
                 }
             }
@@ -156,8 +135,17 @@ struct ConfigView: View {
         .padding(20)
         .premiumSurface(cornerRadius: 28, accent: PremiumPalette.sand, glassEnabled: true)
     }
+}
 
-    private var previewSection: some View {
+struct ConfigPreviewSection: View {
+    let selectedTheme: AppThemeMode
+    let useCompactCards: Bool
+    let showUpdateStamp: Bool
+    let featuredMarketPrimary: String
+    let featuredMarketSecondary: String
+    let selectedSortOrder: QuoteSortOrder
+
+    var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Vista previa")
                 .font(.headline)
@@ -195,8 +183,8 @@ struct ConfigView: View {
                 }
 
                 HStack(spacing: 10) {
-                    previewValueBlock(title: "Compra", value: "$1.210,00", accent: .secondary)
-                    previewValueBlock(title: "Venta", value: "$1.230,00", accent: PremiumPalette.emeraldHighlight)
+                    PreviewValueBlock(title: "Compra", value: "$1.210,00", accent: .secondary)
+                    PreviewValueBlock(title: "Venta", value: "$1.230,00", accent: PremiumPalette.emeraldHighlight)
                 }
 
                 if showUpdateStamp {
@@ -225,8 +213,15 @@ struct ConfigView: View {
             PremiumPill(icon: "star.fill", label: QuotePresentationSupport.marketTitle(for: featuredMarketSecondary))
         }
     }
+}
 
-    private func settingsToggle(icon: String, title: String, subtitle: String, isOn: Binding<Bool>) -> some View {
+struct SettingsToggleRow: View {
+    let icon: String
+    let title: String
+    let subtitle: String
+    @Binding var isOn: Bool
+
+    var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: icon)
                 .font(.subheadline.weight(.semibold))
@@ -237,7 +232,7 @@ struct ConfigView: View {
                         .fill(PremiumPalette.emerald.opacity(0.10))
                 }
 
-            Toggle(isOn: isOn) {
+            Toggle(isOn: $isOn) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(.subheadline.weight(.semibold))
@@ -251,13 +246,27 @@ struct ConfigView: View {
         }
         .padding(.vertical, 6)
     }
+}
 
-    private func settingsMenuRow<Content: View>(
+struct SettingsMenuRow<Content: View>: View {
+    let icon: String
+    let title: String
+    let value: String
+    let content: () -> Content
+
+    init(
         icon: String,
         title: String,
         value: String,
-        @ViewBuilder content: () -> Content
-    ) -> some View {
+        @ViewBuilder content: @escaping () -> Content
+    ) {
+        self.icon = icon
+        self.title = title
+        self.value = value
+        self.content = content
+    }
+
+    var body: some View {
         Menu {
             content()
         } label: {
@@ -290,26 +299,14 @@ struct ConfigView: View {
         }
         .buttonStyle(.plain)
     }
+}
 
-    private func updatePrimaryMarket(_ newMarketID: String) {
-        let previousPrimary = featuredMarketPrimary
-        featuredMarketPrimary = newMarketID
+struct PreviewValueBlock: View {
+    let title: String
+    let value: String
+    let accent: Color
 
-        if featuredMarketSecondary == newMarketID {
-            featuredMarketSecondary = previousPrimary
-        }
-    }
-
-    private func updateSecondaryMarket(_ newMarketID: String) {
-        let previousSecondary = featuredMarketSecondary
-        featuredMarketSecondary = newMarketID
-
-        if featuredMarketPrimary == newMarketID {
-            featuredMarketPrimary = previousSecondary
-        }
-    }
-
-    private func previewValueBlock(title: String, value: String, accent: Color) -> some View {
+    var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title.uppercased())
                 .font(.caption.weight(.semibold))
@@ -329,8 +326,4 @@ struct ConfigView: View {
                 .fill(PremiumPalette.emerald.opacity(0.08))
         }
     }
-}
-
-#Preview {
-    ConfigView()
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observation
 import DollarInfoModel
 import DollarNetworkManage
 
@@ -93,6 +94,106 @@ struct QuoteConnectionStatus: Equatable {
     let title: String
     let message: String
     let checkedAt: Date
+}
+
+struct QuoteDashboardMetrics {
+    let averageBuy: Double
+    let averageSell: Double
+    let averageSpread: Double
+    let highestSellQuote: DollarInfoModel?
+
+    var highestSellValue: Double {
+        highestSellQuote?.venta ?? 0
+    }
+}
+
+extension QuoteConnectionStatus {
+    static var unknown: QuoteConnectionStatus {
+        QuoteConnectionStatus(
+            state: .unknown,
+            title: "Sin verificar",
+            message: "Todavia no se consulto el estado de la API.",
+            checkedAt: .now
+        )
+    }
+
+    static var checking: QuoteConnectionStatus {
+        QuoteConnectionStatus(
+            state: .checking,
+            title: "Verificando conexion",
+            message: "Consultando el estado actual de la API.",
+            checkedAt: .now
+        )
+    }
+
+    static func stable(quotesCount: Int, checkedAt: Date = .now) -> QuoteConnectionStatus {
+        QuoteConnectionStatus(
+            state: .stable,
+            title: "Conexion estable",
+            message: "La API respondio correctamente con \(quotesCount) cotizaciones disponibles.",
+            checkedAt: checkedAt
+        )
+    }
+
+    static func issue(message: String, checkedAt: Date = .now) -> QuoteConnectionStatus {
+        QuoteConnectionStatus(
+            state: .issue,
+            title: "Problema con la API",
+            message: message,
+            checkedAt: checkedAt
+        )
+    }
+}
+
+@MainActor
+@Observable
+final class QuoteStore {
+    var quotes = [DollarInfoModel]()
+    var alertMessage: AppAlertMessage?
+    var connectionStatus = QuoteConnectionStatus.unknown
+    var isLoading = false
+
+    private var hasLoadedOnce = false
+
+    func loadIfNeeded() async {
+        guard quotes.isEmpty, !hasLoadedOnce else {
+            return
+        }
+
+        await refresh()
+    }
+
+    func refresh() async {
+        guard !isLoading else {
+            return
+        }
+
+        isLoading = true
+        connectionStatus = .checking
+
+        defer {
+            isLoading = false
+        }
+
+        do {
+            let fetchedQuotes = try await DollarNetworkManager.fetchAllCotizations()
+            quotes = fetchedQuotes
+            hasLoadedOnce = true
+            alertMessage = nil
+            connectionStatus = .stable(quotesCount: fetchedQuotes.count)
+        } catch let error as DollarNetworkAppError {
+            connectionStatus = .issue(message: error.localizedDescription)
+            alertMessage = AppAlertMessage(value: error.localizedDescription)
+        } catch {
+            let message = DollarNetworkAppError.unexpected(error).localizedDescription
+            connectionStatus = .issue(message: message)
+            alertMessage = AppAlertMessage(value: message)
+        }
+    }
+
+    func dismissAlert() {
+        alertMessage = nil
+    }
 }
 
 enum QuotePresentationSupport {
@@ -189,6 +290,32 @@ enum QuotePresentationSupport {
         market(for: resolvedMarketID(marketID))?.title ?? "Sin seleccionar"
     }
 
+    static func dashboardMetrics(from quotes: [DollarInfoModel]) -> QuoteDashboardMetrics {
+        guard !quotes.isEmpty else {
+            return QuoteDashboardMetrics(
+                averageBuy: 0,
+                averageSell: 0,
+                averageSpread: 0,
+                highestSellQuote: nil
+            )
+        }
+
+        let buyTotal = quotes.reduce(0) { $0 + $1.compra }
+        let sellTotal = quotes.reduce(0) { $0 + $1.venta }
+        let spreadTotal = quotes.reduce(0) { partial, quote in
+            partial + max(0, quote.venta - quote.compra)
+        }
+
+        return QuoteDashboardMetrics(
+            averageBuy: buyTotal / Double(quotes.count),
+            averageSell: sellTotal / Double(quotes.count),
+            averageSpread: spreadTotal / Double(quotes.count),
+            highestSellQuote: quotes.max { lhs, rhs in
+                lhs.venta < rhs.venta
+            }
+        )
+    }
+
     static func compactDisplayName(for quoteName: String) -> String {
         let normalizedQuote = normalizedMarketName(quoteName)
 
@@ -266,39 +393,6 @@ extension DollarNetworkManager {
             throw DollarNetworkAppError.decoding(error)
         } catch {
             throw DollarNetworkAppError.unexpected(error)
-        }
-    }
-
-    static func fetchConnectionStatus(session: URLSession = .shared) async -> QuoteConnectionStatus {
-        do {
-            let quotes = try await fetchAllCotizations(session: session)
-            return QuoteConnectionStatus(
-                state: .stable,
-                title: "Conexion estable",
-                message: "La API respondio correctamente con \(quotes.count) cotizaciones disponibles.",
-                checkedAt: .now
-            )
-        } catch let error as DollarNetworkAppError {
-            return QuoteConnectionStatus(
-                state: .issue,
-                title: "Problema con la API",
-                message: error.localizedDescription,
-                checkedAt: .now
-            )
-        } catch let error as URLError {
-            return QuoteConnectionStatus(
-                state: .issue,
-                title: "Problema de conexion",
-                message: DollarNetworkAppError.transport(error).localizedDescription,
-                checkedAt: .now
-            )
-        } catch {
-            return QuoteConnectionStatus(
-                state: .issue,
-                title: "Problema inesperado",
-                message: DollarNetworkAppError.unexpected(error).localizedDescription,
-                checkedAt: .now
-            )
         }
     }
 

@@ -67,7 +67,7 @@ struct CurrencyTextField: UIViewRepresentable {
         textField.placeholder = placeholder
         textField.backgroundColor = .clear
         textField.textColor = UIColor.label
-        textField.tintColor = UIColor(named: "ColorGreenD") ?? UIColor.systemGreen
+        textField.tintColor = UIColor(PremiumPalette.emerald.opacity(0.6))
         textField.textAlignment = .right
         textField.font = .monospacedDigitSystemFont(ofSize: 26, weight: .semibold)
         textField.adjustsFontForContentSizeCategory = true
@@ -120,7 +120,7 @@ struct CurrencyTextField: UIViewRepresentable {
     private func makeAccessoryToolbar(coordinator: Coordinator) -> UIToolbar {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        toolbar.tintColor = UIColor(named: "ColorGreenD") ?? UIColor(red: 0.28, green: 0.56, blue: 0.25, alpha: 1)
+        toolbar.tintColor = UIColor(PremiumPalette.emerald.opacity(0.6))
         toolbar.items = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(

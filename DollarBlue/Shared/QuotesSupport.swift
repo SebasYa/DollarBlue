@@ -174,7 +174,7 @@ extension QuoteConnectionStatus {
     static func issue(message: String, checkedAt: Date = .now) -> QuoteConnectionStatus {
         QuoteConnectionStatus(
             state: .issue,
-            title: "Problema con el Servicio de Datos",
+            title: "Error",
             message: message,
             checkedAt: checkedAt
         )

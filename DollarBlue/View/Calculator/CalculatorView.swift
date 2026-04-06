@@ -45,7 +45,7 @@ struct CalculationView: View {
                     PremiumSectionHeader(
                         eyebrow: "Conversion inteligente",
                         title: "Calculadora",
-                        subtitle: "Monta un escenario rápido y compara compra y venta con una lectura mas limpia."
+                        subtitle: "Convertir de Pesos a Dólares o de Dólares a Pesos Fácil y Rápido."
                     )
 
                     CalculationConversionPanel(

@@ -18,7 +18,7 @@ enum TabModel: String, CaseIterable {
         case .home:
             "Mercado"
         case .calculator:
-            "Calculadora"
+            "Calcu"
         case .configuration:
             "Ajustes"
         }

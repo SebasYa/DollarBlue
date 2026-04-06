@@ -34,7 +34,7 @@ struct ConfigView: View {
                     PremiumSectionHeader(
                         eyebrow: "Personalizacion",
                         title: "Ajustes",
-                        subtitle: "Una mezcla entre lectura financiera sobria y una capa visual mas nativa para iOS."
+                        subtitle: ""
                     )
 
                     ConfigThemeSection(

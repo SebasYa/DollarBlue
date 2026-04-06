@@ -13,19 +13,13 @@ struct CustomTabBarView: View {
 
     @Binding var activeTab : TabModel
     @Namespace private var animation
-    @State private var highlightedTab: TabModel = .home
+    @State private var tabLocation: CGRect = .zero
 
     var body: some View {
         HStack(spacing: 0) {
             ForEach(TabModel.allCases, id: \.rawValue) { tab in
                 Button {
-                    guard activeTab != tab else { return }
-
                     activeTab = tab
-
-                    withAnimation(.smooth(duration: 0.3, extraBounce: 0)) {
-                        highlightedTab = tab
-                    }
                 } label: {
                     HStack(spacing: 5) {
                         Image(systemName: tab.rawValue)
@@ -36,28 +30,23 @@ struct CustomTabBarView: View {
                             Text(tab.title)
                                 .font(.caption)
                                 .fontWeight(.semibold)
-                                .fixedSize(horizontal: true, vertical: false)
                                 .lineLimit(1)
                         }
                     }
-                    .foregroundStyle(activeTab == tab ? activeForeground : .primary.opacity(0.68))
+                    .foregroundStyle(activeTab == tab ? activeForeground : .gray)
                     .padding(.vertical, 2)
                     .padding(.leading, 10)
                     .padding(.trailing, 15)
                     .contentShape(.rect)
                     .background {
-                        if highlightedTab == tab {
+                        if activeTab == tab {
                             Capsule()
-                                .fill(
-                                    LinearGradient(
-                                        colors: [
-                                            activeBackground,
-                                            PremiumPalette.emeraldHighlight
-                                        ],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
+                                .fill(Color.clear)
+                                .onGeometryChange(for: CGRect.self, of: {
+                                    $0.frame(in: .named("TABBARVIEW"))
+                                }, action: { newValue in
+                                    tabLocation = newValue
+                                })
                                 .matchedGeometryEffect(id: "ACTIVETBAR", in: animation)
                         }
                     }
@@ -65,6 +54,22 @@ struct CustomTabBarView: View {
                 .buttonStyle(.plain)
             }
         }
+        .background(alignment: .leading) {
+            Capsule()
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            activeBackground,
+                            PremiumPalette.emeraldHighlight
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .frame(width: tabLocation.width, height: tabLocation.height)
+                .offset(x: tabLocation.minX)
+        }
+        .coordinateSpace(.named("TABBARVIEW"))
         .padding(.horizontal, 5)
         .frame(height: 45)
         .background(
@@ -75,16 +80,7 @@ struct CustomTabBarView: View {
             in: .capsule
         )
         .zIndex(50)
-        .onAppear {
-            highlightedTab = activeTab
-        }
-        .onChange(of: activeTab) { _, newValue in
-            guard highlightedTab != newValue else { return }
-
-            withAnimation(.smooth(duration: 0.3, extraBounce: 0)) {
-                highlightedTab = newValue
-            }
-        }
+        .animation(.smooth(duration: 0.3, extraBounce: 0), value: activeTab)
     }
 }
 

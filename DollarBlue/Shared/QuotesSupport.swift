@@ -25,25 +25,42 @@ enum DollarNetworkAppError: LocalizedError {
         switch self {
         case .invalidResponse(let statusCode):
             if let statusCode {
-                return "El servidor respondio con un estado invalido (\(statusCode))."
+                return "El servidor respondió con un estado invalido (\(statusCode))."
             }
 
             return "La respuesta del servidor no fue valida."
         case .transport(let error):
             switch error.code {
             case .notConnectedToInternet:
-                return "No hay conexion a internet."
+                return "No hay conexión a internet."
             case .timedOut:
                 return "La solicitud tardo demasiado. Intentalo nuevamente."
             case .networkConnectionLost, .cannotConnectToHost, .cannotFindHost:
                 return "No se pudo conectar con el servidor."
             default:
-                return "Ocurrio un error de red: \(error.localizedDescription)"
+                return "Ocurrió un error de red: \(error.localizedDescription)"
             }
         case .decoding:
             return "No se pudieron interpretar las cotizaciones recibidas."
         case .unexpected(let error):
-            return "Ocurrio un error inesperado: \(error.localizedDescription)"
+            return "Ocurrió un error inesperado: \(error.localizedDescription)"
+        }
+    }
+
+    static func from(_ error: Error) -> DollarNetworkAppError {
+        guard let fetchError = error as? DollarNetworkManager.FetchError else {
+            return .unexpected(error)
+        }
+
+        switch fetchError {
+        case .invalidResponse(let statusCode):
+            return .invalidResponse(statusCode: statusCode)
+        case .transport(let urlError):
+            return .transport(urlError)
+        case .decoding(let decodingError):
+            return .decoding(decodingError)
+        case .unexpected(let underlyingError):
+            return .unexpected(underlyingError)
         }
     }
 }
@@ -107,12 +124,31 @@ struct QuoteDashboardMetrics {
     }
 }
 
+struct HomeQuotePresentation {
+    let displayedQuotes: [DollarInfoModel]
+    let highlightedQuotes: [DollarInfoModel]
+    let updateReference: String?
+    let dashboardMetrics: QuoteDashboardMetrics
+
+    static let empty = HomeQuotePresentation(
+        displayedQuotes: [],
+        highlightedQuotes: [],
+        updateReference: nil,
+        dashboardMetrics: QuoteDashboardMetrics(
+            averageBuy: 0,
+            averageSell: 0,
+            averageSpread: 0,
+            highestSellQuote: nil
+        )
+    )
+}
+
 extension QuoteConnectionStatus {
     static var unknown: QuoteConnectionStatus {
         QuoteConnectionStatus(
             state: .unknown,
             title: "Sin verificar",
-            message: "Todavia no se consulto el estado de la API.",
+            message: "Todavía no se consulto el estado del Servicio de Datos.",
             checkedAt: .now
         )
     }
@@ -120,8 +156,8 @@ extension QuoteConnectionStatus {
     static var checking: QuoteConnectionStatus {
         QuoteConnectionStatus(
             state: .checking,
-            title: "Verificando conexion",
-            message: "Consultando el estado actual de la API.",
+            title: "Verificando conexión",
+            message: "Consultando el estado actual del Servicio de Datos.",
             checkedAt: .now
         )
     }
@@ -129,8 +165,8 @@ extension QuoteConnectionStatus {
     static func stable(quotesCount: Int, checkedAt: Date = .now) -> QuoteConnectionStatus {
         QuoteConnectionStatus(
             state: .stable,
-            title: "Conexion estable",
-            message: "La API respondio correctamente con \(quotesCount) cotizaciones disponibles.",
+            title: "Valores al dia",
+            message: "Datos actualizados a la fecha.",
             checkedAt: checkedAt
         )
     }
@@ -138,7 +174,7 @@ extension QuoteConnectionStatus {
     static func issue(message: String, checkedAt: Date = .now) -> QuoteConnectionStatus {
         QuoteConnectionStatus(
             state: .issue,
-            title: "Problema con la API",
+            title: "Problema con el Servicio de Datos",
             message: message,
             checkedAt: checkedAt
         )
@@ -152,6 +188,7 @@ final class QuoteStore {
     var alertMessage: AppAlertMessage?
     var connectionStatus = QuoteConnectionStatus.unknown
     var isLoading = false
+    var refreshRevision = 0
 
     private var hasLoadedOnce = false
 
@@ -179,13 +216,12 @@ final class QuoteStore {
             let fetchedQuotes = try await DollarNetworkManager.fetchAllCotizations()
             quotes = fetchedQuotes
             hasLoadedOnce = true
+            refreshRevision += 1
             alertMessage = nil
             connectionStatus = .stable(quotesCount: fetchedQuotes.count)
-        } catch let error as DollarNetworkAppError {
-            connectionStatus = .issue(message: error.localizedDescription)
-            alertMessage = AppAlertMessage(value: error.localizedDescription)
         } catch {
-            let message = DollarNetworkAppError.unexpected(error).localizedDescription
+            let appError = DollarNetworkAppError.from(error)
+            let message = appError.localizedDescription
             connectionStatus = .issue(message: message)
             alertMessage = AppAlertMessage(value: message)
         }
@@ -290,6 +326,26 @@ enum QuotePresentationSupport {
         market(for: resolvedMarketID(marketID))?.title ?? "Sin seleccionar"
     }
 
+    static func homePresentation(
+        quotes: [DollarInfoModel],
+        order: QuoteSortOrder,
+        primaryMarketID: String,
+        secondaryMarketID: String
+    ) -> HomeQuotePresentation {
+        let displayedQuotes = sortedQuotes(quotes, order: order)
+
+        return HomeQuotePresentation(
+            displayedQuotes: displayedQuotes,
+            highlightedQuotes: featuredQuotes(
+                from: displayedQuotes,
+                primaryMarketID: primaryMarketID,
+                secondaryMarketID: secondaryMarketID
+            ),
+            updateReference: displayedQuotes.first?.fechaActualizacion,
+            dashboardMetrics: dashboardMetrics(from: displayedQuotes)
+        )
+    }
+
     static func dashboardMetrics(from quotes: [DollarInfoModel]) -> QuoteDashboardMetrics {
         guard !quotes.isEmpty else {
             return QuoteDashboardMetrics(
@@ -361,50 +417,5 @@ enum QuotePresentationSupport {
             .replacingOccurrences(of: " ", with: "")
             .replacingOccurrences(of: "-", with: "")
             .replacingOccurrences(of: "_", with: "")
-    }
-}
-
-extension DollarNetworkManager {
-    private static let quotesURL = URL(string: "https://dolarapi.com/v1/dolares")!
-
-    static func fetchAllCotizations(session: URLSession = .shared) async throws -> [DollarInfoModel] {
-        let data: Data
-        let response: URLResponse
-
-        do {
-            (data, response) = try await session.data(from: quotesURL)
-        } catch let error as URLError {
-            throw DollarNetworkAppError.transport(error)
-        } catch {
-            throw DollarNetworkAppError.unexpected(error)
-        }
-
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw DollarNetworkAppError.invalidResponse(statusCode: nil)
-        }
-
-        guard (200..<300).contains(httpResponse.statusCode) else {
-            throw DollarNetworkAppError.invalidResponse(statusCode: httpResponse.statusCode)
-        }
-
-        do {
-            return try JSONDecoder().decode([DollarInfoModel].self, from: data)
-        } catch let error as DecodingError {
-            throw DollarNetworkAppError.decoding(error)
-        } catch {
-            throw DollarNetworkAppError.unexpected(error)
-        }
-    }
-
-    @MainActor
-    func refreshFromServer() async -> AppAlertMessage? {
-        do {
-            cotizaciones = try await Self.fetchAllCotizations()
-            return nil
-        } catch let error as DollarNetworkAppError {
-            return AppAlertMessage(value: error.localizedDescription)
-        } catch {
-            return AppAlertMessage(value: DollarNetworkAppError.unexpected(error).localizedDescription)
-        }
     }
 }

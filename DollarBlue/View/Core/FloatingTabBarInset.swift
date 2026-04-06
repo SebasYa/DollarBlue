@@ -40,7 +40,7 @@ struct FloatingTabBarFooterSpacer: View {
     var body: some View {
         Color.clear
             .frame(height: max(0, floatingTabBarInset + extraPadding))
-            .allowsHitTesting(false)
+            //.allowsHitTesting(false)
             .accessibilityHidden(true)
     }
 }

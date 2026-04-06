@@ -61,7 +61,7 @@ struct CalculationConversionPanel: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(16)
-            .premiumSurface(cornerRadius: 22, accent: PremiumPalette.sand, glassEnabled: true)
+            .premiumSurface(cornerRadius: 22, accent: PremiumPalette.sand, glassEnabled: false)
 
             VStack(alignment: .leading, spacing: 10) {
                 Text("Accesos rapidos")
@@ -86,13 +86,13 @@ struct CalculationConversionPanel: View {
                                 .padding(.vertical, 10)
                         }
                         .buttonStyle(.plain)
-                        .premiumSurface(cornerRadius: 18, accent: PremiumPalette.emerald, glassEnabled: true)
+                        .premiumSurface(cornerRadius: 18, accent: PremiumPalette.emerald, glassEnabled: false)
                     }
                 }
             }
         }
         .padding(20)
-        .premiumSurface(cornerRadius: 30, accent: PremiumPalette.emerald, glassEnabled: true)
+        .premiumSurface(cornerRadius: 30, accent: PremiumPalette.emerald, glassEnabled: false)
     }
 }
 
@@ -172,7 +172,7 @@ struct CalculatorStatusCard: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: true)
+        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: false)
     }
 }
 

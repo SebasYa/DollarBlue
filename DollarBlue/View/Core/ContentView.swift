@@ -12,6 +12,7 @@ import SwiftUI
 struct ContentView: View {
     @Environment(QuoteStore.self) private var quoteStore
     @State private var activeTab: TabModel = .home
+    @State private var isTabBarHidden = false
     @AppStorage("themePreference") private var themePreference = AppThemeMode.system.rawValue
     @State private var floatingTabBarInset: CGFloat = 0
     

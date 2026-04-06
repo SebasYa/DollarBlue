@@ -9,15 +9,14 @@
 //
 
 import SwiftUI
-import DollarNetworkManage
 import DollarInfoModel
 
 struct ContentView: View {
-    @State private var dataController = DollarNetworkManager()
-    @State private var alertMessage: AppAlertMessage?
-    @State private var isLoading = false
+    @State private var quoteStore = QuoteStore()
 
     var body: some View {
+        @Bindable var quoteStore = quoteStore
+
         NavigationStack {
             ZStack {
                 PremiumScreenBackground()
@@ -26,16 +25,16 @@ struct ContentView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         watchHeader
 
-                        if !dataController.cotizaciones.isEmpty {
+                        if !quoteStore.quotes.isEmpty {
                             watchOverview
                         }
 
-                        if isLoading && dataController.cotizaciones.isEmpty {
+                        if quoteStore.isLoading && quoteStore.quotes.isEmpty {
                             ProgressView("Consultando...")
                                 .tint(PremiumPalette.emeraldHighlight)
                                 .font(.caption2)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                        } else if dataController.cotizaciones.isEmpty {
+                        } else if quoteStore.quotes.isEmpty {
                             Text("Sin cotizaciones por ahora.")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
@@ -43,7 +42,7 @@ struct ContentView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .premiumSurface(cornerRadius: 18, accent: PremiumPalette.sand, glassEnabled: false)
                         } else {
-                            ForEach(dataController.cotizaciones, id: \.nombre) { dolarInfo in
+                            ForEach(quoteStore.quotes, id: \.nombre) { dolarInfo in
                                 DollarRowView(dolarInfo: dolarInfo)
                             }
                         }
@@ -55,10 +54,12 @@ struct ContentView: View {
             .navigationTitle("Mercado")
         }
         .task {
-            await reloadIfNeeded()
+            await quoteStore.loadIfNeeded()
         }
-        .alert(item: $alertMessage) { errorMessage in
-            Alert(title: Text("Error"), message: Text(errorMessage.value), dismissButton: .default(Text("OK")))
+        .alert(item: $quoteStore.alertMessage) { errorMessage in
+            Alert(title: Text("Error"), message: Text(errorMessage.value), dismissButton: .default(Text("OK")) {
+                quoteStore.dismissAlert()
+            })
         }
     }
 
@@ -90,7 +91,7 @@ struct ContentView: View {
     private var watchOverview: some View {
         ViewThatFits(in: .horizontal) {
             HStack(spacing: 8) {
-                watchStatCard(title: "Refs", value: "\(dataController.cotizaciones.count)")
+                watchStatCard(title: "Refs", value: "\(quoteStore.quotes.count)")
                 watchStatCard(
                     title: "Max venta",
                     value: premiumCurrencyString(highestSellQuote?.venta ?? 0),
@@ -99,7 +100,7 @@ struct ContentView: View {
             }
 
             VStack(spacing: 8) {
-                watchStatCard(title: "Refs", value: "\(dataController.cotizaciones.count)")
+                watchStatCard(title: "Refs", value: "\(quoteStore.quotes.count)")
                 watchStatCard(
                     title: "Max venta",
                     value: premiumCurrencyString(highestSellQuote?.venta ?? 0),
@@ -110,11 +111,11 @@ struct ContentView: View {
     }
 
     private var updateReference: String? {
-        dataController.cotizaciones.first?.fechaActualizacion
+        quoteStore.quotes.first?.fechaActualizacion
     }
 
     private var highestSellQuote: DollarInfoModel? {
-        dataController.cotizaciones.max { lhs, rhs in
+        quoteStore.quotes.max { lhs, rhs in
             lhs.venta < rhs.venta
         }
     }
@@ -136,16 +137,6 @@ struct ContentView: View {
         .padding(8)
         .frame(maxWidth: .infinity, alignment: .leading)
         .premiumSurface(cornerRadius: 16, accent: PremiumPalette.emerald, glassEnabled: true)
-    }
-
-    private func reloadIfNeeded() async {
-        guard dataController.cotizaciones.isEmpty else {
-            return
-        }
-
-        isLoading = true
-        alertMessage = await dataController.refreshFromServer()
-        isLoading = false
     }
 }
 

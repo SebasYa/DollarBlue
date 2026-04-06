@@ -73,7 +73,7 @@ struct CalcRowView: View, Equatable {
             }
         }
         .padding(cardPadding)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: false)
     }
 
     private func resolvedAmount(for rate: Double) -> Double {
@@ -98,11 +98,10 @@ private struct CalculatorValueColumn: View {
                 .tracking(1.0)
                 .foregroundStyle(.secondary)
 
-            PremiumCurrencyValueText(
+            PremiumListCurrencyText(
                 value: value,
                 accent: accent,
-                integerSize: compact ? 17 : 20,
-                centsSize: compact ? 12 : 14
+                size: compact ? 17 : 20
             )
         }
         .padding(compact ? 12 : 14)

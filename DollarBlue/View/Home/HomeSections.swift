@@ -88,7 +88,7 @@ struct HomeMarketPulseSection: View {
                         detail: item.detail,
                         icon: item.icon,
                         accent: item.accent,
-                        glassEnabled: true
+                        glassEnabled: false
                     )
                 }
             }

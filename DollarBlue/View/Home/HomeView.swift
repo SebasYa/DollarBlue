@@ -14,6 +14,7 @@ struct HomeView: View {
     @Environment(QuoteStore.self) private var quoteStore
 
     @State private var showConnectionStatus = false
+    @State private var presentation = HomeQuotePresentation.empty
 
     @AppStorage("showPortraitHeader") private var showPortraitHeader = true
     @AppStorage("showUpdateStamp") private var showUpdateStamp = true
@@ -27,15 +28,7 @@ struct HomeView: View {
     }
 
     var body: some View {
-        let displayedQuotes = QuotePresentationSupport.sortedQuotes(quoteStore.quotes, order: selectedSortOrder)
-        let highlightedQuotes = QuotePresentationSupport.featuredQuotes(
-            from: displayedQuotes,
-            primaryMarketID: featuredMarketPrimary,
-            secondaryMarketID: featuredMarketSecondary
-        )
-        let updateReference = displayedQuotes.first?.fechaActualizacion
-        let dashboardMetrics = QuotePresentationSupport.dashboardMetrics(from: displayedQuotes)
-        let pulseItems = homeMarketPulseItems(using: dashboardMetrics)
+        let pulseItems = homeMarketPulseItems(using: presentation.dashboardMetrics)
 
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -45,21 +38,21 @@ struct HomeView: View {
                         status: quoteStore.connectionStatus,
                         isLoading: quoteStore.isLoading,
                         showUpdateStamp: showUpdateStamp,
-                        updateReference: updateReference,
-                        displayedQuotesCount: displayedQuotes.count,
+                        updateReference: presentation.updateReference,
+                        displayedQuotesCount: presentation.displayedQuotes.count,
                         showConnectionStatus: $showConnectionStatus
                     )
 
-                    if !highlightedQuotes.isEmpty {
-                        HomeSummarySection(highlightedQuotes: highlightedQuotes)
+                    if !presentation.highlightedQuotes.isEmpty {
+                        HomeSummarySection(highlightedQuotes: presentation.highlightedQuotes)
                     }
 
-                    if !displayedQuotes.isEmpty {
+                    if !presentation.displayedQuotes.isEmpty {
                         HomeMarketPulseSection(items: pulseItems)
                     }
 
                     HomeQuotesSection(
-                        displayedQuotes: displayedQuotes,
+                        displayedQuotes: presentation.displayedQuotes,
                         isLoading: quoteStore.isLoading,
                         useCompactCards: useCompactCards,
                         showUpdateStamp: showUpdateStamp
@@ -74,6 +67,14 @@ struct HomeView: View {
             .refreshable {
                 await quoteStore.refresh()
             }
+        }
+        .task(id: presentationDependencies) {
+            presentation = QuotePresentationSupport.homePresentation(
+                quotes: quoteStore.quotes,
+                order: selectedSortOrder,
+                primaryMarketID: featuredMarketPrimary,
+                secondaryMarketID: featuredMarketSecondary
+            )
         }
     }
 
@@ -113,6 +114,24 @@ struct HomeView: View {
             )
         ]
     }
+
+    private var presentationDependencies: HomePresentationDependencies {
+        HomePresentationDependencies(
+            refreshRevision: quoteStore.refreshRevision,
+            quotesCount: quoteStore.quotes.count,
+            sortOrder: selectedSortOrder,
+            primaryMarketID: featuredMarketPrimary,
+            secondaryMarketID: featuredMarketSecondary
+        )
+    }
+}
+
+private struct HomePresentationDependencies: Hashable {
+    let refreshRevision: Int
+    let quotesCount: Int
+    let sortOrder: QuoteSortOrder
+    let primaryMarketID: String
+    let secondaryMarketID: String
 }
 
 #Preview {

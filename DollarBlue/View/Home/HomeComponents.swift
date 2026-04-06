@@ -53,7 +53,7 @@ struct MarketSummaryCard: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .premiumSurface(cornerRadius: 26, accent: PremiumPalette.emerald, glassEnabled: true)
+        .premiumSurface(cornerRadius: 26, accent: PremiumPalette.emerald, glassEnabled: false)
     }
 }
 
@@ -171,7 +171,7 @@ struct HomeLoadingStateCard: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: true)
+        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: false)
     }
 }
 
@@ -189,6 +189,6 @@ struct HomeEmptyStateCard: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.sand, glassEnabled: true)
+        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.sand, glassEnabled: false)
     }
 }

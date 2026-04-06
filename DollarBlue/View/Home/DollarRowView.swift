@@ -91,7 +91,7 @@ struct DollarRowView: View, Equatable {
             }
         }
         .padding(cardPadding)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: false)
     }
 
     private var spreadValue: Double {
@@ -120,11 +120,10 @@ private struct QuoteValueColumn: View {
                 .tracking(1.0)
                 .foregroundStyle(.secondary)
 
-            PremiumCurrencyValueText(
+            PremiumListCurrencyText(
                 value: value,
                 accent: accent,
-                integerSize: compact ? 18 : 22,
-                centsSize: compact ? 12 : 14
+                size: compact ? 18 : 22
             )
         }
         .padding(compact ? 12 : 14)

@@ -39,7 +39,7 @@ struct ConfigThemeSection: View {
             .premiumSurface(cornerRadius: 22, accent: PremiumPalette.emerald, glassEnabled: true)
         }
         .padding(20)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: false)
     }
 }
 
@@ -75,7 +75,7 @@ struct ConfigExperienceSection: View {
             )
         }
         .padding(20)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald.opacity(0.9), glassEnabled: true)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald.opacity(0.9), glassEnabled: false)
     }
 }
 
@@ -133,7 +133,7 @@ struct ConfigMarketConfigurationSection: View {
             }
         }
         .padding(20)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.sand, glassEnabled: true)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.sand, glassEnabled: false)
     }
 }
 
@@ -202,7 +202,7 @@ struct ConfigPreviewSection: View {
             .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: false)
         }
         .padding(20)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.sand, glassEnabled: true)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.sand, glassEnabled: false)
     }
 
     private var previewPills: some View {

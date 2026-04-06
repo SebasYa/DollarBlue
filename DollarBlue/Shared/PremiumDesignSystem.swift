@@ -395,6 +395,22 @@ struct PremiumCurrencyValueText: View {
     }
 }
 
+struct PremiumListCurrencyText: View {
+    let value: Double
+    var accent: Color = .primary
+    var size: CGFloat = 22
+
+    var body: some View {
+        Text(premiumCurrencyString(value))
+            .font(.system(size: size, weight: .bold, design: .rounded))
+            .monospacedDigit()
+            .foregroundStyle(accent)
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+            .truncationMode(.tail)
+    }
+}
+
 struct PremiumWidgetBackground: View {
     var body: some View {
         ZStack {

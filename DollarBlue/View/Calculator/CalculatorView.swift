@@ -16,6 +16,7 @@ struct CalculationView: View {
     @State private var isCalcPesos = true
     @State private var montoIngresadoString = ""
     @State private var montoIngresado: Double = 0
+    @State private var displayedQuotes = [DollarInfoModel]()
     @FocusState private var montoFocused: Bool
 
     @AppStorage("useCompactCards") private var useCompactCards = false
@@ -36,7 +37,6 @@ struct CalculationView: View {
     }
 
     var body: some View {
-        let displayedQuotes = QuotePresentationSupport.sortedQuotes(quoteStore.quotes, order: selectedSortOrder)
         let resultsSubtitle = resultsSubtitle(for: montoIngresado)
 
         NavigationStack {
@@ -79,9 +79,6 @@ struct CalculationView: View {
                     montoFocused = false
                 }
             )
-            .refreshable {
-                await quoteStore.refresh()
-            }
             .toolbar {
                 if montoFocused {
                     ToolbarItemGroup(placement: .keyboard) {
@@ -92,6 +89,9 @@ struct CalculationView: View {
                     }
                 }
             }
+        }
+        .task(id: presentationDependencies) {
+            displayedQuotes = QuotePresentationSupport.sortedQuotes(quoteStore.quotes, order: selectedSortOrder)
         }
     }
 
@@ -107,6 +107,20 @@ struct CalculationView: View {
         montoIngresado = amount
         montoIngresadoString = premiumEditableAmountString(amount)
     }
+
+    private var presentationDependencies: CalculatorPresentationDependencies {
+        CalculatorPresentationDependencies(
+            refreshRevision: quoteStore.refreshRevision,
+            quotesCount: quoteStore.quotes.count,
+            sortOrder: selectedSortOrder
+        )
+    }
+}
+
+private struct CalculatorPresentationDependencies: Hashable {
+    let refreshRevision: Int
+    let quotesCount: Int
+    let sortOrder: QuoteSortOrder
 }
 
 #Preview {

@@ -42,15 +42,20 @@ struct ContentView: View {
                     }
                 }
                 CustomTabBarView(activeTab: $activeTab)
+                    .opacity(isTabBarHidden ? 0 : 1)
+                    .offset(y: isTabBarHidden ? 120 : 0)
+                    .allowsHitTesting(!isTabBarHidden)
                     .background {
                         GeometryReader { tabBarProxy in
                             Color.clear
                                 .preference(
                                     key: FloatingTabBarInsetPreferenceKey.self,
-                                    value: max(
-                                        0,
-                                        proxy.size.height - tabBarProxy.frame(in: .named(FloatingTabBarLayout.coordinateSpaceName)).minY
-                                    )
+                                    value: isTabBarHidden
+                                        ? 0
+                                        : max(
+                                            0,
+                                            proxy.size.height - tabBarProxy.frame(in: .named(FloatingTabBarLayout.coordinateSpaceName)).minY
+                                        )
                                 )
                         }
                     }
@@ -59,6 +64,9 @@ struct ContentView: View {
             .environment(\.floatingTabBarInset, floatingTabBarInset)
             .onPreferenceChange(FloatingTabBarInsetPreferenceKey.self) { newValue in
                 floatingTabBarInset = newValue
+            }
+            .onPreferenceChange(CustomTabBarHiddenPreferenceKey.self) { newValue in
+                isTabBarHidden = newValue
             }
             .preferredColorScheme(selectedTheme.colorScheme)
         }

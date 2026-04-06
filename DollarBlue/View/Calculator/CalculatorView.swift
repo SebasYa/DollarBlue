@@ -14,9 +14,9 @@ struct CalculationView: View {
     @Environment(QuoteStore.self) private var quoteStore
 
     @State private var isCalcPesos = true
-    @State private var montoIngresadoString = ""
-    @State private var montoIngresado: Double = 0
+    @State private var inputSession = CalculatorInputSession()
     @State private var displayedQuotes = [DollarInfoModel]()
+    @State private var amountFieldFrame: CGRect = .zero
     @FocusState private var montoFocused: Bool
 
     @AppStorage("useCompactCards") private var useCompactCards = false
@@ -37,57 +37,76 @@ struct CalculationView: View {
     }
 
     var body: some View {
-        let resultsSubtitle = resultsSubtitle(for: montoIngresado)
+        let resultsSubtitle = resultsSubtitle(for: inputSession.committedValue)
 
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(alignment: .leading, spacing: useCompactCards ? 14 : 20) {
-                    PremiumSectionHeader(
-                        eyebrow: "Conversion inteligente",
-                        title: "Calculadora",
-                        subtitle: "Convertir de Pesos a Dólares o de Dólares a Pesos Fácil y Rápido."
-                    )
+            ScrollViewReader { scrollProxy in
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVStack(alignment: .leading, spacing: useCompactCards ? 14 : 20) {
+                        PremiumSectionHeader(
+                            eyebrow: "Conversion inteligente",
+                            title: "Calculadora",
+                            subtitle: "Convertir de Pesos a Dólares o de Dólares a Pesos Fácil y Rápido."
+                        )
 
-                    CalculationConversionPanel(
-                        isCalcPesos: $isCalcPesos,
-                        amountText: $montoIngresadoString,
-                        amountValue: $montoIngresado,
-                        amountFocused: $montoFocused,
-                        inputHelperText: inputHelperText,
-                        suggestedAmounts: suggestedAmounts,
-                        applySuggestedAmount: applySuggestedAmount
-                    )
+                        CalculationConversionPanelView(
+                            isCalcPesos: $isCalcPesos,
+                            amountText: amountTextBinding,
+                            amountFocused: $montoFocused,
+                            isEditingAmount: inputSession.isEditing,
+                            inputHelperText: inputHelperText,
+                            suggestedAmounts: suggestedAmounts,
+                            applySuggestedAmount: applySuggestedAmount,
+                            submitAmount: acceptEditing
+                        )
+                        .id(CalculatorScrollTarget.amountInput)
 
-                    CalculationResultsSection(
-                        displayedQuotes: displayedQuotes,
-                        resultsSubtitle: resultsSubtitle,
-                        isLoading: quoteStore.isLoading,
-                        amountValue: montoIngresado,
-                        isCalcPesos: isCalcPesos,
-                        useCompactCards: useCompactCards
-                    )
+                        CalculationResultsSectionView(
+                            displayedQuotes: displayedQuotes,
+                            resultsSubtitle: resultsSubtitle,
+                            isLoading: quoteStore.isLoading,
+                            amountValue: inputSession.committedValue,
+                            isCalcPesos: isCalcPesos,
+                            useCompactCards: useCompactCards
+                        )
+                        .equatable()
 
-                    FloatingTabBarFooterSpacer(extraPadding: 14)
+                        FloatingTabBarFooterSpacer(extraPadding: 14)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 18)
+                    .padding(.bottom, 10)
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 18)
-                .padding(.bottom, 10)
-            }
-            .scrollDismissesKeyboard(.interactively)
-            .simultaneousGesture(
-                TapGesture().onEnded {
-                    montoFocused = false
-                }
-            )
-            .toolbar {
-                if montoFocused {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        Spacer()
-                        Button("Listo") {
-                            montoFocused = false
-                        }
+                .coordinateSpace(name: CalculatorLayout.coordinateSpaceName)
+                .scrollDisabled(montoFocused)
+                .scrollDismissesKeyboard(.never)
+                .overlay {
+                    if montoFocused, amountFieldFrame != .zero {
+                        CalculatorDismissOverlay(
+                            focusFrame: amountFieldFrame,
+                            onCancel: cancelEditing
+                        )
                     }
                 }
+                .onChange(of: montoFocused) { _, isFocused in
+                    if isFocused {
+                        beginEditing()
+                        withAnimation(.snappy(duration: 0.22)) {
+                            scrollProxy.scrollTo(CalculatorScrollTarget.amountInput, anchor: .center)
+                        }
+                    } else if inputSession.isEditing {
+                        cancelEditing()
+                    }
+                }
+                .onPreferenceChange(CalculatorAmountFieldFramePreferenceKey.self) { newValue in
+                    amountFieldFrame = newValue
+                }
+            }
+        }
+        .preference(key: CustomTabBarHiddenPreferenceKey.self, value: montoFocused)
+        .transaction { transaction in
+            if montoFocused {
+                transaction.animation = nil
             }
         }
         .task(id: presentationDependencies) {
@@ -104,8 +123,39 @@ struct CalculationView: View {
     }
 
     private func applySuggestedAmount(_ amount: Double) {
-        montoIngresado = amount
-        montoIngresadoString = premiumEditableAmountString(amount)
+        inputSession.setCommittedAmount(amount)
+        montoFocused = false
+    }
+
+    private func beginEditing() {
+        inputSession.startEditing()
+    }
+
+    private func acceptEditing() {
+        guard inputSession.isEditing || montoFocused else {
+            return
+        }
+
+        inputSession.acceptDraft()
+        montoFocused = false
+    }
+
+    private func cancelEditing() {
+        guard inputSession.isEditing || montoFocused else {
+            return
+        }
+
+        inputSession.cancelDraft()
+        montoFocused = false
+    }
+
+    private var amountTextBinding: Binding<String> {
+        Binding(
+            get: { inputSession.activeText },
+            set: { newValue in
+                inputSession.updateDraft(text: newValue)
+            }
+        )
     }
 
     private var presentationDependencies: CalculatorPresentationDependencies {
@@ -115,6 +165,10 @@ struct CalculationView: View {
             sortOrder: selectedSortOrder
         )
     }
+}
+
+private enum CalculatorScrollTarget {
+    static let amountInput = "calculator-amount-input"
 }
 
 private struct CalculatorPresentationDependencies: Hashable {

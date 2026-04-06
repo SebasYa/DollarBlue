@@ -11,8 +11,8 @@ import SwiftUI
 
 struct CurrencyTextField: UIViewRepresentable {
     @Binding var text: String
-    @Binding var value: Double
     var placeholder: String
+    var onSubmit: () -> Void = {}
     
     class Coordinator: NSObject, UITextFieldDelegate {
         var parent: CurrencyTextField
@@ -35,83 +35,18 @@ struct CurrencyTextField: UIViewRepresentable {
 
         @objc
         func editingChanged(_ textField: UITextField) {
-            let sanitizedText = sanitize(textField.text ?? "")
+            let sanitizedText = CalculatorAmountFormatter.sanitize(textField.text ?? "")
 
             if textField.text != sanitizedText {
                 textField.text = sanitizedText
             }
 
             parent.text = sanitizedText
-            parent.value = parseValue(from: sanitizedText) ?? 0
         }
 
-        func textFieldDidEndEditing(_ textField: UITextField) {
-            guard parent.value > 0 else {
-                parent.text = ""
-                textField.text = ""
-                return
-            }
-
-            let formattedText = premiumEditableAmountString(parent.value)
-            parent.text = formattedText
-            textField.text = formattedText
-        }
-
-        private func sanitize(_ rawText: String) -> String {
-            let cleaned = rawText
-                .replacingOccurrences(of: "$", with: "")
-                .replacingOccurrences(of: " ", with: "")
-                .filter { $0.isNumber || $0 == "," || $0 == "." }
-
-            guard !cleaned.isEmpty else {
-                return ""
-            }
-
-            let separators = cleaned.indices.filter { index in
-                cleaned[index] == "," || cleaned[index] == "."
-            }
-
-            if let decimalIndex = separators.last {
-                let integerDigits = cleaned[..<decimalIndex].filter(\.isNumber)
-                let decimalDigits = cleaned[cleaned.index(after: decimalIndex)...]
-                    .filter(\.isNumber)
-
-                if decimalDigits.count > 2 {
-                    return normalizedIntegerPart(from: String(cleaned.filter(\.isNumber)))
-                }
-
-                let integerPart = normalizedIntegerPart(from: String(integerDigits))
-                let decimalPart = String(decimalDigits.prefix(2))
-
-                if decimalPart.isEmpty {
-                    return "\(integerPart),"
-                }
-
-                return "\(integerPart),\(decimalPart)"
-            }
-
-            return normalizedIntegerPart(from: String(cleaned.filter(\.isNumber)))
-        }
-
-        private func normalizedIntegerPart(from rawValue: String) -> String {
-            let trimmed = rawValue.drop(while: { $0 == "0" })
-
-            if trimmed.isEmpty {
-                return rawValue.isEmpty ? "" : "0"
-            }
-
-            return String(trimmed)
-        }
-
-        private func parseValue(from text: String) -> Double? {
-            let normalized = text.replacingOccurrences(of: ".", with: "")
-                .replacingOccurrences(of: ",", with: ".")
-
-            guard !normalized.isEmpty else {
-                return nil
-            }
-
-            return Double(normalized)
+        @objc
+        func submitTapped() {
+            parent.onSubmit()
         }
     }
 
@@ -137,10 +72,16 @@ struct CurrencyTextField: UIViewRepresentable {
         textField.font = .monospacedDigitSystemFont(ofSize: 26, weight: .semibold)
         textField.adjustsFontForContentSizeCategory = true
         textField.adjustsFontSizeToFitWidth = true
-        textField.minimumFontSize = 13
+        textField.minimumFontSize = 18
         textField.clearButtonMode = .never
+        textField.autocorrectionType = .no
+        textField.spellCheckingType = .no
+        textField.smartDashesType = .no
+        textField.smartInsertDeleteType = .no
+        textField.smartQuotesType = .no
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        textField.inputAccessoryView = makeAccessoryToolbar(coordinator: context.coordinator)
         textField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
             attributes: [
@@ -153,9 +94,13 @@ struct CurrencyTextField: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextField, context: Context) {
+        context.coordinator.parent = self
+
         if uiView.text != text {
             uiView.text = text
         }
+
+        uiView.inputAccessoryView = makeAccessoryToolbar(coordinator: context.coordinator)
 
         if text.isEmpty {
             uiView.attributedPlaceholder = NSAttributedString(
@@ -170,5 +115,21 @@ struct CurrencyTextField: UIViewRepresentable {
     
     func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
+    }
+
+    private func makeAccessoryToolbar(coordinator: Coordinator) -> UIToolbar {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        toolbar.tintColor = UIColor(named: "ColorGreenD") ?? UIColor(red: 0.28, green: 0.56, blue: 0.25, alpha: 1)
+        toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(
+                title: "Calcular",
+                style: .done,
+                target: coordinator,
+                action: #selector(Coordinator.submitTapped)
+            )
+        ]
+        return toolbar
     }
 }

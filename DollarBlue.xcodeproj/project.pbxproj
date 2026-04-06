@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB25460F2F836F04005ABFDB /* CalculationConversionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB25460E2F836F04005ABFDB /* CalculationConversionPanelView.swift */; };
+		DB2546112F836F37005ABFDB /* CalculationResultsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2546102F836F37005ABFDB /* CalculationResultsSectionView.swift */; };
+		DB2546132F836F6B005ABFDB /* CalculatorAmountFieldRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2546122F836F6B005ABFDB /* CalculatorAmountFieldRowView.swift */; };
+		DB2546152F836F9B005ABFDB /* CalculatorStatusCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2546142F836F9B005ABFDB /* CalculatorStatusCardView.swift */; };
+		DB2546172F836FBA005ABFDB /* CalculatorModeSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2546162F836FBA005ABFDB /* CalculatorModeSelectorView.swift */; };
 		DB4A54D62C510D8A00C70286 /* DollarBlueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A54D52C510D8A00C70286 /* DollarBlueApp.swift */; };
 		DB4A54DA2C510D8B00C70286 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB4A54D92C510D8B00C70286 /* Assets.xcassets */; };
 		DB4A54DD2C510D8B00C70286 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB4A54DC2C510D8B00C70286 /* Preview Assets.xcassets */; };
@@ -50,8 +55,9 @@
 		DB8F100D2DAB000100000001 /* PremiumDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */; };
 		DBA100302DAE000100000001 /* HomeSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA100202DAE000100000001 /* HomeSections.swift */; };
 		DBA100312DAE000100000001 /* HomeComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA100212DAE000100000001 /* HomeComponents.swift */; };
-		DBA100322DAE000100000001 /* CalculatorSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA100222DAE000100000001 /* CalculatorSections.swift */; };
 		DBA100332DAE000100000001 /* ConfigSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA100232DAE000100000001 /* ConfigSections.swift */; };
+		DBA100342DAF000100000001 /* CalculatorInputSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA100242DAF000100000001 /* CalculatorInputSession.swift */; };
+		DBA100352DAF000100000001 /* CalculatorInteractionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA100252DAF000100000001 /* CalculatorInteractionOverlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +103,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DB25460E2F836F04005ABFDB /* CalculationConversionPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationConversionPanelView.swift; sourceTree = "<group>"; };
+		DB2546102F836F37005ABFDB /* CalculationResultsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationResultsSectionView.swift; sourceTree = "<group>"; };
+		DB2546122F836F6B005ABFDB /* CalculatorAmountFieldRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorAmountFieldRowView.swift; sourceTree = "<group>"; };
+		DB2546142F836F9B005ABFDB /* CalculatorStatusCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorStatusCardView.swift; sourceTree = "<group>"; };
+		DB2546162F836FBA005ABFDB /* CalculatorModeSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorModeSelectorView.swift; sourceTree = "<group>"; };
 		DB4A54D22C510D8A00C70286 /* DollarBlue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DollarBlue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB4A54D52C510D8A00C70286 /* DollarBlueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DollarBlueApp.swift; sourceTree = "<group>"; };
 		DB4A54D92C510D8B00C70286 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -134,8 +145,9 @@
 		DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumDesignSystem.swift; sourceTree = "<group>"; };
 		DBA100202DAE000100000001 /* HomeSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSections.swift; sourceTree = "<group>"; };
 		DBA100212DAE000100000001 /* HomeComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeComponents.swift; sourceTree = "<group>"; };
-		DBA100222DAE000100000001 /* CalculatorSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorSections.swift; sourceTree = "<group>"; };
 		DBA100232DAE000100000001 /* ConfigSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSections.swift; sourceTree = "<group>"; };
+		DBA100242DAF000100000001 /* CalculatorInputSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorInputSession.swift; sourceTree = "<group>"; };
+		DBA100252DAF000100000001 /* CalculatorInteractionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorInteractionOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,47 +248,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		DBA100102DAE000100000001 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				DB4A551B2C51113700C70286 /* ContentView.swift */,
-				DB7C9A422CC1BC31008B3D62 /* CustomTabBarView.swift */,
-				DB8F10022DAB000100000001 /* FloatingTabBarInset.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		DBA100112DAE000100000001 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				DB4A551D2C51114100C70286 /* HomeView.swift */,
-				DBA100202DAE000100000001 /* HomeSections.swift */,
-				DBA100212DAE000100000001 /* HomeComponents.swift */,
-				DB4A55252C51131B00C70286 /* DollarRowView.swift */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		DBA100122DAE000100000001 /* Calculator */ = {
-			isa = PBXGroup;
-			children = (
-				DB4A551F2C51115000C70286 /* CalculatorView.swift */,
-				DBA100222DAE000100000001 /* CalculatorSections.swift */,
-				DB4A55272C51132700C70286 /* CalcRowView.swift */,
-				DB4A55292C51141700C70286 /* CurrencyTextField.swift */,
-			);
-			path = Calculator;
-			sourceTree = "<group>";
-		};
-		DBA100132DAE000100000001 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				DB4A55212C51115C00C70286 /* ConfigView.swift */,
-				DBA100232DAE000100000001 /* ConfigSections.swift */,
-			);
-			path = Config;
-			sourceTree = "<group>";
-		};
 		DB4A55122C510F1E00C70286 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,15 +264,6 @@
 				DB4A54F42C510DFF00C70286 /* AppIntent.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		DB8F10092DAB000100000001 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */,
-				DB8F10052DAB000100000001 /* QuotesSupport.swift */,
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 		DB4A55302C5117D800C70286 /* Model */ = {
@@ -348,6 +310,62 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DB8F10092DAB000100000001 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */,
+				DB8F10052DAB000100000001 /* QuotesSupport.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		DBA100102DAE000100000001 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A551B2C51113700C70286 /* ContentView.swift */,
+				DB7C9A422CC1BC31008B3D62 /* CustomTabBarView.swift */,
+				DB8F10022DAB000100000001 /* FloatingTabBarInset.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		DBA100112DAE000100000001 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A551D2C51114100C70286 /* HomeView.swift */,
+				DBA100202DAE000100000001 /* HomeSections.swift */,
+				DBA100212DAE000100000001 /* HomeComponents.swift */,
+				DB4A55252C51131B00C70286 /* DollarRowView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		DBA100122DAE000100000001 /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A551F2C51115000C70286 /* CalculatorView.swift */,
+				DB2546162F836FBA005ABFDB /* CalculatorModeSelectorView.swift */,
+				DB2546142F836F9B005ABFDB /* CalculatorStatusCardView.swift */,
+				DB2546122F836F6B005ABFDB /* CalculatorAmountFieldRowView.swift */,
+				DB2546102F836F37005ABFDB /* CalculationResultsSectionView.swift */,
+				DB25460E2F836F04005ABFDB /* CalculationConversionPanelView.swift */,
+				DBA100242DAF000100000001 /* CalculatorInputSession.swift */,
+				DBA100252DAF000100000001 /* CalculatorInteractionOverlay.swift */,
+				DB4A55272C51132700C70286 /* CalcRowView.swift */,
+				DB4A55292C51141700C70286 /* CurrencyTextField.swift */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
+		DBA100132DAE000100000001 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				DB4A55212C51115C00C70286 /* ConfigView.swift */,
+				DBA100232DAE000100000001 /* ConfigSections.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -502,8 +520,10 @@
 			files = (
 				DBA100332DAE000100000001 /* ConfigSections.swift in Sources */,
 				DB4A55262C51131B00C70286 /* DollarRowView.swift in Sources */,
-				DBA100322DAE000100000001 /* CalculatorSections.swift in Sources */,
+				DBA100352DAF000100000001 /* CalculatorInteractionOverlay.swift in Sources */,
+				DB2546172F836FBA005ABFDB /* CalculatorModeSelectorView.swift in Sources */,
 				DB4A55282C51132700C70286 /* CalcRowView.swift in Sources */,
+				DBA100342DAF000100000001 /* CalculatorInputSession.swift in Sources */,
 				DB4A552A2C51141700C70286 /* CurrencyTextField.swift in Sources */,
 				DB4A551C2C51113700C70286 /* ContentView.swift in Sources */,
 				DBA100312DAE000100000001 /* HomeComponents.swift in Sources */,
@@ -511,9 +531,13 @@
 				DBA100302DAE000100000001 /* HomeSections.swift in Sources */,
 				DB4A551E2C51114100C70286 /* HomeView.swift in Sources */,
 				DB4A55202C51115000C70286 /* CalculatorView.swift in Sources */,
+				DB2546112F836F37005ABFDB /* CalculationResultsSectionView.swift in Sources */,
 				DB4A54D62C510D8A00C70286 /* DollarBlueApp.swift in Sources */,
 				DB7C9A412CC1B8D9008B3D62 /* TabModel.swift in Sources */,
+				DB2546132F836F6B005ABFDB /* CalculatorAmountFieldRowView.swift in Sources */,
+				DB25460F2F836F04005ABFDB /* CalculationConversionPanelView.swift in Sources */,
 				DB7C9A432CC1BC31008B3D62 /* CustomTabBarView.swift in Sources */,
+				DB2546152F836F9B005ABFDB /* CalculatorStatusCardView.swift in Sources */,
 				DB8F10012DAB000100000001 /* FloatingTabBarInset.swift in Sources */,
 				DB8F10062DAB000100000001 /* QuotesSupport.swift in Sources */,
 				DB8F100B2DAB000100000001 /* PremiumDesignSystem.swift in Sources */,

@@ -15,6 +15,7 @@ struct HomeView: View {
 
     @State private var showConnectionStatus = false
     @State private var presentation = HomeQuotePresentation.empty
+    @State private var pulseItems = [HomeMarketPulseItem]()
 
     @AppStorage("showPortraitHeader") private var showPortraitHeader = true
     @AppStorage("showUpdateStamp") private var showUpdateStamp = true
@@ -28,8 +29,6 @@ struct HomeView: View {
     }
 
     var body: some View {
-        let pulseItems = homeMarketPulseItems(using: presentation.dashboardMetrics)
-
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: useCompactCards ? 14 : 20) {
@@ -45,10 +44,12 @@ struct HomeView: View {
 
                     if !presentation.highlightedQuotes.isEmpty {
                         HomeSummarySection(highlightedQuotes: presentation.highlightedQuotes)
+                            .equatable()
                     }
 
                     if !presentation.displayedQuotes.isEmpty {
                         HomeMarketPulseSection(items: pulseItems)
+                            .equatable()
                     }
 
                     HomeQuotesSection(
@@ -57,6 +58,7 @@ struct HomeView: View {
                         useCompactCards: useCompactCards,
                         showUpdateStamp: showUpdateStamp
                     )
+                    .equatable()
 
                     FloatingTabBarFooterSpacer(extraPadding: 14)
                 }
@@ -69,12 +71,14 @@ struct HomeView: View {
             }
         }
         .task(id: presentationDependencies) {
-            presentation = QuotePresentationSupport.homePresentation(
+            let nextPresentation = QuotePresentationSupport.homePresentation(
                 quotes: quoteStore.quotes,
                 order: selectedSortOrder,
                 primaryMarketID: featuredMarketPrimary,
                 secondaryMarketID: featuredMarketSecondary
             )
+            presentation = nextPresentation
+            pulseItems = homeMarketPulseItems(using: nextPresentation.dashboardMetrics)
         }
     }
 

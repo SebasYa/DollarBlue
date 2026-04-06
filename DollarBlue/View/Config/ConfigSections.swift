@@ -17,22 +17,24 @@ struct ConfigThemeSection: View {
                 .font(.headline)
                 .foregroundStyle(.primary)
 
-            HStack(spacing: 10) {
-                ForEach(AppThemeMode.allCases) { mode in
-                    Button {
-                        selectTheme(mode)
-                    } label: {
-                        Text(mode.title)
-                            .font(.subheadline.weight(.semibold))
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                            .foregroundStyle(selectedTheme == mode ? Color.white : .primary.opacity(0.82))
-                            .background {
-                                Capsule()
-                                    .fill(selectedTheme == mode ? PremiumPalette.emerald : Color.clear)
-                            }
+            PremiumInteractiveGlassCluster(spacing: 10) {
+                HStack(spacing: 10) {
+                    ForEach(AppThemeMode.allCases) { mode in
+                        Button {
+                            selectTheme(mode)
+                        } label: {
+                            Text(mode.title)
+                                .font(.subheadline.weight(.semibold))
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .foregroundStyle(selectedTheme == mode ? Color.white : .primary.opacity(0.82))
+                                .background {
+                                    Capsule()
+                                        .fill(selectedTheme == mode ? PremiumPalette.emerald : Color.clear)
+                                }
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
             .padding(8)

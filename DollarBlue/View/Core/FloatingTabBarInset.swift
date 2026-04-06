@@ -21,6 +21,14 @@ struct FloatingTabBarInsetPreferenceKey: PreferenceKey {
     }
 }
 
+struct CustomTabBarHiddenPreferenceKey: PreferenceKey {
+    static var defaultValue = false
+
+    static func reduce(value: inout Bool, nextValue: () -> Bool) {
+        value = value || nextValue()
+    }
+}
+
 private struct FloatingTabBarInsetKey: EnvironmentKey {
     static let defaultValue: CGFloat = 0
 }

@@ -1,0 +1,49 @@
+//
+//  CalculatorModeSelectorView.swift
+//  DollarBlue
+//
+//  Created by Sebastian Yanni on 06/04/2026.
+//
+
+import SwiftUI
+
+struct CalculatorModeSelectorView: View {
+    @Binding var isCalcPesos: Bool
+
+    var body: some View {
+        HStack(spacing: 10) {
+            modeButton(title: "A pesos", isSelected: isCalcPesos) {
+                withAnimation(.smooth(duration: 0.24, extraBounce: 0)) {
+                    isCalcPesos = true
+                }
+            }
+
+            modeButton(title: "A dólares", isSelected: !isCalcPesos) {
+                withAnimation(.smooth(duration: 0.24, extraBounce: 0)) {
+                    isCalcPesos = false
+                }
+            }
+        }
+        .padding(8)
+        .premiumSurface(cornerRadius: 22, accent: PremiumPalette.emerald, glassEnabled: true)
+    }
+
+    private func modeButton(title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title)
+                .font(.subheadline.weight(.semibold))
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .foregroundStyle(isSelected ? Color.white : .primary.opacity(0.82))
+                .background {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(isSelected ? PremiumPalette.emerald : Color.clear)
+                }
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+#Preview {
+    CalculatorModeSelectorView(isCalcPesos: .constant(false))
+}

@@ -447,6 +447,30 @@ struct PremiumWidgetBackground: View {
     }
 }
 
+struct PremiumInteractiveGlassCluster<Content: View>: View {
+    let spacing: CGFloat
+    let content: Content
+
+    init(spacing: CGFloat = 12, @ViewBuilder content: () -> Content) {
+        self.spacing = spacing
+        self.content = content()
+    }
+
+    var body: some View {
+        #if os(iOS)
+        if #available(iOS 26.0, *) {
+            GlassEffectContainer(spacing: spacing) {
+                content
+            }
+        } else {
+            content
+        }
+        #else
+        content
+        #endif
+    }
+}
+
 extension View {
     func premiumSurface(
         cornerRadius: CGFloat = 26,
@@ -498,23 +522,33 @@ private struct PremiumSurfaceModifier: ViewModifier {
                         in: .rect(cornerRadius: cornerRadius)
                     )
             } else {
-                fallbackBackground
+                materialFallbackBackground
             }
         } else {
-            fallbackBackground
+            staticSurfaceBackground
         }
         #else
-        fallbackBackground
+        staticSurfaceBackground
         #endif
     }
 
     @ViewBuilder
-    private var fallbackBackground: some View {
+    private var materialFallbackBackground: some View {
         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
             .fill(colorScheme == .dark ? .thinMaterial : .ultraThinMaterial)
             .background {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .fill(accent.opacity(colorScheme == .dark ? 0.12 : 0.08))
+            }
+    }
+
+    @ViewBuilder
+    private var staticSurfaceBackground: some View {
+        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+            .fill(baseSurfaceColor)
+            .background {
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .fill(accent.opacity(colorScheme == .dark ? 0.16 : 0.07))
             }
     }
 
@@ -524,5 +558,13 @@ private struct PremiumSurfaceModifier: ViewModifier {
 
     private var shadowColor: Color {
         colorScheme == .dark ? Color.black.opacity(0.28) : PremiumPalette.ink.opacity(0.10)
+    }
+
+    private var baseSurfaceColor: Color {
+        if colorScheme == .dark {
+            return Color(red: 0.08, green: 0.10, blue: 0.10).opacity(0.92)
+        }
+
+        return Color.white.opacity(0.90)
     }
 }

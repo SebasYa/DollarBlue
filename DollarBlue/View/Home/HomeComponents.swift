@@ -8,7 +8,7 @@
 import SwiftUI
 import DollarInfoModel
 
-struct HomeMarketPulseItem: Identifiable {
+struct HomeMarketPulseItem: Identifiable, Equatable {
     let id: String
     let label: String
     let value: String

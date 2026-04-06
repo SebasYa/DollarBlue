@@ -65,8 +65,12 @@ struct HomeHeaderSection: View {
     }
 }
 
-struct HomeMarketPulseSection: View {
+struct HomeMarketPulseSection: View, Equatable {
     let items: [HomeMarketPulseItem]
+
+    static func == (lhs: HomeMarketPulseSection, rhs: HomeMarketPulseSection) -> Bool {
+        lhs.items == rhs.items
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -96,8 +100,17 @@ struct HomeMarketPulseSection: View {
     }
 }
 
-struct HomeSummarySection: View {
+struct HomeSummarySection: View, Equatable {
     let highlightedQuotes: [DollarInfoModel]
+
+    static func == (lhs: HomeSummarySection, rhs: HomeSummarySection) -> Bool {
+        lhs.highlightedQuotes.count == rhs.highlightedQuotes.count &&
+        zip(lhs.highlightedQuotes, rhs.highlightedQuotes).allSatisfy { lhsQuote, rhsQuote in
+            lhsQuote.nombre == rhsQuote.nombre &&
+            lhsQuote.compra == rhsQuote.compra &&
+            lhsQuote.venta == rhsQuote.venta
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -120,11 +133,24 @@ struct HomeSummarySection: View {
     }
 }
 
-struct HomeQuotesSection: View {
+struct HomeQuotesSection: View, Equatable {
     let displayedQuotes: [DollarInfoModel]
     let isLoading: Bool
     let useCompactCards: Bool
     let showUpdateStamp: Bool
+
+    static func == (lhs: HomeQuotesSection, rhs: HomeQuotesSection) -> Bool {
+        lhs.displayedQuotes.count == rhs.displayedQuotes.count &&
+        zip(lhs.displayedQuotes, rhs.displayedQuotes).allSatisfy { lhsQuote, rhsQuote in
+            lhsQuote.nombre == rhsQuote.nombre &&
+            lhsQuote.compra == rhsQuote.compra &&
+            lhsQuote.venta == rhsQuote.venta &&
+            lhsQuote.fechaActualizacion == rhsQuote.fechaActualizacion
+        } &&
+        lhs.isLoading == rhs.isLoading &&
+        lhs.useCompactCards == rhs.useCompactCards &&
+        lhs.showUpdateStamp == rhs.showUpdateStamp
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: useCompactCards ? 12 : 16) {

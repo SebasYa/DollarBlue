@@ -91,7 +91,7 @@ struct DollarRowView: View, Equatable {
             }
         }
         .padding(cardPadding)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: false)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
     }
 
     private var spreadValue: Double {

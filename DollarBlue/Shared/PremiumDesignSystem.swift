@@ -297,7 +297,7 @@ struct PremiumPill: View {
             Image(systemName: icon)
                 .font(.caption2.weight(.semibold))
             Text(label)
-                .font(.caption2.weight(.medium))
+                .font(.caption2.weight(.regular))
                 .lineLimit(1)
         }
         .foregroundStyle(.primary.opacity(0.82))

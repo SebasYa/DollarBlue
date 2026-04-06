@@ -98,7 +98,7 @@ struct HomeView: View {
                 value: premiumCurrencyString(metrics.averageSell),
                 detail: "Promedio de salida del panel",
                 icon: "arrow.up.right",
-                accent: PremiumPalette.emerald
+                accent: PremiumPalette.emeraldHighlight
             ),
             HomeMarketPulseItem(
                 id: "highest-sell",
@@ -114,7 +114,7 @@ struct HomeView: View {
                 value: premiumCurrencyString(metrics.averageSpread),
                 detail: "Diferencia media entre compra y venta",
                 icon: "arrow.left.and.right",
-                accent: PremiumPalette.ink
+                accent: PremiumPalette.sand
             )
         ]
     }

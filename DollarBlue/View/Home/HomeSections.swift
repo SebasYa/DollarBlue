@@ -92,7 +92,7 @@ struct HomeMarketPulseSection: View, Equatable {
                         detail: item.detail,
                         icon: item.icon,
                         accent: item.accent,
-                        glassEnabled: false
+                        glassEnabled: true
                     )
                 }
             }
@@ -158,7 +158,7 @@ struct HomeQuotesSection: View, Equatable {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Todas las referencias")
                         .font(.title3.weight(.semibold))
-                    Text("Compra y venta ordenadas para una lectura rapida y mas financiera.")
+                    Text("Compra y venta ordenadas para una lectura rápida y mas financiera.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -187,4 +187,17 @@ struct HomeQuotesSection: View, Equatable {
             }
         }
     }
+}
+
+#Preview {
+    @Previewable @State var showConnectionStatus = false
+    HomeHeaderSection(
+        showPortraitHeader: true,
+        status: .stable(quotesCount: 6),
+        isLoading: false,
+        showUpdateStamp: true,
+        updateReference: "2026-05-04T12:00:00Z",
+        displayedQuotesCount: 6,
+        showConnectionStatus: $showConnectionStatus
+    ).padding(14)
 }

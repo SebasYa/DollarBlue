@@ -8,7 +8,7 @@
   <p>
     <img src="https://img.shields.io/badge/Swift-5-orange?logo=swift&logoColor=white" alt="Swift" />
     <img src="https://img.shields.io/badge/SwiftUI-MultiPlatform-0A84FF?logo=swift&logoColor=white" alt="SwiftUI" />
-    <img src="https://img.shields.io/badge/iOS-18%2B%20ready-black" alt="iOS" />
+    <img src="https://img.shields.io/badge/iOS-26%2B%20ready-black" alt="iOS" />
     <img src="https://img.shields.io/badge/watchOS-Companion-black" alt="watchOS" />
     <img src="https://img.shields.io/badge/WidgetKit-Home%20Screen-black" alt="WidgetKit" />
   </p>

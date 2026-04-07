@@ -9,16 +9,18 @@ import SwiftUI
 
 struct CalculatorModeSelectorView: View {
     @Binding var isCalcPesos: Bool
+    var firstModeTitle: String = "A pesos"
+    var secondModeTitle: String = "A dolares"
 
     var body: some View {
         HStack(spacing: 10) {
-            modeButton(title: "A pesos", isSelected: isCalcPesos) {
+            modeButton(title: firstModeTitle, isSelected: isCalcPesos) {
                 withAnimation(.smooth(duration: 0.24, extraBounce: 0)) {
                     isCalcPesos = true
                 }
             }
 
-            modeButton(title: "A dólares", isSelected: !isCalcPesos) {
+            modeButton(title: secondModeTitle, isSelected: !isCalcPesos) {
                 withAnimation(.smooth(duration: 0.24, extraBounce: 0)) {
                     isCalcPesos = false
                 }

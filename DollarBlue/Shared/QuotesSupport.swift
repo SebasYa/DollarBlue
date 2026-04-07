@@ -6,64 +6,7 @@
 //
 
 import Foundation
-import Observation
 import DollarInfoModel
-import DollarNetworkManage
-
-struct AppAlertMessage: Identifiable, Equatable {
-    let id = UUID()
-    let value: String
-}
-
-enum DollarNetworkAppError: LocalizedError {
-    case invalidResponse(statusCode: Int?)
-    case transport(URLError)
-    case decoding(DecodingError)
-    case unexpected(Error)
-
-    var errorDescription: String? {
-        switch self {
-        case .invalidResponse(let statusCode):
-            if let statusCode {
-                return "El servidor respondió con un estado invalido (\(statusCode))."
-            }
-
-            return "La respuesta del servidor no fue valida."
-        case .transport(let error):
-            switch error.code {
-            case .notConnectedToInternet:
-                return "No hay conexión a internet."
-            case .timedOut:
-                return "La solicitud tardo demasiado. Intentalo nuevamente."
-            case .networkConnectionLost, .cannotConnectToHost, .cannotFindHost:
-                return "No se pudo conectar con el servidor."
-            default:
-                return "Ocurrió un error de red: \(error.localizedDescription)"
-            }
-        case .decoding:
-            return "No se pudieron interpretar las cotizaciones recibidas."
-        case .unexpected(let error):
-            return "Ocurrió un error inesperado: \(error.localizedDescription)"
-        }
-    }
-
-    static func from(_ error: Error) -> DollarNetworkAppError {
-        guard let fetchError = error as? DollarNetworkManager.FetchError else {
-            return .unexpected(error)
-        }
-
-        switch fetchError {
-        case .invalidResponse(let statusCode):
-            return .invalidResponse(statusCode: statusCode)
-        case .transport(let urlError):
-            return .transport(urlError)
-        case .decoding(let decodingError):
-            return .decoding(decodingError)
-        case .unexpected(let underlyingError):
-            return .unexpected(underlyingError)
-        }
-    }
-}
 
 enum QuoteSortOrder: String, CaseIterable, Identifiable {
     case api
@@ -143,6 +86,54 @@ struct HomeQuotePresentation {
     )
 }
 
+enum HistoricalChangeTrend: Equatable {
+    case up
+    case down
+    case flat
+    case unavailable
+}
+
+struct HistoricalValueChange: Equatable {
+    let currentValue: Double
+    let previousValue: Double?
+
+    var difference: Double? {
+        guard let previousValue else {
+            return nil
+        }
+
+        return currentValue - previousValue
+    }
+
+    var absoluteDifference: Double? {
+        difference.map(abs)
+    }
+
+    var trend: HistoricalChangeTrend {
+        guard let difference else {
+            return .unavailable
+        }
+
+        if difference > 0.0001 {
+            return .up
+        }
+
+        if difference < -0.0001 {
+            return .down
+        }
+
+        return .flat
+    }
+}
+
+struct QuoteHistoricalComparison: Equatable {
+    let house: DollarHouse
+    let displayName: String
+    let buy: HistoricalValueChange
+    let sell: HistoricalValueChange
+    let spread: HistoricalValueChange
+}
+
 extension QuoteConnectionStatus {
     static var unknown: QuoteConnectionStatus {
         QuoteConnectionStatus(
@@ -178,57 +169,6 @@ extension QuoteConnectionStatus {
             message: message,
             checkedAt: checkedAt
         )
-    }
-}
-
-@MainActor
-@Observable
-final class QuoteStore {
-    var quotes = [DollarInfoModel]()
-    var alertMessage: AppAlertMessage?
-    var connectionStatus = QuoteConnectionStatus.unknown
-    var isLoading = false
-    var refreshRevision = 0
-
-    private var hasLoadedOnce = false
-
-    func loadIfNeeded() async {
-        guard quotes.isEmpty, !hasLoadedOnce else {
-            return
-        }
-
-        await refresh()
-    }
-
-    func refresh() async {
-        guard !isLoading else {
-            return
-        }
-
-        isLoading = true
-        connectionStatus = .checking
-
-        defer {
-            isLoading = false
-        }
-
-        do {
-            let fetchedQuotes = try await DollarNetworkManager.fetchAllCotizations()
-            quotes = fetchedQuotes
-            hasLoadedOnce = true
-            refreshRevision += 1
-            alertMessage = nil
-            connectionStatus = .stable(quotesCount: fetchedQuotes.count)
-        } catch {
-            let appError = DollarNetworkAppError.from(error)
-            let message = appError.localizedDescription
-            connectionStatus = .issue(message: message)
-            alertMessage = AppAlertMessage(value: message)
-        }
-    }
-
-    func dismissAlert() {
-        alertMessage = nil
     }
 }
 
@@ -392,6 +332,72 @@ enum QuotePresentationSupport {
         }
 
         return String(quoteName.prefix(13)) + "…"
+    }
+
+    static func resolvedHouses(
+        for quotes: [DollarInfoModel],
+        currentQuotes: [DolarAPIQuote]
+    ) -> [DollarHouse] {
+        Array(
+            Set(
+                quotes.compactMap { resolvedHouse(for: $0, currentQuotes: currentQuotes) }
+            )
+        )
+        .sorted { $0.title < $1.title }
+    }
+
+    static func resolvedHouse(
+        for quote: DollarInfoModel,
+        currentQuotes: [DolarAPIQuote]
+    ) -> DollarHouse? {
+        if let matchedQuote = currentQuotes.first(where: { currentQuote in
+            let lhs = normalizedMarketName(currentQuote.nombre)
+            let rhs = normalizedMarketName(quote.nombre)
+            return lhs == rhs || lhs.contains(rhs) || rhs.contains(lhs)
+        }) {
+            return DollarHouse(rawValue: matchedQuote.casa.lowercased())
+        }
+
+        let normalizedQuote = normalizedMarketName(quote.nombre)
+        switch normalizedQuote {
+        case let value where value.contains("oficial"):
+            return .oficial
+        case let value where value.contains("blue"):
+            return .blue
+        case let value where value.contains("bolsa") || value.contains("mep"):
+            return .bolsa
+        case let value where value.contains("contadoconliqui") || value.contains("contadoconliquidacion"):
+            return .contadoconliqui
+        case let value where value.contains("cripto") || value.contains("crypto"):
+            return .cripto
+        case let value where value.contains("mayorista"):
+            return .mayorista
+        case let value where value.contains("tarjeta"):
+            return .tarjeta
+        case let value where value.contains("solidario"):
+            return .solidario
+        case let value where value.contains("turista"):
+            return .turista
+        default:
+            return nil
+        }
+    }
+
+    static func historicalComparisonsByQuoteName(
+        displayedQuotes: [DollarInfoModel],
+        currentQuotes: [DolarAPIQuote],
+        comparisonsByHouse: [DollarHouse: QuoteHistoricalComparison]
+    ) -> [String: QuoteHistoricalComparison] {
+        Dictionary(uniqueKeysWithValues: displayedQuotes.compactMap { quote in
+            guard
+                let house = resolvedHouse(for: quote, currentQuotes: currentQuotes),
+                let comparison = comparisonsByHouse[house]
+            else {
+                return nil
+            }
+
+            return (quote.nombre, comparison)
+        })
     }
 
     static func resolvedMarketID(_ rawValue: String) -> String {

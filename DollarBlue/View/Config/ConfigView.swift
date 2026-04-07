@@ -66,9 +66,11 @@ struct ConfigView: View {
                         selectedSortOrder: selectedSortOrder
                     )
 
+                    ConfigDataSourcesSection()
+
                     FloatingTabBarFooterSpacer(extraPadding: 14)
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, PremiumLayout.screenHorizontalPadding)
                 .padding(.top, 18)
                 .padding(.bottom, 10)
             }

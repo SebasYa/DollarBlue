@@ -16,24 +16,40 @@ struct CalculationConversionPanelView: View {
     let suggestedAmounts: [Double]
     let applySuggestedAmount: (Double) -> Void
     let submitAmount: () -> Void
+    var sectionTitle: String = "Convertir"
+    var firstModeTitle: String = "A pesos"
+    var secondModeTitle: String = "A dolares"
+    var inputAmountTitle: String = "Monto en dolares"
+    var foreignCurrencyCode: String = "USD"
+    var foreignPlaceholder: String = "Ej: 100,00"
+    var localCurrencyCode: String = "ARS"
+    var localPlaceholder: String = "Ej: 100000,00"
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            Text("Convertir")
+            Text(sectionTitle)
                 .font(.headline)
 
             VStack(spacing: 10) {
-                CalculatorModeSelectorView(isCalcPesos: $isCalcPesos)
+                CalculatorModeSelectorView(
+                    isCalcPesos: $isCalcPesos,
+                    firstModeTitle: firstModeTitle,
+                    secondModeTitle: secondModeTitle
+                )
                 CalculatorAmountFieldRowView(
                     isCalcPesos: isCalcPesos,
                     amountText: $amountText,
                     amountFocused: amountFocused,
-                    submitAmount: submitAmount
+                    submitAmount: submitAmount,
+                    foreignCurrencyCode: foreignCurrencyCode,
+                    foreignPlaceholder: foreignPlaceholder,
+                    localCurrencyCode: localCurrencyCode,
+                    localPlaceholder: localPlaceholder
                 )
             }
 
             VStack(alignment: .leading, spacing: 10) {
-                Text(isCalcPesos ? "Monto en dolares" : "Monto en pesos")
+                Text(isCalcPesos ? inputAmountTitle : "Monto en pesos")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.secondary)
 

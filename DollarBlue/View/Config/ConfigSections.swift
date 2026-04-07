@@ -217,6 +217,36 @@ struct ConfigPreviewSection: View {
     }
 }
 
+struct ConfigDataSourcesSection: View {
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: "network")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(PremiumPalette.emeraldHighlight)
+                .frame(width: 34, height: 34)
+                .background {
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(PremiumPalette.emerald.opacity(0.10))
+                }
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Fuentes de datos")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.primary)
+
+                Text("Cotizaciones actuales con DolarApi y comparativas históricas con ArgentinaDatos.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 0)
+        }
+        .padding(20)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.sand, glassEnabled: false)
+    }
+}
+
 struct SettingsToggleRow: View {
     let icon: String
     let title: String

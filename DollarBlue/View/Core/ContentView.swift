@@ -29,6 +29,11 @@ struct ContentView: View {
                         HomeView()
                             .toolbarVisibility(.hidden, for: .tabBar)
                     }
+
+                    Tab.init(value: .exchange) {
+                        ExchangeView()
+                            .toolbarVisibility(.hidden, for: .tabBar)
+                    }
                     
                     Tab.init(value: .calculator) {
                         CalculationView()
@@ -50,12 +55,10 @@ struct ContentView: View {
                             Color.clear
                                 .preference(
                                     key: FloatingTabBarInsetPreferenceKey.self,
-                                    value: isTabBarHidden
-                                        ? 0
-                                        : max(
-                                            0,
-                                            proxy.size.height - tabBarProxy.frame(in: .named(FloatingTabBarLayout.coordinateSpaceName)).minY
-                                        )
+                                    value: isTabBarHidden ? 0 : max(
+                                        0,
+                                        proxy.size.height - tabBarProxy.frame(in: .named(FloatingTabBarLayout.coordinateSpaceName)).minY
+                                    )
                                 )
                         }
                     }

@@ -48,6 +48,10 @@ enum PremiumPalette {
     static let sand = Color(red: 0.81, green: 0.79, blue: 0.73)
 }
 
+enum PremiumLayout {
+    static let screenHorizontalPadding: CGFloat = 12
+}
+
 enum PremiumFormatters {
     static let currency: NumberFormatter = {
         let formatter = NumberFormatter()

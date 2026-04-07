@@ -19,41 +19,67 @@ struct HomeMarketPulseItem: Identifiable, Equatable {
 
 struct MarketSummaryCard: View {
     let dolarInfo: DollarInfoModel
+    var historicalComparison: QuoteHistoricalComparison? = nil
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text(dolarInfo.nombre.uppercased())
                 .font(.caption.weight(.semibold))
                 .tracking(1.1)
-                .foregroundStyle(PremiumPalette.emerald)
+                .foregroundStyle(.primary)
 
             VStack(alignment: .leading, spacing: 6) {
-                Label("Compra", systemImage: "arrow.down.left")
+                Label("Compra", systemImage: buyIconName)
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 PremiumCurrencyValueText(
                     value: dolarInfo.compra,
-                    accent: .primary,
+                    accent: PremiumPalette.emeraldHighlight,
                     integerSize: 24,
                     centsSize: 15
                 )
             }
 
             VStack(alignment: .leading, spacing: 6) {
-                Label("Venta", systemImage: "arrow.up.right")
+                Label("Venta", systemImage: sellIconName)
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 PremiumCurrencyValueText(
                     value: dolarInfo.venta,
                     accent: PremiumPalette.emeraldHighlight,
-                    integerSize: 20,
-                    centsSize: 14
+                    integerSize: 24,
+                    centsSize: 15
                 )
             }
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .premiumSurface(cornerRadius: 26, accent: PremiumPalette.emerald, glassEnabled: false)
+        .premiumSurface(cornerRadius: 26, accent: PremiumPalette.emerald, glassEnabled: true)
+    }
+
+    private var buyIconName: String {
+        iconName(for: historicalComparison?.buy, defaultIcon: "arrow.down.left")
+    }
+
+    private var sellIconName: String {
+        iconName(for: historicalComparison?.sell, defaultIcon: "arrow.up.right")
+    }
+
+    private func iconName(for change: HistoricalValueChange?, defaultIcon: String) -> String {
+        guard let change else {
+            return defaultIcon
+        }
+
+        switch change.trend {
+        case .up:
+            return "arrow.up.right"
+        case .down:
+            return "arrow.down.left"
+        case .flat:
+            return "arrow.right"
+        case .unavailable:
+            return defaultIcon
+        }
     }
 }
 
@@ -190,5 +216,147 @@ struct HomeEmptyStateCard: View {
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
         .premiumSurface(cornerRadius: 24, accent: PremiumPalette.sand, glassEnabled: false)
+    }
+}
+
+struct HistoricalDeltaCaption: View {
+    let title: String
+    let change: HistoricalValueChange?
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: iconName)
+                .font(.caption2.weight(.semibold))
+
+            Text("\(title) \(differenceText)")
+                .font(.caption2.weight(.medium))
+                .lineLimit(1)
+        }
+        .foregroundStyle(tintColor)
+    }
+
+    private var differenceText: String {
+        guard let change else {
+            return "sin histórico"
+        }
+
+        guard let difference = change.difference else {
+            return "sin histórico"
+        }
+
+        if abs(difference) < 0.0001 {
+            return premiumCurrencyString(0)
+        }
+
+        let prefix = difference > 0 ? "+" : "-"
+        return "\(prefix)\(premiumCurrencyString(abs(difference)))"
+    }
+
+    private var iconName: String {
+        guard let change else {
+            return "clock.badge.questionmark"
+        }
+
+        switch change.trend {
+        case .up:
+            return "arrow.up.right"
+        case .down:
+            return "arrow.down.right"
+        case .flat:
+            return "arrow.right"
+        case .unavailable:
+            return "clock.badge.questionmark"
+        }
+    }
+
+    private var tintColor: Color {
+        guard let change else {
+            return .secondary
+        }
+
+        switch change.trend {
+        case .up:
+            return PremiumPalette.emeraldHighlight
+        case .down:
+            return .red
+        case .flat:
+            return PremiumPalette.sand
+        case .unavailable:
+            return .secondary
+        }
+    }
+}
+
+struct HistoricalDeltaBadge: View {
+    let title: String
+    let change: HistoricalValueChange?
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: iconName)
+                .font(.caption2.weight(.bold))
+
+            Text("\(title) \(differenceText)")
+                .font(.caption2.weight(.semibold))
+                .lineLimit(1)
+        }
+        .foregroundStyle(tintColor)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
+        .background {
+            Capsule()
+                .fill(tintColor.opacity(0.12))
+        }
+    }
+
+    private var differenceText: String {
+        guard let change else {
+            return "sin hist."
+        }
+
+        guard let difference = change.difference else {
+            return "sin hist."
+        }
+
+        if abs(difference) < 0.0001 {
+            return premiumCurrencyString(0)
+        }
+
+        let prefix = difference > 0 ? "+" : "-"
+        return "\(prefix)\(premiumCurrencyString(abs(difference)))"
+    }
+
+    private var iconName: String {
+        guard let change else {
+            return "clock.badge.questionmark"
+        }
+
+        switch change.trend {
+        case .up:
+            return "arrow.up.right"
+        case .down:
+            return "arrow.down.right"
+        case .flat:
+            return "arrow.right"
+        case .unavailable:
+            return "clock.badge.questionmark"
+        }
+    }
+
+    private var tintColor: Color {
+        guard let change else {
+            return .secondary
+        }
+
+        switch change.trend {
+        case .up:
+            return PremiumPalette.emeraldHighlight
+        case .down:
+            return .red
+        case .flat:
+            return PremiumPalette.sand
+        case .unavailable:
+            return .secondary
+        }
     }
 }

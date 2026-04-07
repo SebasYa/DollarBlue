@@ -102,6 +102,7 @@ struct HomeMarketPulseSection: View, Equatable {
 
 struct HomeSummarySection: View, Equatable {
     let highlightedQuotes: [DollarInfoModel]
+    let historicalComparisonsByName: [String: QuoteHistoricalComparison]
 
     static func == (lhs: HomeSummarySection, rhs: HomeSummarySection) -> Bool {
         lhs.highlightedQuotes.count == rhs.highlightedQuotes.count &&
@@ -109,7 +110,8 @@ struct HomeSummarySection: View, Equatable {
             lhsQuote.nombre == rhsQuote.nombre &&
             lhsQuote.compra == rhsQuote.compra &&
             lhsQuote.venta == rhsQuote.venta
-        }
+        } &&
+        lhs.historicalComparisonsByName == rhs.historicalComparisonsByName
     }
 
     var body: some View {
@@ -126,7 +128,10 @@ struct HomeSummarySection: View, Equatable {
                 spacing: 12
             ) {
                 ForEach(highlightedQuotes, id: \.nombre) { dolarInfo in
-                    MarketSummaryCard(dolarInfo: dolarInfo)
+                    MarketSummaryCard(
+                        dolarInfo: dolarInfo,
+                        historicalComparison: historicalComparisonsByName[dolarInfo.nombre]
+                    )
                 }
             }
         }
@@ -138,6 +143,7 @@ struct HomeQuotesSection: View, Equatable {
     let isLoading: Bool
     let useCompactCards: Bool
     let showUpdateStamp: Bool
+    let historicalComparisonsByName: [String: QuoteHistoricalComparison]
 
     static func == (lhs: HomeQuotesSection, rhs: HomeQuotesSection) -> Bool {
         lhs.displayedQuotes.count == rhs.displayedQuotes.count &&
@@ -149,7 +155,8 @@ struct HomeQuotesSection: View, Equatable {
         } &&
         lhs.isLoading == rhs.isLoading &&
         lhs.useCompactCards == rhs.useCompactCards &&
-        lhs.showUpdateStamp == rhs.showUpdateStamp
+        lhs.showUpdateStamp == rhs.showUpdateStamp &&
+        lhs.historicalComparisonsByName == rhs.historicalComparisonsByName
     }
 
     var body: some View {
@@ -179,7 +186,8 @@ struct HomeQuotesSection: View, Equatable {
                         DollarRowView(
                             dolarInfo: dolarInfo,
                             useCompactCards: useCompactCards,
-                            showUpdateStamp: showUpdateStamp
+                            showUpdateStamp: showUpdateStamp,
+                            historicalComparison: historicalComparisonsByName[dolarInfo.nombre]
                         )
                         .equatable()
                     }

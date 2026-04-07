@@ -11,14 +11,17 @@ enum TabModel: String, CaseIterable {
     
     case home = "house.fill"
     case calculator = "brain.fill"
+    case exchange = "globe.americas"
     case configuration = "gear"
     
     var title: String {
         switch self {
         case .home:
-            "Mercado"
+            "Dolar"
         case .calculator:
-            "Calcu"
+            "Computo"
+        case .exchange:
+            "Exchange"
         case .configuration:
             "Ajustes"
         }

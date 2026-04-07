@@ -14,6 +14,7 @@ struct DollarRowView: View, Equatable {
     let dolarInfo: DollarInfoModel
     let useCompactCards: Bool
     let showUpdateStamp: Bool
+    var historicalComparison: QuoteHistoricalComparison? = nil
 
     private var cardSpacing: CGFloat { useCompactCards ? 10 : 16 }
     private var cardPadding: CGFloat { useCompactCards ? 14 : 20 }
@@ -25,7 +26,8 @@ struct DollarRowView: View, Equatable {
         lhs.dolarInfo.venta == rhs.dolarInfo.venta &&
         lhs.dolarInfo.fechaActualizacion == rhs.dolarInfo.fechaActualizacion &&
         lhs.useCompactCards == rhs.useCompactCards &&
-        lhs.showUpdateStamp == rhs.showUpdateStamp
+        lhs.showUpdateStamp == rhs.showUpdateStamp &&
+        lhs.historicalComparison == rhs.historicalComparison
     }
 
     var body: some View {
@@ -78,6 +80,13 @@ struct DollarRowView: View, Equatable {
                     .lineLimit(1)
             }
             .foregroundStyle(.secondary)
+
+            if historicalComparison != nil {
+                HStack(spacing: 8) {
+                    HistoricalDeltaBadge(title: "Compra", change: historicalComparison?.buy)
+                    HistoricalDeltaBadge(title: "Venta", change: historicalComparison?.sell)
+                }
+            }
 
             if showUpdateStamp, !dolarInfo.fechaActualizacion.isEmpty {
                 HStack(spacing: 8) {

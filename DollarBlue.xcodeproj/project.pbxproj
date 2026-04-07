@@ -53,6 +53,21 @@
 		DB8F100B2DAB000100000001 /* PremiumDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */; };
 		DB8F100C2DAB000100000001 /* PremiumDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */; };
 		DB8F100D2DAB000100000001 /* PremiumDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */; };
+		DB8F100E2DAB000100000001 /* MarketDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F10192DAB000100000001 /* MarketDataError.swift */; };
+		DB8F100F2DAB000100000001 /* MarketDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F10192DAB000100000001 /* MarketDataError.swift */; };
+		DB8F10102DAB000100000001 /* MarketDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F10192DAB000100000001 /* MarketDataError.swift */; };
+		DB8F10112DAB000100000001 /* QuoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F101A2DAB000100000001 /* QuoteStore.swift */; };
+		DB8F10122DAB000100000001 /* QuoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F101A2DAB000100000001 /* QuoteStore.swift */; };
+		DB8F10132DAB000100000001 /* QuoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F101A2DAB000100000001 /* QuoteStore.swift */; };
+		DB8F10142DAB000100000001 /* HistoricalDollarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F101B2DAB000100000001 /* HistoricalDollarStore.swift */; };
+		DB8F10152DAB000100000001 /* HistoricalDollarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F101B2DAB000100000001 /* HistoricalDollarStore.swift */; };
+		DB8F10162DAB000100000001 /* HistoricalDollarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F101B2DAB000100000001 /* HistoricalDollarStore.swift */; };
+		DB8F10172DAB000100000001 /* ExchangeCatalogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F101C2DAB000100000001 /* ExchangeCatalogStore.swift */; };
+		DB8F10182DAB000100000001 /* ExchangeCatalogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F101C2DAB000100000001 /* ExchangeCatalogStore.swift */; };
+		DB8F101D2DAB000100000001 /* ExchangeCatalogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F101C2DAB000100000001 /* ExchangeCatalogStore.swift */; };
+		DBE200112FA2000100000001 /* ExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE200012FA2000100000001 /* ExchangeView.swift */; };
+		DBE200122FA2000100000001 /* ExchangeSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE200022FA2000100000001 /* ExchangeSections.swift */; };
+		DBE200132FA2000100000001 /* ExchangeComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE200032FA2000100000001 /* ExchangeComponents.swift */; };
 		DBA100302DAE000100000001 /* HomeSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA100202DAE000100000001 /* HomeSections.swift */; };
 		DBA100312DAE000100000001 /* HomeComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA100212DAE000100000001 /* HomeComponents.swift */; };
 		DBA100332DAE000100000001 /* ConfigSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA100232DAE000100000001 /* ConfigSections.swift */; };
@@ -143,6 +158,13 @@
 		DB8F10022DAB000100000001 /* FloatingTabBarInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTabBarInset.swift; sourceTree = "<group>"; };
 		DB8F10052DAB000100000001 /* QuotesSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesSupport.swift; sourceTree = "<group>"; };
 		DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumDesignSystem.swift; sourceTree = "<group>"; };
+		DB8F10192DAB000100000001 /* MarketDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataError.swift; sourceTree = "<group>"; };
+		DB8F101A2DAB000100000001 /* QuoteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteStore.swift; sourceTree = "<group>"; };
+		DB8F101B2DAB000100000001 /* HistoricalDollarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalDollarStore.swift; sourceTree = "<group>"; };
+		DB8F101C2DAB000100000001 /* ExchangeCatalogStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeCatalogStore.swift; sourceTree = "<group>"; };
+		DBE200012FA2000100000001 /* ExchangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeView.swift; sourceTree = "<group>"; };
+		DBE200022FA2000100000001 /* ExchangeSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeSections.swift; sourceTree = "<group>"; };
+		DBE200032FA2000100000001 /* ExchangeComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeComponents.swift; sourceTree = "<group>"; };
 		DBA100202DAE000100000001 /* HomeSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSections.swift; sourceTree = "<group>"; };
 		DBA100212DAE000100000001 /* HomeComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeComponents.swift; sourceTree = "<group>"; };
 		DBA100232DAE000100000001 /* ConfigSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSections.swift; sourceTree = "<group>"; };
@@ -242,6 +264,7 @@
 			children = (
 				DBA100102DAE000100000001 /* Core */,
 				DBA100112DAE000100000001 /* Home */,
+				DBE200202FA2000100000001 /* Exchange */,
 				DBA100122DAE000100000001 /* Calculator */,
 				DBA100132DAE000100000001 /* Config */,
 			);
@@ -316,6 +339,10 @@
 			isa = PBXGroup;
 			children = (
 				DB8F100A2DAB000100000001 /* PremiumDesignSystem.swift */,
+				DB8F10192DAB000100000001 /* MarketDataError.swift */,
+				DB8F101A2DAB000100000001 /* QuoteStore.swift */,
+				DB8F101B2DAB000100000001 /* HistoricalDollarStore.swift */,
+				DB8F101C2DAB000100000001 /* ExchangeCatalogStore.swift */,
 				DB8F10052DAB000100000001 /* QuotesSupport.swift */,
 			);
 			path = Shared;
@@ -340,6 +367,16 @@
 				DB4A55252C51131B00C70286 /* DollarRowView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		DBE200202FA2000100000001 /* Exchange */ = {
+			isa = PBXGroup;
+			children = (
+				DBE200012FA2000100000001 /* ExchangeView.swift */,
+				DBE200022FA2000100000001 /* ExchangeSections.swift */,
+				DBE200032FA2000100000001 /* ExchangeComponents.swift */,
+			);
+			path = Exchange;
 			sourceTree = "<group>";
 		};
 		DBA100122DAE000100000001 /* Calculator */ = {
@@ -521,15 +558,18 @@
 				DBA100332DAE000100000001 /* ConfigSections.swift in Sources */,
 				DB4A55262C51131B00C70286 /* DollarRowView.swift in Sources */,
 				DBA100352DAF000100000001 /* CalculatorInteractionOverlay.swift in Sources */,
+				DBE200132FA2000100000001 /* ExchangeComponents.swift in Sources */,
 				DB2546172F836FBA005ABFDB /* CalculatorModeSelectorView.swift in Sources */,
 				DB4A55282C51132700C70286 /* CalcRowView.swift in Sources */,
 				DBA100342DAF000100000001 /* CalculatorInputSession.swift in Sources */,
 				DB4A552A2C51141700C70286 /* CurrencyTextField.swift in Sources */,
 				DB4A551C2C51113700C70286 /* ContentView.swift in Sources */,
+				DBE200122FA2000100000001 /* ExchangeSections.swift in Sources */,
 				DBA100312DAE000100000001 /* HomeComponents.swift in Sources */,
 				DB4A55222C51115C00C70286 /* ConfigView.swift in Sources */,
 				DBA100302DAE000100000001 /* HomeSections.swift in Sources */,
 				DB4A551E2C51114100C70286 /* HomeView.swift in Sources */,
+				DBE200112FA2000100000001 /* ExchangeView.swift in Sources */,
 				DB4A55202C51115000C70286 /* CalculatorView.swift in Sources */,
 				DB2546112F836F37005ABFDB /* CalculationResultsSectionView.swift in Sources */,
 				DB4A54D62C510D8A00C70286 /* DollarBlueApp.swift in Sources */,
@@ -538,7 +578,11 @@
 				DB25460F2F836F04005ABFDB /* CalculationConversionPanelView.swift in Sources */,
 				DB7C9A432CC1BC31008B3D62 /* CustomTabBarView.swift in Sources */,
 				DB2546152F836F9B005ABFDB /* CalculatorStatusCardView.swift in Sources */,
+				DB8F10172DAB000100000001 /* ExchangeCatalogStore.swift in Sources */,
 				DB8F10012DAB000100000001 /* FloatingTabBarInset.swift in Sources */,
+				DB8F10142DAB000100000001 /* HistoricalDollarStore.swift in Sources */,
+				DB8F100E2DAB000100000001 /* MarketDataError.swift in Sources */,
+				DB8F10112DAB000100000001 /* QuoteStore.swift in Sources */,
 				DB8F10062DAB000100000001 /* QuotesSupport.swift in Sources */,
 				DB8F100B2DAB000100000001 /* PremiumDesignSystem.swift in Sources */,
 			);
@@ -555,6 +599,10 @@
 				DB4A55392C51196A00C70286 /* AppIntent.swift in Sources */,
 				DB4A55422C5119CB00C70286 /* DollarInfoEnum.swift in Sources */,
 				DB4A553A2C51197700C70286 /* DollarBlueWidgetBundle.swift in Sources */,
+				DB8F10182DAB000100000001 /* ExchangeCatalogStore.swift in Sources */,
+				DB8F10152DAB000100000001 /* HistoricalDollarStore.swift in Sources */,
+				DB8F100F2DAB000100000001 /* MarketDataError.swift in Sources */,
+				DB8F10122DAB000100000001 /* QuoteStore.swift in Sources */,
 				DB8F10072DAB000100000001 /* QuotesSupport.swift in Sources */,
 				DB8F100C2DAB000100000001 /* PremiumDesignSystem.swift in Sources */,
 			);
@@ -567,6 +615,10 @@
 				DB612D202C512570006D9E8B /* DollarRowView.swift in Sources */,
 				DB612D132C512558006D9E8B /* ContentView.swift in Sources */,
 				DB612D112C512558006D9E8B /* DollarBlueApp.swift in Sources */,
+				DB8F101D2DAB000100000001 /* ExchangeCatalogStore.swift in Sources */,
+				DB8F10162DAB000100000001 /* HistoricalDollarStore.swift in Sources */,
+				DB8F10102DAB000100000001 /* MarketDataError.swift in Sources */,
+				DB8F10132DAB000100000001 /* QuoteStore.swift in Sources */,
 				DB8F10082DAB000100000001 /* QuotesSupport.swift in Sources */,
 				DB8F100D2DAB000100000001 /* PremiumDesignSystem.swift in Sources */,
 			);

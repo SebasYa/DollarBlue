@@ -12,10 +12,14 @@ struct CalculatorAmountFieldRowView: View {
     @Binding var amountText: String
     var amountFocused: FocusState<Bool>.Binding
     let submitAmount: () -> Void
+    var foreignCurrencyCode: String = "USD"
+    var foreignPlaceholder: String = "Ej: 100,00"
+    var localCurrencyCode: String = "ARS"
+    var localPlaceholder: String = "Ej: 100000,00"
 
     var body: some View {
         HStack(spacing: 12) {
-            Text(isCalcPesos ? "USD" : "ARS")
+            Text(isCalcPesos ? foreignCurrencyCode : localCurrencyCode)
                 .font(.caption.weight(.bold))
                 .foregroundStyle(PremiumPalette.emeraldHighlight)
                 .padding(.horizontal, 10)
@@ -27,7 +31,7 @@ struct CalculatorAmountFieldRowView: View {
 
             CurrencyTextField(
                 text: $amountText,
-                placeholder: isCalcPesos ? "Ej: 100,00" : "Ej: 100000,00",
+                placeholder: isCalcPesos ? foreignPlaceholder : localPlaceholder,
                 onSubmit: submitAmount
             )
             .focused(amountFocused)

@@ -41,7 +41,7 @@ struct ConfigThemeSection: View {
             .premiumSurface(cornerRadius: 22, accent: PremiumPalette.emerald, glassEnabled: true)
         }
         .padding(20)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: false)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
     }
 }
 
@@ -77,7 +77,7 @@ struct ConfigExperienceSection: View {
             )
         }
         .padding(20)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald.opacity(0.9), glassEnabled: false)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald.opacity(0.9), glassEnabled: true)
     }
 }
 
@@ -184,9 +184,20 @@ struct ConfigPreviewSection: View {
                         }
                 }
 
-                HStack(spacing: 10) {
-                    PreviewValueBlock(title: "Compra", value: "$1.210,00", accent: .secondary)
-                    PreviewValueBlock(title: "Venta", value: "$1.230,00", accent: PremiumPalette.emeraldHighlight)
+                HStack(spacing: 12) {
+                    QuoteValueColumn(
+                        title: "Compra",
+                        value: 1210,
+                        accent: .primary.opacity(0.88),
+                        compact: useCompactCards
+                    )
+
+                    QuoteValueColumn(
+                        title: "Venta",
+                        value: 1230,
+                        accent: .primary.opacity(0.88),
+                        compact: useCompactCards
+                    )
                 }
 
                 if showUpdateStamp {
@@ -201,10 +212,10 @@ struct ConfigPreviewSection: View {
                 }
             }
             .padding(useCompactCards ? 16 : 18)
-            .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: false)
+            .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: true)
         }
         .padding(20)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.sand, glassEnabled: false)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.sand, glassEnabled: true)
     }
 
     private var previewPills: some View {
@@ -220,14 +231,18 @@ struct ConfigPreviewSection: View {
 struct ConfigDataSourcesSection: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            Image(systemName: "network")
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(PremiumPalette.emeraldHighlight)
-                .frame(width: 34, height: 34)
-                .background {
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill(PremiumPalette.emerald.opacity(0.10))
-                }
+            VStack {
+                Spacer()
+                Image(systemName: "network")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(PremiumPalette.emeraldHighlight)
+                    .frame(width: 34, height: 34, alignment: .center)
+                    .background {
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(PremiumPalette.emerald.opacity(0.10))
+                    }
+                Spacer()
+            }
 
             VStack(alignment: .leading, spacing: 4) {
                 Text("Fuentes de datos")
@@ -242,7 +257,7 @@ struct ConfigDataSourcesSection: View {
 
             Spacer(minLength: 0)
         }
-        .padding(20)
+        .padding(10)
         .premiumSurface(cornerRadius: 28, accent: PremiumPalette.sand, glassEnabled: false)
     }
 }
@@ -330,32 +345,5 @@ struct SettingsMenuRow<Content: View>: View {
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
-    }
-}
-
-struct PreviewValueBlock: View {
-    let title: String
-    let value: String
-    let accent: Color
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title.uppercased())
-                .font(.caption.weight(.semibold))
-                .tracking(1.0)
-                .foregroundStyle(.secondary)
-            Text(value)
-                .font(.system(size: 20, weight: .bold, design: .rounded))
-                .monospacedDigit()
-                .foregroundStyle(accent)
-                .lineLimit(1)
-                .minimumScaleFactor(0.75)
-        }
-        .padding(14)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(PremiumPalette.emerald.opacity(0.08))
-        }
     }
 }

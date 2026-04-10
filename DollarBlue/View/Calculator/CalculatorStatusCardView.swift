@@ -31,7 +31,7 @@ struct CalculatorStatusCardView: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: false)
+        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: true)
     }
 }
 

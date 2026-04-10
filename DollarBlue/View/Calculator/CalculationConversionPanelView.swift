@@ -94,7 +94,7 @@ struct CalculationConversionPanelView: View {
                                 .padding(.vertical, 10)
                         }
                         .buttonStyle(.plain)
-                        .premiumSurface(cornerRadius: 18, accent: PremiumPalette.emerald, glassEnabled: false)
+                        .premiumSurface(cornerRadius: 18, accent: PremiumPalette.emerald, glassEnabled: true)
                     }
                 }
             }

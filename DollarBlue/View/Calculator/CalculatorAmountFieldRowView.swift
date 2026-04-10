@@ -21,7 +21,7 @@ struct CalculatorAmountFieldRowView: View {
         HStack(spacing: 12) {
             Text(isCalcPesos ? foreignCurrencyCode : localCurrencyCode)
                 .font(.caption.weight(.bold))
-                .foregroundStyle(PremiumPalette.emeraldHighlight)
+                .foregroundStyle(Color.emeraldHighlight)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 8)
                 .background {
@@ -40,7 +40,7 @@ struct CalculatorAmountFieldRowView: View {
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 8)
-        .premiumSurface(cornerRadius: 18, accent: PremiumPalette.sand, glassEnabled: true)
+        .premiumSurface(cornerRadius: 18, accent: PremiumPalette.cream, glassEnabled: true)
         .background {
             GeometryReader { proxy in
                 Color.clear

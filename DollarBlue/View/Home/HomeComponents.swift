@@ -22,7 +22,7 @@ struct MarketSummaryCard: View {
     var historicalComparison: QuoteHistoricalComparison? = nil
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: 12) {
             Text(dolarInfo.nombre.uppercased())
                 .font(.caption.weight(.semibold))
                 .tracking(1.1)
@@ -197,7 +197,7 @@ struct HomeLoadingStateCard: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: false)
+        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.emerald, glassEnabled: true)
     }
 }
 
@@ -215,7 +215,7 @@ struct HomeEmptyStateCard: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.sand, glassEnabled: false)
+        .premiumSurface(cornerRadius: 24, accent: PremiumPalette.sand, glassEnabled: true)
     }
 }
 

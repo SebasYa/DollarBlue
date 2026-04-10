@@ -60,20 +60,20 @@ struct CalcRowView: View, Equatable {
                 CalculatorValueColumn(
                     title: "Con compra",
                     value: resolvedAmount(for: dolarInfo.compra),
-                    accent: .secondary,
+                    accent: .primary,
                     compact: useCompactCards
                 )
 
                 CalculatorValueColumn(
                     title: "Con venta",
                     value: resolvedAmount(for: dolarInfo.venta),
-                    accent: PremiumPalette.emeraldHighlight,
+                    accent: .primary,
                     compact: useCompactCards
                 )
             }
         }
         .padding(cardPadding)
-        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: false)
+        .premiumSurface(cornerRadius: 28, accent: PremiumPalette.emerald, glassEnabled: true)
     }
 
     private func resolvedAmount(for rate: Double) -> Double {
@@ -96,7 +96,7 @@ private struct CalculatorValueColumn: View {
             Text(title.uppercased())
                 .font(.caption.weight(.semibold))
                 .tracking(1.0)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(PremiumPalette.emeraldHighlight)
 
             PremiumListCurrencyText(
                 value: value,
@@ -106,10 +106,8 @@ private struct CalculatorValueColumn: View {
         }
         .padding(compact ? 12 : 14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(PremiumPalette.emerald.opacity(0.08))
-        }
+        .premiumSurface(cornerRadius: 20, accent: PremiumPalette.emerald, glassEnabled: true)
+
     }
 }
 

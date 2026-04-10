@@ -71,6 +71,7 @@ struct CalculationResultsSectionView: View, Equatable {
                 }
             }
         }
+        
     }
 }
 

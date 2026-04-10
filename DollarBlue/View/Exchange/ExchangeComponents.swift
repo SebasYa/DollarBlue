@@ -71,13 +71,13 @@ struct ExchangeSpotlightCard: View {
                 ExchangeValueTile(
                     title: "Compra",
                     value: quote.compra,
-                    accent: .secondary
+                    accent: .primary
                 )
 
                 ExchangeValueTile(
                     title: "Venta",
                     value: quote.venta,
-                    accent: PremiumPalette.emeraldHighlight
+                    accent: .primary
                 )
             }
 
@@ -105,7 +105,7 @@ private struct ExchangeValueTile: View {
             Text(title.uppercased())
                 .font(.caption.weight(.semibold))
                 .tracking(1.0)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(PremiumPalette.emeraldHighlight)
 
             PremiumCurrencyValueText(
                 value: value,
@@ -116,10 +116,7 @@ private struct ExchangeValueTile: View {
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(PremiumPalette.emerald.opacity(0.08))
-        }
+        .premiumSurface(cornerRadius: 20, accent: PremiumPalette.emerald, glassEnabled: true)
     }
 }
 

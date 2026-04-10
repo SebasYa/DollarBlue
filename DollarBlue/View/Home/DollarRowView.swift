@@ -59,14 +59,14 @@ struct DollarRowView: View, Equatable {
                 QuoteValueColumn(
                     title: "Compra",
                     value: dolarInfo.compra,
-                    accent: .secondary,
+                    accent: .primary.opacity(0.88),
                     compact: useCompactCards
                 )
 
                 QuoteValueColumn(
                     title: "Venta",
                     value: dolarInfo.venta,
-                    accent: PremiumPalette.emeraldHighlight,
+                    accent: .primary.opacity(0.88),
                     compact: useCompactCards
                 )
             }
@@ -116,7 +116,7 @@ struct DollarRowView: View, Equatable {
     }
 }
 
-private struct QuoteValueColumn: View {
+struct QuoteValueColumn: View {
     let title: String
     let value: Double
     let accent: Color
@@ -127,7 +127,7 @@ private struct QuoteValueColumn: View {
             Text(title.uppercased())
                 .font(.caption.weight(.semibold))
                 .tracking(1.0)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(PremiumPalette.emeraldHighlight)
 
             PremiumListCurrencyText(
                 value: value,
@@ -137,10 +137,7 @@ private struct QuoteValueColumn: View {
         }
         .padding(compact ? 12 : 14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(PremiumPalette.emerald.opacity(0.08))
-        }
+        .premiumSurface(cornerRadius: 20, accent: PremiumPalette.emerald, glassEnabled: true)
     }
 }
 
